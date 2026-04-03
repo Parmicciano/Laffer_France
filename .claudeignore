@@ -1,0 +1,17 @@
+node_modules/
+.next/
+dist/
+out/
+build/
+*.lock
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+__pycache__/
+.git/
+.vercel/
+.turbo/
+coverage/
+*.tsbuildinfo
+.DS_Store
+*.log
