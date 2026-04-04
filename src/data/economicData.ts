@@ -149,10 +149,10 @@ export const taxTypes: Record<TaxTypeKey, TaxTypeParams> = {
     selfFinancingRate_ETI: 0.286, // 0.40/(1+0.40)
     selfFinancingRate_TU: 0.60,   // Trabandt & Uhlig (estimation)
     maxAdditionalRevenue: 0.04,
-    position: "near_peak",
-    positionLabel: "Proche du sommet",
+    position: "left_near_peak",
+    positionLabel: "Proche du sommet (ajusté)",
     positionDescription:
-      "Charges patronales de 43-47% du brut (Urssaf). Le coin fiscal total (employeur → net salarié) atteint 55-62%. Avec la perte des aides sociales, le taux marginal implicite monte à ~60% pour les bas revenus (INSEE Analyses n.32).",
+      "Charges patronales de 43-47% du brut (Urssaf). Seuil Laffer pur : 71% (ε=0.40). Mais en intégrant l'élasticité emploi (-0.3, Crépon & Desplatz), l'élasticité combinée monte à ~0.90 et le seuil ajusté tombe à ~53%. La France est à 8 points du seuil réel. Le coin fiscal total (employeur → net salarié) atteint 55-62%.",
     employmentElasticity: -0.3,
     color: "#3b82f6",
     sourceElasticity: "Crépon & Desplatz (2001) ; France Stratégie, évaluations CICE",

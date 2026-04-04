@@ -454,53 +454,64 @@
 </svg>
 </div>
 
+<p class="footnote" style="margin-bottom:2mm; text-align:center;">Courbe illustrative (le seuil exact varie par type d'impôt, voir tableau). Les marqueurs montrent le coin fiscal actuel de la France.</p>
+
 <p>La position de la France dépend du type d'impôt considéré :</p>
 
 <table class="summary-table">
   <thead>
     <tr>
       <th>Base fiscale</th>
-      <th>Élasticité (source)</th>
-      <th>Taux optimal</th>
-      <th>Taux actuel</th>
-      <th>Position</th>
+      <th style="white-space:nowrap;">Coin fiscal actuel</th>
+      <th>Seuil Laffer<br><span style="font-weight:400;font-size:7pt;">(modèle pur)</span></th>
+      <th>Seuil ajusté<br><span style="font-weight:400;font-size:7pt;">(avec effets emploi)</span></th>
+      <th>Diagnostic</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td class="bold">Capital (IS + PFU + IFI)</td>
-      <td>0,50 (Lefebvre <em>et al.</em>, 2025)</td>
-      <td class="right">43 %</td>
+      <td class="bold">Capital<br><span style="font-weight:400;font-size:7.5pt;color:#888;">IS + PFU + IFI</span></td>
       <td class="right red bold">~55 %</td>
-      <td class="red bold">Au-delà du sommet</td>
+      <td class="right">43 %</td>
+      <td class="right">43 %</td>
+      <td class="red bold">Dépassé de 12 pts</td>
     </tr>
     <tr>
-      <td class="bold">Travail (IR + CSG + cotis.)</td>
-      <td>0,35 (Saez <em>et al.</em>, 2012)</td>
+      <td class="bold">Travail<br><span style="font-weight:400;font-size:7.5pt;color:#888;">IR + CSG + cotis. salariales</span></td>
+      <td class="right bold">~65 %</td>
       <td class="right">74 %</td>
-      <td class="right">~65 %</td>
-      <td>Proche du sommet</td>
+      <td class="right">~66 %&dagger;</td>
+      <td class="red bold">Quasi au sommet</td>
     </tr>
     <tr>
-      <td class="bold">Cotisations patronales</td>
-      <td>0,40 (Crépon &amp; Desplatz, 2001)</td>
+      <td class="bold">Cotisations patronales<br><span style="font-weight:400;font-size:7.5pt;color:#888;">Charges employeur</span></td>
+      <td class="right bold">~45 %</td>
       <td class="right">71 %</td>
-      <td class="right">~45 %</td>
-      <td>Sous le sommet</td>
+      <td class="right">~53 %&Dagger;</td>
+      <td style="color:#d97706;" class="bold">8 pts du seuil ajusté</td>
     </tr>
     <tr>
-      <td class="bold">TVA / Consommation</td>
-      <td>0,15 (consensus)</td>
-      <td class="right">Très élevé*</td>
+      <td class="bold">TVA<br><span style="font-weight:400;font-size:7.5pt;color:#888;">Consommation</span></td>
       <td class="right">20 %</td>
-      <td class="green">Loin du sommet</td>
+      <td class="right">Très élevé*</td>
+      <td class="right">Très élevé*</td>
+      <td class="green">Large marge</td>
     </tr>
   </tbody>
 </table>
 
-<p class="footnote" style="margin-bottom:2mm;">* La consommation étant peu élastique, le seuil théorique de la TVA est très élevé (>80 %). Cela signifie que la TVA est l'impôt le moins distorsif, pas qu'il faut l'augmenter à ce niveau.</p>
+<div class="footnote" style="margin-bottom:2mm; line-height:1.5;">
+  <p style="margin-bottom:0.5mm;">Le <strong style="color:#555;">seuil Laffer</strong> est le coin fiscal au-delà duquel toute hausse fait <em>baisser</em> les recettes. Ce n'est pas un objectif.</p>
+  <p style="margin-bottom:0.5mm;">&dagger; Le seuil travail tombe de 74 % à ~66 % quand on inclut la trappe à inactivité (INSEE Analyses n.32) : perte d'aides sociales + impôt sur le revenu marginal supérieur combinés.</p>
+  <p style="margin-bottom:0.5mm;">&Dagger; Le seuil cotisations tombe de 71 % à ~53 % quand on ajoute l'élasticité emploi (Crépon &amp; Desplatz : 1 % de hausse du coût du travail = 0,3 % d'emplois détruits). L'élasticité combinée passe de 0,40 à ~0,90.</p>
+  <p>* Consommation peu élastique : le seuil théorique est supérieur à 80 %. La TVA est l'impôt le moins distorsif.</p>
+</div>
 
-<p><strong>Le résultat principal :</strong> sur le capital, la France a dépassé le seuil. Toute hausse supplémentaire de l'impôt sur le capital fait <em>baisser</em> les recettes totales, pas les augmenter. Ce n'est pas une hypothèse théorique : l'épisode de 2013 (abolition du PFL) l'a démontré empiriquement.</p>
+<h3 style="margin-top:3mm; font-size:10pt;">Plus on s'approche du sommet, moins l'impôt rapporte</h3>
+
+<p style="font-size:9.5pt;">La courbe de Laffer n'est pas linéaire. Loin du sommet, chaque point de hausse rapporte presque autant que le précédent. Mais à mesure qu'on s'en approche, le rendement marginal s'effondre : les contribuables adaptent leur comportement, les investisseurs partent, les emplois disparaissent. <strong>Un pays à 5 points du seuil ne récupère presque plus rien sur chaque euro d'impôt supplémentaire, même si le seuil n'est pas encore franchi.</strong> Au-delà, chaque euro d'impôt fait perdre de l'argent.</p>
+
+<p><strong>Diagnostic :</strong> sur le capital, la France a franchi le seuil. Sur le travail et les cotisations patronales, elle est si proche que toute hausse supplémentaire ne rapporte presque rien, tout en détruisant emplois et attractivité. Seule la TVA conserve une marge réelle.</p>
 
 <!-- ============================================================ -->
 <!-- PAGE 3 : LES PREUVES HISTORIQUES                             -->
