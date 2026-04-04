@@ -329,6 +329,34 @@ export const historicalEvents: HistoricalEvent[] = [
       "Malgré la baisse du taux nominal (30% flat vs barème progressif), les recettes sur le capital augmentent grâce au dynamisme des distributions et au retour de capitaux. Le rapport France Stratégie 2021 le confirme.",
   },
   {
+    year: 2012,
+    title: "Contribution de 3% sur les dividendes distribués",
+    description:
+      "Hollande crée une taxe de 3% sur les dividendes pour combler le déficit. Objectif : 2 Md€/an.",
+    type: "hausse",
+    impact: "Déclarée inconstitutionnelle — l'État rembourse ~10 Md€",
+    recettesAvant: "Objectif : 2 Md€/an",
+    recettesApres: "Bilan net : −10 Md€ (remboursements après censure CJUE 2017)",
+    verdict: "laffer_confirme",
+    verdictLabel: "La hausse a coûté de l'argent",
+    details:
+      "La CJUE puis le Conseil constitutionnel (2017) censurent la taxe. L'État doit rembourser ~10 Md€ aux entreprises. La hausse fiscale censée combler le déficit a finalement CREUSÉ le déficit.",
+  },
+  {
+    year: 2023,
+    title: "Contribution sur les rentes inframarginales (superprofits énergie)",
+    description:
+      "Taxe sur les « superprofits » des énergéticiens pendant la crise énergétique.",
+    type: "hausse",
+    impact: "Attendu 12,3 Md€ — collecté ~600 M€ (5% de l'objectif)",
+    recettesAvant: "Objectif : 12,3 Md€",
+    recettesApres: "~600 M€ collectés (Sénat, rapport n°86)",
+    verdict: "laffer_confirme",
+    verdictLabel: "Laffer confirmé",
+    details:
+      "Les entreprises ont restructuré leurs contrats pour éviter l'assiette. Le rendement réel est 20× inférieur aux prévisions. Illustration parfaite de l'élasticité de la base taxable quand le taux augmente brutalement.",
+  },
+  {
     year: 2024,
     title: "Contribution exceptionnelle sur les hauts revenus",
     description:
@@ -338,7 +366,7 @@ export const historicalEvents: HistoricalEvent[] = [
     verdict: "neutre",
     verdictLabel: "Trop tôt pour juger",
     details:
-      "L'instabilité fiscale chronique (4ème changement majeur en 12 ans) est elle-même un facteur de fuite. L'effet Laffer agit aussi par le canal de l'incertitude.",
+      "L'instabilité fiscale chronique (5ème changement majeur en 12 ans) est elle-même un facteur de fuite. L'effet Laffer agit aussi par le canal de l'incertitude.",
   },
 ];
 

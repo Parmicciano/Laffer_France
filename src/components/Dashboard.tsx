@@ -961,10 +961,10 @@ export default function Dashboard() {
               <div className="flex justify-between relative">
                 {[
                   { year: "1982", label: "IGF créé", sub: "Début exode", type: "hausse" as const },
-                  { year: "1988", label: "ISF recréé", sub: "19k départs", type: "hausse" as const },
-                  { year: "2012", label: "Taxe 75%", sub: "260M vs 500M", type: "hausse" as const },
+                  { year: "2012", label: "3% dividendes", sub: "Remboursé 10 Md€", type: "hausse" as const },
                   { year: "2013", label: "PFL aboli", sub: "Recettes en baisse", type: "hausse" as const },
                   { year: "2017", label: "PFU + IFI", sub: "Recettes en hausse", type: "baisse" as const },
+                  { year: "2023", label: "Superprofits", sub: "600M vs 12 Md€", type: "hausse" as const },
                 ].map((e, i) => (
                   <div key={i} className="flex flex-col items-center text-center" style={{ width: "18%" }}>
                     <div className={`w-3 h-3 rounded-full border-2 z-10 ${e.type === "hausse" ? "bg-red-500 border-red-300" : "bg-emerald-500 border-emerald-300"}`} />
@@ -976,10 +976,12 @@ export default function Dashboard() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
               {[
-                { year: "2012", title: "Taxe à 75%", type: "hausse" as const, result: "Objectif 500 M€/an. Résultat : ~260 M€, exode, abandon en 2015." },
+                { year: "2012", title: "Taxe 3% dividendes", type: "hausse" as const, result: "Objectif : 2 Md€/an pour le déficit. Censurée par la CJUE. L'État rembourse ~10 Md€. La hausse a CREUSÉ le déficit." },
                 { year: "2013", title: "Fin du PFL", type: "hausse" as const, result: "Dividendes au barème → distributions chutent 41% → recettes en BAISSE." },
+                { year: "2023", title: "Superprofits énergie", type: "hausse" as const, result: "Attendu : 12,3 Md€. Collecté : ~600 M€ (5%). Les entreprises ont restructuré leurs contrats." },
+                { year: "2012", title: "Taxe à 75%", type: "hausse" as const, result: "Objectif 500 M€/an. Résultat : ~260 M€, exode, abandon en 2015." },
                 { year: "2017", title: "Flat tax 30% + IFI", type: "baisse" as const, result: "Taux réduit mais recettes capital en HAUSSE : dividendes 14.3 → 23.2 Md€." },
               ].map((e, i) => (
                 <div key={i} className={`bg-white rounded-xl p-4 border shadow-sm ${e.type === "hausse" ? "border-l-4 border-l-red-400 border-t-slate-200 border-r-slate-200 border-b-slate-200" : "border-l-4 border-l-emerald-400 border-t-slate-200 border-r-slate-200 border-b-slate-200"}`}>
