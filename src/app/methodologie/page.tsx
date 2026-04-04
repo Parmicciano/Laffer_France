@@ -3,299 +3,269 @@
 export default function Methodologie() {
   return (
     <main className="min-h-screen bg-slate-50">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-12">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
         <a href="/" className="text-sm text-blue-600 hover:underline mb-6 inline-block">{"← Retour au simulateur"}</a>
 
-        <h1 className="text-3xl font-bold text-slate-900 mb-2">{"Méthodologie complète"}</h1>
-        <p className="text-sm text-slate-500 mb-10">{"Toutes les formules, sources et hypothèses du simulateur Laffer France."}</p>
+        <h1 className="text-3xl font-bold text-slate-900 mb-2">{"Méthodologie"}</h1>
+        <p className="text-slate-500 mb-10">{"Comment fonctionne le simulateur, en langage clair. Chaque hypothèse est sourcée et chaque formule est expliquée."}</p>
 
-        {/* ============================================================ */}
-        <Section title="1. Courbe de Laffer — Formule de base">
-          <Formula>{"R(τ) = τ × B₀ × (1 − τ)^ε"}</Formula>
-          <ul className="list-disc pl-5 space-y-1 text-sm text-slate-600">
-            <li>{"R(τ) = recettes fiscales au taux τ"}</li>
-            <li>{"B₀ = base taxable initiale"}</li>
-            <li>{"ε = élasticité du revenu taxable (ETI)"}</li>
-            <li>{"τ* = taux optimal = 1 / (1 + ε)"}</li>
-          </ul>
-          <Source>{"Saez, Slemrod & Giertz (2012), Journal of Economic Literature 50(1), pp. 3-50"}</Source>
-        </Section>
+        {/* ================================================================ */}
+        <S title="1. L'idée centrale : la courbe de Laffer">
+          <P>{"Quand l'État augmente un impôt, les recettes ne montent pas forcément. Au-delà d'un certain seuil, les gens travaillent moins, investissent ailleurs, ou optimisent davantage. Les recettes finissent par baisser."}</P>
+          <P>{"La courbe de Laffer décrit cette relation : les recettes montent avec le taux, atteignent un sommet (le taux optimal), puis redescendent."}</P>
+          <F label="Recettes" formula="Taux  ×  Base taxable  ×  (1 − Taux) puissance élasticité" />
+          <P>{"Le taux optimal est simplement :"}</P>
+          <F label="Taux optimal" formula="1  ÷  (1 + élasticité)" />
+          <Ex>{"Si l'élasticité est 0.35 (travail), le taux optimal est 1 ÷ 1.35 = 74%. Au-delà, chaque point de hausse rapporte de moins en moins."}</Ex>
+          <Src>{"Saez, Slemrod & Giertz (2012), Journal of Economic Literature"}</Src>
+        </S>
 
-        {/* ============================================================ */}
-        <Section title="2. Élasticités utilisées">
-          <table className="w-full text-sm border-collapse mt-2">
+        {/* ================================================================ */}
+        <S title="2. Les élasticités : de combien les gens réagissent">
+          <P>{"L'élasticité (ε) mesure la sensibilité des contribuables au taux d'imposition. Une élasticité de 0.35 signifie : quand le taux marginal augmente de 10%, le revenu déclaré baisse de 3.5%."}</P>
+          <P>{"Le simulateur utilise des élasticités issues de la recherche académique, spécifiques à la France quand c'est possible."}</P>
+
+          <table className="w-full text-sm border-collapse mt-4 mb-4">
             <thead>
-              <tr className="text-left border-b border-slate-200 text-slate-500">
-                <th className="py-2 pr-4">{"Impôt"}</th>
-                <th className="py-2 pr-4">{"ε"}</th>
-                <th className="py-2 pr-4">{"τ*"}</th>
-                <th className="py-2 pr-4">{"Taux actuel"}</th>
-                <th className="py-2">{"Source"}</th>
-              </tr>
-            </thead>
-            <tbody className="text-slate-700">
-              <tr className="border-b border-slate-100">
-                <td className="py-2 pr-4 font-medium">{"Travail"}</td>
-                <td className="py-2 pr-4 font-mono">0.35</td>
-                <td className="py-2 pr-4 font-mono">74%</td>
-                <td className="py-2 pr-4 font-mono">65%</td>
-                <td className="py-2 text-xs text-slate-500">{"Saez et al. (2012), ETI médiane"}</td>
-              </tr>
-              <tr className="border-b border-slate-100">
-                <td className="py-2 pr-4 font-medium">{"Capital (direct)"}</td>
-                <td className="py-2 pr-4 font-mono">0.50</td>
-                <td className="py-2 pr-4 font-mono">43%</td>
-                <td className="py-2 pr-4 font-mono">55%</td>
-                <td className="py-2 text-xs text-slate-500">{"Lefebvre, Lehmann & Sicsic (2025), Scand. J. Econ."}</td>
-              </tr>
-              <tr className="border-b border-slate-100">
-                <td className="py-2 pr-4 font-medium">{"Capital (sans cross)"}</td>
-                <td className="py-2 pr-4 font-mono">0.75</td>
-                <td className="py-2 pr-4 font-mono">57%</td>
-                <td className="py-2 pr-4 font-mono">55%</td>
-                <td className="py-2 text-xs text-slate-500">{"Lefebvre et al. (2025), sans cross-élasticité"}</td>
-              </tr>
-              <tr className="border-b border-slate-100">
-                <td className="py-2 pr-4 font-medium">{"Capital (avec cotis.)"}</td>
-                <td className="py-2 pr-4 font-mono">1.86</td>
-                <td className="py-2 pr-4 font-mono">35%</td>
-                <td className="py-2 pr-4 font-mono">55%</td>
-                <td className="py-2 text-xs text-slate-500">{"Lefebvre et al. (2025), périmètre complet"}</td>
-              </tr>
-              <tr className="border-b border-slate-100">
-                <td className="py-2 pr-4 font-medium">{"Cotisations"}</td>
-                <td className="py-2 pr-4 font-mono">0.40</td>
-                <td className="py-2 pr-4 font-mono">71%</td>
-                <td className="py-2 pr-4 font-mono">45%</td>
-                <td className="py-2 text-xs text-slate-500">{"Crépon & Desplatz (2001), allègements Juppé"}</td>
-              </tr>
-              <tr>
-                <td className="py-2 pr-4 font-medium">{"TVA"}</td>
-                <td className="py-2 pr-4 font-mono">0.15</td>
-                <td className="py-2 pr-4 font-mono">87%</td>
-                <td className="py-2 pr-4 font-mono">20%</td>
-                <td className="py-2 text-xs text-slate-500">{"Estimation consensus"}</td>
-              </tr>
-            </tbody>
-          </table>
-          <Note>{"L'élasticité décroît pour les coupes larges : ε_effectif = ε × max(0.3, 1 − 0.5 × |coupe%| / 100). Justification : à taux très bas, moins d'optimisation à récupérer."}</Note>
-        </Section>
-
-        {/* ============================================================ */}
-        <Section title="3. Autofinancement — Deux modèles">
-          <h4 className="font-semibold text-slate-800 mt-3 mb-1">{"A. Équilibre partiel (ETI)"}</h4>
-          <Formula>{"Autofinancement = ε / (1 + ε)"}</Formula>
-          <p className="text-sm text-slate-600">{"Formule standard de statistique suffisante. Ex: ε=0.35 → 25.9%."}</p>
-          <Source>{"Saez, Slemrod & Giertz (2012)"}</Source>
-
-          <h4 className="font-semibold text-slate-800 mt-4 mb-1">{"B. Équilibre général (Trabandt & Uhlig)"}</h4>
-          <p className="text-sm text-slate-600">{"Modèle néoclassique calibré sur l'EU-14 : Travail 54%, Capital 79%, Cotisations 60%."}</p>
-          <Source>{"Trabandt & Uhlig (2011), Journal of Monetary Economics 58(4)"}</Source>
-        </Section>
-
-        {/* ============================================================ */}
-        <Section title="4. Les 5 canaux de récupération">
-          <Channel num={1} name="Réponse réelle (lent)" confidence="Solide" color="#10b981">
-            <Formula>{"Canal1(y) = Σ [coupe_i × SFR_i × (1 − formalisationShare)] × phaseIn(y)"}</Formula>
-            <p>{"où phaseIn(y) = min(1, y / behavioralPhaseInYears)"}</p>
-            <p>{"Phase-in linéaire sur 4-10 ans. C'est la réponse comportementale réelle (offre de travail, investissement)."}</p>
-          </Channel>
-
-          <Channel num={2} name="Supply-side (croissance induite)" confidence="Inférence" color="#8b5cf6">
-            <Formula>{"Canal2(y) = ΔPIB(y) × tauxPO"}</Formula>
-            <p>{"où ΔPIB vient du boost de croissance :"}</p>
-            <Formula>{"refPIB(y) = refPIB(y−1) × (1 + g_base + g_boost × phaseIn × decay)"}</Formula>
-            <p>{"g_boost = Σ [coupe_i / PIB × boostParType_i] (plafonné à ±2 pp/an)"}</p>
-            <p>{"boostParType : travail 0.10, capital 0.30, cotisations 0.15 pp par point de PIB"}</p>
-            <p>{"decay selon le modèle : niveau = max(0, 1−(y−1)/15), permanent = 1, hybride = 0.5 + 0.5×niveau"}</p>
-            <p>{"tauxPO = 42.8% (INSEE)"}</p>
-            <Source>{"OCDE (2010), Arnold et al. (2008). Ranking robuste, magnitudes extrapolées."}</Source>
-          </Channel>
-
-          <Channel num={3} name="Marge extensive" confidence="Inférence" color="#0ea5e9">
-            <p className="font-medium mt-1">{"3a. Retour d'exilés fiscaux (capital seulement, seuil ≥5%)"}</p>
-            <Formula>{"exileReturn(y) = pool × speed × (1 − speed)^(y−1) × tauxCapital"}</Formula>
-            <p>{"pool = 6 Md€ de VA récupérable (Rexecode), speed = 30%/an"}</p>
-
-            <p className="font-medium mt-3">{"3b. Élargissement de base (capital seulement)"}</p>
-            <Formula>{"baseWidening(y) = param × 120Md€ × (coupe/15%) × sCurve(y/3) × (1 − coupe%/100)"}</Formula>
-            <p>{"param = 2.5% par défaut. Calibré PFU 2017 : 1 Md€ récupéré sur 120 Md€. sCurve = tanh normalisé."}</p>
-
-            <p className="font-medium mt-3">{"3c. Création d'entreprises (lag 2 ans)"}</p>
-            <Formula>{"bizCreation(y) = 1M × coupeMoyenne% × 0.5 × (y−2) × 15k€/1M"}</Formula>
-            <p>{"1M créations/an base, élasticité 0.5, 15k€ recettes/entreprise/an."}</p>
-          </Channel>
-
-          <Channel num={4} name="Signal & anticipations" confidence="Spéculation" color="#6366f1">
-            <Formula>{"Canal4(y) = (spreadSaving + ideRevenue) × crédibilité"}</Formula>
-            <p className="font-medium mt-1">{"4a. Compression spread OAT"}</p>
-            <Formula>{"spreadSaving = totalCoupe × 30% × 0.5 bps × 0.33 Md€/10bps"}</Formula>
-
-            <p className="font-medium mt-2">{"4b. IDE additionnel"}</p>
-            <Formula>{"ideRevenue = 40Md€ × min(15, coupe_capital × 0.8) × 3%/rang × 20% × phaseIn(y/2)"}</Formula>
-            <p>{"crédibilité = 1.0× (réforme seule) à 2.0× (coordination industrielle)"}</p>
-            <Note>{"Ce canal n'est PAS scalé par pessimiste/optimiste (effet binaire : la réforme est annoncée ou non)."}</Note>
-          </Channel>
-
-          <Channel num={5} name="Formalisation (rapide)" confidence="Solide/Inférence" color="#059669">
-            <Formula>{"Canal5(y) = Σ [coupe_i × SFR_i × formalisationShare] × phaseIn_rapide(y)"}</Formula>
-            <p>{"phaseIn_rapide(y) = min(1, 0.80 + 0.20 × (y−1)) → 80% en an 1, 100% en an 2"}</p>
-            <p>{"formalisationShare = 30-70% (défaut 50%). Part de l'ETI qui est de l'optimisation/shifting, pas de la réponse réelle."}</p>
-            <Source>{"Slemrod (2001), Chetty (2009) : 50-75% de l'ETI observé est optimisation/shifting."}</Source>
-          </Channel>
-        </Section>
-
-        {/* ============================================================ */}
-        <Section title="5. Emploi — Loi d'Okun">
-          <Formula>{"emplois = emploiTotal × (ΔPIB/PIB × okunCoeff)"}</Formula>
-          <p className="text-sm text-slate-600">
-            {"emploiTotal = 30.5M (INSEE 2024). okunCoeff = 0.25 (rigide) à 0.50 (flexible), défaut 0.30 pour la France."}
-          </p>
-          <p className="text-sm text-slate-600">
-            {"Pour les cotisations patronales : base = 20M salariés privés (pas l'emploi total)."}
-          </p>
-        </Section>
-
-        {/* ============================================================ */}
-        <Section title="6. Dette publique">
-          <Formula>{"dépenses(y) = dépOpérationnelles₀ × (1 + inflation)^y + dette(y) × tauxIntérêt"}</Formula>
-          <Formula>{"déficit(y) = recettes(y) − dépenses(y)"}</Formula>
-          <Formula>{"dette(y) = dette(y−1) − déficit(y)"}</Formula>
-          <ul className="list-disc pl-5 space-y-1 text-sm text-slate-600 mt-2">
-            <li>{"dépOpérationnelles₀ = 1615.2 Md€ (total 1670.2 − charge dette 55)"}</li>
-            <li>{"inflation = 2%/an"}</li>
-            <li>{"tauxIntérêt base = 2.5%"}</li>
-            <li>{"Malus soutenabilité : +50 bps par tranche de 10% dette/PIB au-delà de 120%"}</li>
-            <li>{"Bonus spread si la réforme améliore le déficit : −10 bps/an (max 5 ans)"}</li>
-          </ul>
-          <Note>{"Les intérêts sont séparés des dépenses opérationnelles pour éviter le double-comptage. La charge initiale de 55 Md€ est remplacée par le calcul dynamique dette × taux."}</Note>
-
-          <h4 className="font-semibold text-slate-800 mt-4 mb-1">{"Dette supplémentaire vs statu quo"}</h4>
-          <Formula>{"detteSupplémentaire(y) = dette_réforme(y) − dette_statuQuo(y)"}</Formula>
-          <p className="text-sm text-slate-600">{"C'est la différence des stocks de dette. Si positif, la réforme a généré plus de dette. Si négatif, elle a réduit la dette."}</p>
-        </Section>
-
-        {/* ============================================================ */}
-        <Section title="7. Pouvoir d'achat">
-          <Formula>{"PA_total = PA_direct + PA_emploi + PA_croissance"}</Formula>
-
-          <h4 className="font-semibold text-slate-800 mt-3 mb-1">{"Direct"}</h4>
-          <Formula>{"PA_direct = coupeRevail × phaseIn + coupeCotis × phaseIn × passthrough(y) + coupeCapital × phaseIn × 10%"}</Formula>
-          <p className="text-sm text-slate-600">{"passthrough cotisations = lerp(40%, 70%, min(1, y/5)). Source : Crépon & Desplatz (2001)."}</p>
-
-          <h4 className="font-semibold text-slate-800 mt-3 mb-1">{"Emploi"}</h4>
-          <Formula>{"PA_emploi = emploisCréés × 30 000€/an / 1Md€"}</Formula>
-
-          <h4 className="font-semibold text-slate-800 mt-3 mb-1">{"Croissance"}</h4>
-          <Formula>{"PA_croissance = max(0, ΔPIB) × 50% × 0.70"}</Formula>
-          <p className="text-sm text-slate-600">{"50% = part salariale du PIB. 0.70 = élasticité salaires/PIB (Verdugo 2016)."}</p>
-
-          <h4 className="font-semibold text-slate-800 mt-3 mb-1">{"Par habitant"}</h4>
-          <Formula>{"€/mois/habitant = PA_total × 1Md€ / 68M habitants / 12 mois"}</Formula>
-          <Note>{"Moyenne nationale. Les gains varient fortement selon le revenu : la baisse de cotisations bénéficie plus aux salariés, la baisse de capital plus aux patrimoines."}</Note>
-        </Section>
-
-        {/* ============================================================ */}
-        <Section title="8. Mode trajectoire">
-          <h4 className="font-semibold text-slate-800 mt-2 mb-1">{"Progressif"}</h4>
-          <Formula>{"coupe(y) = coupeCible × min(1, y / rampYears)"}</Formula>
-
-          <h4 className="font-semibold text-slate-800 mt-3 mb-1">{"Choc + rollback"}</h4>
-          <Formula>{"coupe(y) = max(coupeCible, coupeChoc − rollback × (y − 1))"}</Formula>
-          <p className="text-sm text-slate-600">{"Le choc initial est plus fort que la cible, puis se réduit de rollback%/an jusqu'à la cible."}</p>
-        </Section>
-
-        {/* ============================================================ */}
-        <Section title="9. Garde-fous">
-          <ul className="list-disc pl-5 space-y-2 text-sm text-slate-600">
-            <li><strong>{"Élasticités décroissantes"}</strong>{" : ε_eff = ε × max(0.3, 1 − 0.5 × |coupe|/100). Une coupe de 50% réduit l'ETI de 25%."}</li>
-            <li><strong>{"Supply-side plafonné"}</strong>{" : le boost de croissance ne dépasse pas ±2 pp/an (record : Irlande post-2014)."}</li>
-            <li><strong>{"Malus dette"}</strong>{" : +50 bps par tranche de 10% de dette/PIB au-delà de 120%. Les intérêts alourdissent le déficit."}</li>
-            <li><strong>{"Warnings visuels"}</strong>{" : orange >20% de coupe, rouge >35%, bannière si perte >15% PIB."}</li>
-          </ul>
-        </Section>
-
-        {/* ============================================================ */}
-        <Section title="10. Données macro (INSEE 2024)">
-          <table className="w-full text-sm border-collapse mt-2">
-            <tbody className="text-slate-700">
-              {[
-                ["PIB", "2 920 Md€"],
-                ["Prélèvements obligatoires", "1 250 Md€"],
-                ["Taux PO/PIB (INSEE)", "42.8%"],
-                ["Taux PO/PIB (OCDE)", "43.5%"],
-                ["Recettes publiques", "1 501.6 Md€"],
-                ["Dépenses publiques", "1 670.2 Md€"],
-                ["dont charge de la dette", "55 Md€"],
-                ["Déficit", "−168.6 Md€ (5.8% PIB)"],
-                ["Dette", "3 305 Md€ (113.2% PIB)"],
-                ["Emploi total", "30.5M"],
-                ["Salariés privés", "20M"],
-                ["Population", "68M"],
-                ["Croissance tendancielle", "1.1%/an (réel)"],
-                ["Inflation baseline", "2%/an"],
-              ].map(([k, v], i) => (
-                <tr key={i} className="border-b border-slate-100">
-                  <td className="py-1.5 pr-4 text-slate-500">{k}</td>
-                  <td className="py-1.5 font-mono font-medium">{v}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </Section>
-
-        {/* ============================================================ */}
-        <Section title="11. Sources académiques">
-          <ul className="list-disc pl-5 space-y-1.5 text-sm text-slate-600">
-            <li>{"Saez, E., Slemrod, J. & Giertz, S. (2012). \"The Elasticity of Taxable Income\". Journal of Economic Literature, 50(1), 3-50."}</li>
-            <li>{"Lefebvre, M., Lehmann, E. & Sicsic, M. (2025). \"Estimating the Laffer Tax Rate on Capital Income\". Scandinavian Journal of Economics, 127(2), 460-489."}</li>
-            <li>{"Trabandt, M. & Uhlig, H. (2011). \"The Laffer Curve Revisited\". Journal of Monetary Economics, 58(4), 305-327."}</li>
-            <li>{"Crépon, B. & Desplatz, R. (2001). \"Évaluation des allègements de charges sur les bas salaires\". Économie et Statistique, 348(1), 3-24."}</li>
-            <li>{"Arnold, J. et al. (2008). \"Tax Policy for Economic Recovery\". OECD Working Papers No. 620."}</li>
-            <li>{"OCDE (2010). \"Tax Policy Reform and Economic Growth\". OECD Tax Policy Studies No. 20."}</li>
-            <li>{"Slemrod, J. (2001). \"A General Model of the Behavioral Response to Taxation\". International Tax and Public Finance, 8, 119-128."}</li>
-            <li>{"Chetty, R. (2009). \"Is the Taxable Income Elasticity Sufficient?\". American Economic Journal: Economic Policy, 1(2), 31-52."}</li>
-            <li>{"Verdugo, G. (2016). \"Real Wage Cyclicality in the Eurozone\". European Economic Review, 82, 162-180."}</li>
-          </ul>
-        </Section>
-
-        {/* ============================================================ */}
-        <Section title="12. Niveaux de confiance">
-          <table className="w-full text-sm border-collapse mt-2">
-            <thead>
-              <tr className="text-left border-b border-slate-200 text-slate-500">
-                <th className="py-2 pr-4">{"Canal"}</th>
-                <th className="py-2 pr-4">{"Confiance"}</th>
-                <th className="py-2">{"Justification"}</th>
+              <tr className="text-left border-b-2 border-slate-200 text-slate-500 text-xs uppercase tracking-wider">
+                <th className="py-3 pr-4">Impôt</th>
+                <th className="py-3 pr-4">Élasticité</th>
+                <th className="py-3 pr-4">Taux optimal</th>
+                <th className="py-3 pr-4">Taux actuel</th>
+                <th className="py-3">Source</th>
               </tr>
             </thead>
             <tbody className="text-slate-700">
               {[
-                ["Canal 1 (réponse réelle)", "Solide", "ETI bien documenté, Saez et al."],
-                ["Canal 2 (supply-side)", "Inférence", "OCDE ranking robuste, magnitudes incertaines"],
-                ["Canal 3 (marge extensive)", "Inférence", "Calibré sur PFU 2017, échantillon = 1 réforme"],
-                ["Canal 4 (signal)", "Spéculation", "Effets attestés qualitativement, pas quantifiés"],
-                ["Canal 5 (formalisation)", "Solide/Inférence", "Décomposition ETI documentée, part exacte incertaine"],
-              ].map(([canal, conf, just], i) => (
+                ["Travail (IR + CSG)", "0.35", "74%", "65%", "Saez et al. (2012), médiane ETI"],
+                ["Capital — résultat principal", "0.50", "43%", "55%", "Lefebvre et al. (2025), Scand. J. Econ."],
+                ["Capital — sans cross-élasticité", "0.75", "57%", "55%", "Lefebvre et al. (2025)"],
+                ["Capital — avec cotisations", "1.86", "35%", "55%", "Lefebvre et al. (2025)"],
+                ["Cotisations patronales", "0.40", "71%", "45%", "Crépon & Desplatz (2001)"],
+                ["TVA", "0.15", "87%", "20%", "Estimation consensus"],
+              ].map(([imp, e, opt, act, src], i) => (
                 <tr key={i} className="border-b border-slate-100">
-                  <td className="py-1.5 pr-4 font-medium">{canal}</td>
-                  <td className="py-1.5 pr-4">
-                    <span className={`text-xs px-1.5 py-0.5 rounded ${
-                      conf === 'Solide' ? 'bg-emerald-50 text-emerald-600' :
-                      conf === 'Inférence' ? 'bg-amber-50 text-amber-600' :
-                      conf === 'Solide/Inférence' ? 'bg-emerald-50 text-emerald-600' :
-                      'bg-red-50 text-red-500'
-                    }`}>{conf}</span>
-                  </td>
-                  <td className="py-1.5 text-xs text-slate-500">{just}</td>
+                  <td className="py-2.5 pr-4 font-medium">{imp}</td>
+                  <td className="py-2.5 pr-4 font-mono text-blue-700 font-semibold">{e}</td>
+                  <td className="py-2.5 pr-4 font-mono">{opt}</td>
+                  <td className="py-2.5 pr-4 font-mono">{act}</td>
+                  <td className="py-2.5 text-xs text-slate-400">{src}</td>
                 </tr>
               ))}
             </tbody>
           </table>
-        </Section>
+
+          <P>{"Le capital a trois élasticités possibles selon qu'on inclut ou non les effets croisés sur l'IR et les cotisations. L'utilisateur choisit dans le panneau Hypothèses."}</P>
+
+          <Note>{"Garde-fou : pour les coupes supérieures à 20%, l'élasticité est réduite progressivement (on ne peut pas extrapoler une élasticité calibrée sur de petites variations à des changements massifs). Une coupe de 50% réduit l'élasticité effective d'environ 25%."}</Note>
+        </S>
+
+        {/* ================================================================ */}
+        <S title="3. L'autofinancement : combien l'État récupère">
+          <P>{"Quand on baisse un impôt, la perte brute n'est pas la perte réelle. Les comportements changent et une partie des recettes revient. C'est l'autofinancement."}</P>
+
+          <h3 className="font-semibold text-slate-800 mt-5 mb-2">{"Modèle A — Équilibre partiel (conservateur)"}</h3>
+          <P>{"La formule est simple : on divise l'élasticité par (1 + élasticité)."}</P>
+          <F label="Autofinancement" formula="élasticité  ÷  (1 + élasticité)" />
+          <Ex>{"Travail (ε = 0.35) : autofinancement = 0.35 ÷ 1.35 = 25.9%. Sur 10 Md€ de baisse, l'État récupère automatiquement 2.6 Md€ par les changements de comportement."}</Ex>
+
+          <h3 className="font-semibold text-slate-800 mt-5 mb-2">{"Modèle B — Équilibre général (optimiste)"}</h3>
+          <P>{"Le modèle de Trabandt & Uhlig (2011) prend en compte l'accumulation de capital et les effets de second tour. Il donne des taux plus élevés : 54% pour le travail, 79% pour le capital."}</P>
+          <Src>{"Trabandt & Uhlig (2011), Journal of Monetary Economics"}</Src>
+        </S>
+
+        {/* ================================================================ */}
+        <S title="4. Les 5 canaux de récupération">
+          <P>{"Le simulateur ne se contente pas d'un seul chiffre d'autofinancement. Il décompose la récupération en 5 canaux distincts, avec des vitesses différentes."}</P>
+
+          <Ch num={1} name="Réponse réelle" speed="Lente (4-10 ans)" conf="Solide">
+            <P>{"C'est le canal classique : les gens ajustent leur comportement. Les médecins travaillent un jour de plus, les entrepreneurs investissent davantage, les cadres négocient moins de packages défiscalisés."}</P>
+            <P>{"Ce canal monte progressivement sur 4 à 10 ans (configurable). C'est la part \"réelle\" de l'élasticité du revenu taxable."}</P>
+            <F label="An Y" formula="Coupe × autofinancement × (1 − part formalisation) × min(1, année ÷ durée phase-in)" />
+            <Ex>{"Baisse travail de 10 Md€, autofinancement 25.9%, formalisation 50%, phase-in 5 ans. An 3 : 10 × 0.259 × 0.50 × (3/5) = 0.78 Md€."}</Ex>
+          </Ch>
+
+          <Ch num={2} name="Supply-side (croissance)" speed="Moyenne (composée)" conf="Inférence">
+            <P>{"Baisser les impôts stimule la croissance du PIB. Un PIB plus élevé génère plus de recettes fiscales, même à taux plus bas. C'est l'effet boule de neige."}</P>
+            <P>{"Chaque point de PIB de baisse fiscale ajoute un boost de croissance annuel, qui varie selon le type d'impôt (le plus distorsif = plus gros boost) :"}</P>
+            <ul className="list-disc pl-5 text-sm text-slate-600 space-y-1 my-2">
+              <li>{"Capital (IS) : 0.30 point de croissance par point de PIB de baisse — le plus efficace"}</li>
+              <li>{"Cotisations : 0.15 point"}</li>
+              <li>{"Travail (IR/CSG) : 0.10 point"}</li>
+            </ul>
+            <P>{"Ce boost est plafonné à +2 points de croissance par an (record historique : Irlande post-2014). Il peut être permanent, temporaire (convergence en 15 ans), ou hybride selon le modèle choisi."}</P>
+            <P>{"Les recettes induites = PIB additionnel × taux de prélèvement (42.8%)."}</P>
+            <Src>{"OCDE (2010), Arnold et al. (2008). Le classement (IS > cotis > IR) est robuste, les magnitudes sont extrapolées."}</Src>
+          </Ch>
+
+          <Ch num={3} name="Marge extensive" speed="Rapide (1-3 ans)" conf="Inférence">
+            <P>{"Contrairement à la marge intensive (les mêmes gens déclarent plus ou moins), la marge extensive concerne des gens qui entrent ou sortent du système : retour d'exilés fiscaux, nouvelles distributions de dividendes, créations d'entreprises."}</P>
+
+            <h4 className="font-medium text-slate-700 mt-3 mb-1">{"3a. Retour d'exilés fiscaux"}</h4>
+            <P>{"19 000 foyers ISF ont quitté la France entre 1982 et 2017, emportant ~6 Md€ de valeur ajoutée annuelle (Rexecode). Quand le capital est réduit d'au moins 5%, une partie revient : 30% du stock restant chaque année, décroissant exponentiellement."}</P>
+
+            <h4 className="font-medium text-slate-700 mt-3 mb-1">{"3b. Élargissement de la base capital"}</h4>
+            <P>{"Après le PFU 2017, les dividendes distribués sont passés de 13.6 à 23.2 Md€ (+70%). Ce n'est pas que les mêmes gens déclarent plus — c'est que des revenus cachés, différés ou restructurés réapparaissent. Le simulateur modélise cet effet comme un élargissement de la base taxable du capital, calibré de façon conservatrice (+2.5% pour une coupe de référence de 15%, là où le PFU a montré +70%)."}</P>
+
+            <h4 className="font-medium text-slate-700 mt-3 mb-1">{"3c. Création d'entreprises"}</h4>
+            <P>{"Moins d'impôt = plus de créations d'entreprises. Chaque nouvelle entreprise génère ~15 000€/an de recettes fiscales (IR + cotisations + TVA). Effet avec un lag de 2 ans."}</P>
+          </Ch>
+
+          <Ch num={4} name="Signal & anticipations" speed="Instantané" conf="Spéculation">
+            <P>{"Les marchés réagissent à l'annonce, pas à l'implémentation. Une réforme crédible change les anticipations le jour J."}</P>
+
+            <h4 className="font-medium text-slate-700 mt-3 mb-1">{"4a. Compression du spread"}</h4>
+            <P>{"Si les marchés perçoivent une amélioration structurelle du déficit, le taux d'emprunt de la France baisse. Sur 3 305 Md€ de dette, chaque 10 points de base représentent 3.3 Md€/an d'économies."}</P>
+
+            <h4 className="font-medium text-slate-700 mt-3 mb-1">{"4b. Investissement direct étranger"}</h4>
+            <P>{"La France est dernière du classement ITCI (compétitivité fiscale). Une amélioration attire de l'IDE. Le simulateur estime +3% d'IDE par rang gagné, dont 20% génère des recettes fiscales directes."}</P>
+
+            <h4 className="font-medium text-slate-700 mt-3 mb-1">{"Multiplicateur de crédibilité"}</h4>
+            <P>{"Ce canal est multiplié si la réforme s'accompagne d'engagements d'investissement coordonnés (type Choose France). Par défaut 1.0× (pas de coordination). Ce canal n'est PAS affecté par les scénarios pessimiste/optimiste car c'est un effet binaire : la réforme est annoncée ou non."}</P>
+          </Ch>
+
+          <Ch num={5} name="Formalisation" speed="Très rapide (80% en an 1)" conf="Solide/Inférence">
+            <P>{"Quand les taux baissent, l'optimisation fiscale devient moins rentable. Des revenus qui étaient cachés, différés ou restructurés réapparaissent dans la base taxable. C'est quasi instantané car c'est une décision comptable, pas un investissement réel."}</P>
+            <P>{"La recherche (Slemrod 2001, Chetty 2009) montre que 50 à 75% de l'élasticité observée est en fait de l'optimisation/shifting, pas de la réponse réelle. Le simulateur utilise 50% par défaut (configurable de 30% à 70%)."}</P>
+            <P>{"Ce canal court-circuite le phase-in lent du canal 1 : 80% de l'effet arrive dès l'année 1, 100% en année 2."}</P>
+            <Ex>{"Baisse capital de 7.2 Md€, autofinancement 33%, formalisation 50%. An 1 : 7.2 × 0.33 × 0.50 × 0.80 = 0.95 Md€ récupérés immédiatement."}</Ex>
+            <Src>{"Slemrod (2001), International Tax and Public Finance. Chetty (2009), American Economic Journal."}</Src>
+          </Ch>
+        </S>
+
+        {/* ================================================================ */}
+        <S title="5. L'emploi : la loi d'Okun">
+          <P>{"Un PIB plus élevé crée des emplois. La relation est modélisée par le coefficient d'Okun, qui mesure combien d'emplois sont créés par point de croissance du PIB."}</P>
+          <F label="Emplois créés" formula="30.5 millions  ×  (PIB additionnel ÷ PIB)  ×  coefficient Okun" />
+          <P>{"Le coefficient est configurable de 0.25 (marché très rigide) à 0.50 (marché flexible). Recommandé pour la France : 0.30."}</P>
+          <Ex>{"Si le PIB augmente de 1% (29.2 Md€) avec Okun = 0.30 : 30.5M × 0.01 × 0.30 = 91 500 emplois créés."}</Ex>
+          <P>{"Pour les cotisations patronales, la base est 20M salariés privés (pas l'emploi total), car c'est sur eux que les allègements portent."}</P>
+        </S>
+
+        {/* ================================================================ */}
+        <S title="6. La dette publique">
+          <P>{"Le modèle de dette sépare les dépenses opérationnelles (1 615 Md€) de la charge de la dette (55 Md€) pour éviter de compter les intérêts deux fois."}</P>
+
+          <h3 className="font-semibold text-slate-800 mt-4 mb-2">{"Chaque année :"}</h3>
+          <ol className="list-decimal pl-5 text-sm text-slate-600 space-y-2">
+            <li>{"Dépenses opérationnelles = 1 615 Md€ × (1 + 2% inflation) puissance année"}</li>
+            <li>{"Intérêts = dette × taux d'intérêt (2.5% de base)"}</li>
+            <li>{"Déficit = recettes − dépenses opérationnelles − intérêts"}</li>
+            <li>{"Nouvelle dette = ancienne dette − déficit (le déficit est négatif, donc la dette augmente)"}</li>
+          </ol>
+
+          <h3 className="font-semibold text-slate-800 mt-4 mb-2">{"Malus de soutenabilité"}</h3>
+          <P>{"Si la dette dépasse 120% du PIB, les marchés imposent des taux plus élevés. Le modèle ajoute +0.5 point de taux d'intérêt par tranche de 10% de dette/PIB au-delà de 120%. Cela crée un cercle vicieux : plus de dette → plus d'intérêts → plus de déficit → plus de dette."}</P>
+
+          <h3 className="font-semibold text-slate-800 mt-4 mb-2">{"Dette supplémentaire vs statu quo"}</h3>
+          <P>{"Le graphique montre la différence entre la dette avec réforme et la dette sans réforme. Un chiffre positif signifie que la réforme a temporairement créé plus de dette. Quand l'autofinancement dépasse 100%, ce chiffre commence à baisser."}</P>
+        </S>
+
+        {/* ================================================================ */}
+        <S title="7. Le pouvoir d'achat">
+          <P>{"Le simulateur calcule combien chaque habitant gagne ou perd par mois, en moyenne. Le calcul a trois composantes."}</P>
+
+          <h3 className="font-semibold text-slate-800 mt-4 mb-2">{"Allègement direct"}</h3>
+          <P>{"La baisse d'impôt sur le travail arrive directement dans la poche des salariés. Pour les cotisations patronales, seule une partie est répercutée en salaires : 40% la première année, montant progressivement à 70% en 5 ans. Pour le capital, seulement 10% se diffuse en pouvoir d'achat large (le reste bénéficie aux détenteurs de capital)."}</P>
+
+          <h3 className="font-semibold text-slate-800 mt-4 mb-2">{"Via l'emploi"}</h3>
+          <P>{"Chaque emploi créé représente un salaire net moyen de 30 000€/an qui entre dans l'économie."}</P>
+
+          <h3 className="font-semibold text-slate-800 mt-4 mb-2">{"Via la croissance"}</h3>
+          <P>{"Un PIB plus élevé tire les salaires vers le haut. Mais les salaires montent moins vite que le PIB (élasticité salaires/PIB = 0.70), et seule la moitié du PIB va aux salaires."}</P>
+          <F label="Gain salarial" formula="PIB additionnel  ×  50% (part salariale)  ×  70% (élasticité)" />
+
+          <h3 className="font-semibold text-slate-800 mt-4 mb-2">{"Par habitant"}</h3>
+          <F label="€/mois par habitant" formula="Total (Md€)  ×  1 milliard  ÷  68 millions  ÷  12 mois" />
+          <Note>{"C'est une moyenne nationale. Un salarié au SMIC bénéficie davantage d'une baisse de cotisations, un cadre supérieur d'une baisse d'IR, un actionnaire d'une baisse d'IS. Le chiffre par habitant lisse ces différences."}</Note>
+        </S>
+
+        {/* ================================================================ */}
+        <S title="8. Le mode trajectoire">
+          <P>{"Au lieu d'appliquer la coupe d'un coup, le mode trajectoire permet de simuler une montée progressive ou un choc suivi d'un rollback."}</P>
+
+          <h3 className="font-semibold text-slate-800 mt-4 mb-2">{"Progressif"}</h3>
+          <P>{"La coupe augmente linéairement sur N années. Exemple : pour une cible de −15% sur 5 ans, c'est −3% par an."}</P>
+
+          <h3 className="font-semibold text-slate-800 mt-4 mb-2">{"Choc + rollback"}</h3>
+          <P>{"La coupe commence forte (2× la cible par défaut) puis diminue chaque année. Exemple : choc de −30%, puis rollback de 2%/an jusqu'à la cible de −15%."}</P>
+          <P>{"L'intérêt : le choc déclenche les canaux rapides (formalisation, signal, retour d'exilés) plus vite, mais il crée aussi plus de dette de transition. Le graphique de comparaison montre si le jeu en vaut la chandelle."}</P>
+        </S>
+
+        {/* ================================================================ */}
+        <S title="9. Les garde-fous">
+          <P>{"Le modèle inclut des limites pour éviter les résultats absurdes quand on pousse les curseurs à l'extrême."}</P>
+          <ul className="list-disc pl-5 text-sm text-slate-600 space-y-3 mt-3">
+            <li><strong>{"Élasticités décroissantes"}</strong>{" — Plus la coupe est large, moins l'élasticité marginale est forte. Une coupe de 50% réduit l'élasticité d'environ 25%. Justification : à taux très bas, il y a moins d'optimisation à récupérer."}</li>
+            <li><strong>{"Supply-side plafonné"}</strong>{" — Le boost de croissance annuel ne peut pas dépasser +2 points de pourcentage (record historique : Irlande post-2014, dans des circonstances exceptionnelles)."}</li>
+            <li><strong>{"Malus dette"}</strong>{" — Au-delà de 120% de dette/PIB, le taux d'intérêt augmente automatiquement, ce qui aggrave le déficit."}</li>
+            <li><strong>{"Avertissements visuels"}</strong>{" — Orange au-delà de 20% de coupe (élasticités extrapolées), rouge au-delà de 35% (résultats non fiables), bannière si la perte brute dépasse 15% du PIB."}</li>
+          </ul>
+        </S>
+
+        {/* ================================================================ */}
+        <S title="10. Données macro (INSEE 2024)">
+          <div className="grid grid-cols-2 gap-x-8 gap-y-1 mt-3">
+            {[
+              ["PIB", "2 920 Md€"],
+              ["Prélèvements obligatoires", "1 250 Md€ (42.8% PIB)"],
+              ["Recettes publiques", "1 501.6 Md€"],
+              ["Dépenses publiques", "1 670.2 Md€"],
+              ["dont charge dette", "55 Md€"],
+              ["Déficit", "−168.6 Md€ (5.8% PIB)"],
+              ["Dette", "3 305 Md€ (113.2% PIB)"],
+              ["Emploi total", "30.5 millions"],
+              ["Salariés privés", "20 millions"],
+              ["Population", "68 millions"],
+              ["Croissance tendancielle", "1.1%/an (réel)"],
+              ["Inflation baseline", "2%/an"],
+            ].map(([k, v], i) => (
+              <div key={i} className="flex justify-between py-1.5 border-b border-slate-100 text-sm">
+                <span className="text-slate-500">{k}</span>
+                <span className="font-mono font-medium text-slate-800">{v}</span>
+              </div>
+            ))}
+          </div>
+        </S>
+
+        {/* ================================================================ */}
+        <S title="11. Niveaux de confiance">
+          <P>{"Chaque canal est étiqueté selon la robustesse de sa calibration."}</P>
+          <div className="space-y-3 mt-3">
+            {[
+              ["Solide", "#10b981", "bg-emerald-50 text-emerald-700 border-emerald-200", "Calibré sur des données robustes, consensus académique. Ex: élasticité du revenu taxable (Saez et al.)."],
+              ["Inférence", "#f59e0b", "bg-amber-50 text-amber-700 border-amber-200", "Basé sur des données réelles mais extrapolé. Ex: boost de croissance par type d'impôt (OCDE 2010, ranking qualitatif)."],
+              ["Spéculation", "#ef4444", "bg-red-50 text-red-700 border-red-200", "Effet attesté qualitativement mais pas quantifié dans la littérature. Ex: canal signal (IDE, spread)."],
+            ].map(([label, , cls, desc], i) => (
+              <div key={i} className={`p-3 rounded-lg border ${cls}`}>
+                <span className="font-semibold">{label}</span>
+                <span className="ml-2 text-sm">{desc}</span>
+              </div>
+            ))}
+          </div>
+        </S>
+
+        {/* ================================================================ */}
+        <S title="12. Sources académiques">
+          <div className="space-y-2 mt-3 text-sm text-slate-600">
+            {[
+              "Saez, E., Slemrod, J. & Giertz, S. (2012). \"The Elasticity of Taxable Income with Respect to Marginal Tax Rates: A Critical Review\". Journal of Economic Literature, 50(1), 3-50.",
+              "Lefebvre, M., Lehmann, E. & Sicsic, M. (2025). \"Estimating the Laffer Tax Rate on Capital Income\". Scandinavian Journal of Economics, 127(2), 460-489.",
+              "Trabandt, M. & Uhlig, H. (2011). \"The Laffer Curve Revisited\". Journal of Monetary Economics, 58(4), 305-327.",
+              "Crépon, B. & Desplatz, R. (2001). \"Évaluation des allègements de charges sur les bas salaires\". Économie et Statistique, 348(1), 3-24.",
+              "Arnold, J. et al. (2008). \"Tax Policy for Economic Recovery and Growth\". OECD Working Papers No. 620.",
+              "OCDE (2010). \"Tax Policy Reform and Economic Growth\". OECD Tax Policy Studies No. 20.",
+              "Slemrod, J. (2001). \"A General Model of the Behavioral Response to Taxation\". International Tax and Public Finance, 8, 119-128.",
+              "Chetty, R. (2009). \"Is the Taxable Income Elasticity Sufficient to Calculate Deadweight Loss?\". American Economic Journal: Economic Policy, 1(2), 31-52.",
+              "Verdugo, G. (2016). \"Real Wage Cyclicality in the Eurozone\". European Economic Review, 82, 162-180.",
+            ].map((ref, i) => (
+              <p key={i} className="pl-4 border-l-2 border-slate-200">{ref}</p>
+            ))}
+          </div>
+        </S>
 
         <div className="mt-12 pt-6 border-t border-slate-200 text-center text-xs text-slate-400">
-          {"Simulateur Laffer France — Modèle v3 post-audit — R(τ) = τ × B₀ × (1−τ)^ε — Données : INSEE, OCDE 2024"}
+          {"Simulateur Laffer France — Modèle v3 post-audit — Données INSEE/OCDE 2024"}
         </div>
       </div>
     </main>
@@ -306,50 +276,70 @@ export default function Methodologie() {
 // Sub-components
 // ============================================================
 
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
+function S({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <section className="mb-10">
-      <h2 className="text-xl font-bold text-slate-900 mb-3 pb-2 border-b border-slate-200">{title}</h2>
-      {children}
+    <section className="mb-12">
+      <h2 className="text-xl font-bold text-slate-900 mb-4 pb-2 border-b border-slate-200">{title}</h2>
+      <div className="space-y-2">{children}</div>
     </section>
   );
 }
 
-function Formula({ children }: { children: React.ReactNode }) {
+function P({ children }: { children: React.ReactNode }) {
+  return <p className="text-[15px] text-slate-700 leading-relaxed">{children}</p>;
+}
+
+function F({ label, formula }: { label: string; formula: string }) {
   return (
-    <div className="bg-slate-100 border border-slate-200 rounded-lg px-4 py-2 my-2 font-mono text-sm text-slate-800 overflow-x-auto">
-      {children}
+    <div className="bg-blue-50 border border-blue-200 rounded-lg px-5 py-3 my-3 flex items-center gap-4">
+      <span className="text-xs font-semibold text-blue-500 uppercase tracking-wider whitespace-nowrap">{label}</span>
+      <span className="text-[15px] text-blue-900 font-medium">{formula}</span>
     </div>
   );
 }
 
-function Source({ children }: { children: React.ReactNode }) {
+function Ex({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="bg-slate-100 border border-slate-200 rounded-lg px-4 py-2.5 my-2 text-sm text-slate-600">
+      <span className="font-semibold text-slate-500 mr-1">{"Exemple :"}</span>{children}
+    </div>
+  );
+}
+
+function Src({ children }: { children: React.ReactNode }) {
   return <p className="text-xs text-slate-400 italic mt-1">{children}</p>;
 }
 
 function Note({ children }: { children: React.ReactNode }) {
   return (
-    <div className="bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 mt-2 text-xs text-amber-800">
-      {children}
+    <div className="bg-amber-50 border border-amber-200 rounded-lg px-4 py-2.5 mt-3 text-sm text-amber-800">
+      <span className="font-semibold mr-1">{"Note :"}</span>{children}
     </div>
   );
 }
 
-function Channel({ num, name, confidence, color, children }: {
-  num: number; name: string; confidence: string; color: string; children: React.ReactNode;
+function Ch({ num, name, speed, conf, children }: {
+  num: number; name: string; speed: string; conf: string; children: React.ReactNode;
 }) {
+  const colors: Record<string, string> = {
+    "Solide": "#10b981", "Solide/Inférence": "#10b981",
+    "Inférence": "#f59e0b", "Spéculation": "#ef4444",
+  };
   return (
-    <div className="mt-4 p-4 bg-white border border-slate-200 rounded-lg">
-      <div className="flex items-center gap-2 mb-2">
-        <span className="w-6 h-6 rounded-full flex items-center justify-center text-white text-xs font-bold" style={{ backgroundColor: color }}>{num}</span>
-        <span className="font-semibold text-slate-800">{name}</span>
-        <span className={`text-[10px] px-1.5 py-0.5 rounded ${
-          confidence === 'Solide' || confidence === 'Solide/Inférence' ? 'bg-emerald-50 text-emerald-600' :
-          confidence === 'Inférence' ? 'bg-amber-50 text-amber-600' :
+    <div className="mt-5 p-5 bg-white border border-slate-200 rounded-xl shadow-sm">
+      <div className="flex items-center gap-3 mb-3">
+        <span className="w-7 h-7 rounded-full flex items-center justify-center text-white text-sm font-bold" style={{ backgroundColor: colors[conf] || "#64748b" }}>{num}</span>
+        <div>
+          <span className="font-semibold text-slate-800 text-[15px]">{name}</span>
+          <span className="ml-2 text-xs text-slate-400">{speed}</span>
+        </div>
+        <span className={`ml-auto text-[10px] font-semibold px-2 py-0.5 rounded-full ${
+          conf.includes('Solide') ? 'bg-emerald-50 text-emerald-600' :
+          conf === 'Inférence' ? 'bg-amber-50 text-amber-600' :
           'bg-red-50 text-red-500'
-        }`}>{confidence}</span>
+        }`}>{conf}</span>
       </div>
-      <div className="text-sm text-slate-600 space-y-1">{children}</div>
+      <div className="space-y-2">{children}</div>
     </div>
   );
 }
