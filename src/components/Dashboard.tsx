@@ -205,7 +205,7 @@ export default function Dashboard() {
 
   // Waterfall décomposé par canal (année 1) — utilise activeCut (avec phase-in) pour cohérence
   const waterfallData = hasChange && y1 ? [
-    { name: "Perte brute an 1", value: -y1.activeCut, color: "#ef4444" },
+    { name: y1.activeCut >= 0 ? "Perte brute an 1" : "Gain brut an 1", value: -y1.activeCut, color: y1.activeCut >= 0 ? "#ef4444" : "#059669" },
     { name: "Formalisation [Solide]", value: y1.ch5_formalisation, color: "#059669" },
     { name: "Réponse réelle [Solide]", value: y1.ch1_realResponse, color: "#10b981" },
     { name: "Marge extensive [Inférence]", value: y1.ch3_extensive, color: "#0ea5e9" },
@@ -294,7 +294,7 @@ export default function Dashboard() {
                   aria-valuemin={-s.max} aria-valuemax={s.max} aria-valuenow={val} />
                 {val !== 0 && (
                   <div className="text-[10px] text-slate-400 mt-1">
-                    Perte brute : {(taxTypes[s.key].recettes * Math.abs(val) / 100).toFixed(1)} Md€/an
+                    {val > 0 ? "Perte brute" : "Gain brut"} : {(taxTypes[s.key].recettes * Math.abs(val) / 100).toFixed(1)} Md€/an
                   </div>
                 )}
                 <div className="flex justify-between text-[10px] mt-2 text-slate-400">
@@ -480,11 +480,11 @@ export default function Dashboard() {
               {/* Autofinancement par palier */}
               <div className="pt-5 border-t border-slate-100">
                 <div className="text-center mb-4">
-                  <span className="text-5xl font-semibold text-emerald-600" style={{ fontFamily: "'JetBrains Mono', monospace" }}>
+                  <span className={`text-5xl font-semibold ${y5SelfFin >= 0 ? "text-emerald-600" : "text-red-500"}`} style={{ fontFamily: "'JetBrains Mono', monospace" }}>
                     {Math.round(y5SelfFin)}%
                   </span>
                   <div className="text-lg text-slate-500 mt-1">
-                    {"récupéré en 5 ans"}
+                    {y5SelfFin >= 0 ? "récupéré en 5 ans" : "perdu en réponse comportementale à 5 ans"}
                   </div>
                 </div>
                 <div className="flex items-center justify-center gap-1 flex-wrap">
@@ -503,15 +503,15 @@ export default function Dashboard() {
                       <div key={y} className="text-center px-3 py-2 min-w-[70px]">
                         <div className="text-xl font-semibold" style={{
                           fontFamily: "'JetBrains Mono', monospace",
-                          color: over100 ? "#059669" : sf > 80 ? "#10b981" : sf > 50 ? "#3b82f6" : "#64748b",
+                          color: sf < 0 ? "#ef4444" : over100 ? "#059669" : sf > 80 ? "#10b981" : sf > 50 ? "#3b82f6" : "#64748b",
                         }}>
                           {Math.round(sf)}%
                         </div>
                         <div className="text-[10px] text-slate-400 mt-0.5">{label}</div>
                         <div className="mx-auto mt-1 h-[3px] rounded-full" style={{
-                          width: `${Math.min(sf, 100)}%`,
+                          width: `${Math.min(Math.abs(sf), 100)}%`,
                           maxWidth: "48px",
-                          background: over100 ? "#059669" : sf > 80 ? "#10b981" : sf > 50 ? "#3b82f6" : "#94a3b8",
+                          background: sf < 0 ? "#ef4444" : over100 ? "#059669" : sf > 80 ? "#10b981" : sf > 50 ? "#3b82f6" : "#94a3b8",
                         }} />
                       </div>
                     );
@@ -520,6 +520,8 @@ export default function Dashboard() {
                 <div className="text-center text-[10px] text-slate-400 mt-2">
                   {lastSelfFin >= 100
                     ? "La baisse se rembourse intégralement et génère un excédent."
+                    : lastSelfFin < 0
+                    ? "La hausse d'impôt perd une partie de son rendement via les 5 canaux comportementaux."
                     : "L'autofinancement monte chaque année grâce aux 5 canaux."}
                 </div>
 

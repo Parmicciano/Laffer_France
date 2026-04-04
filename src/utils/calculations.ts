@@ -82,8 +82,9 @@ export function computeImpact(
     employmentGain = tvaInduced + irInduced + (newJobs * 5000) / 1e9;
   }
   const netLoss = grossLoss - dynamicRecovery - crossEffect - employmentGain;
-  const selfFinancingTotal = grossLoss > 0 ? ((dynamicRecovery + crossEffect + employmentGain) / grossLoss) * 100 : 0;
-  return { grossLoss, dynamicRecovery, crossEffect, employmentGain, netLoss: Math.max(netLoss, -grossLoss), selfFinancingTotal: Math.min(selfFinancingTotal, 200), newJobs, tvaInduced, irInduced };
+  const absGrossLoss = Math.abs(grossLoss);
+  const selfFinancingTotal = absGrossLoss > 0 ? ((dynamicRecovery + crossEffect + employmentGain) / absGrossLoss) * 100 : 0;
+  return { grossLoss, dynamicRecovery, crossEffect, employmentGain, netLoss, selfFinancingTotal: Math.max(-200, Math.min(selfFinancingTotal, 200)), newJobs, tvaInduced, irInduced };
 }
 
 // ============================================================
@@ -175,7 +176,7 @@ export function computeCombinedImpact(
     totalCrossEffect: c.crossEffect,
     totalEmploymentGain: co.employmentGain,
     totalNetLoss,
-    totalSelfFinancing: totalGrossLoss > 0 ? ((totalGrossLoss - totalNetLoss) / totalGrossLoss) * 100 : 0,
+    totalSelfFinancing: Math.abs(totalGrossLoss) > 0 ? ((totalGrossLoss - totalNetLoss) / Math.abs(totalGrossLoss)) * 100 : 0,
     totalNewJobs: co.newJobs,
   };
 }
@@ -279,7 +280,7 @@ function computeSignalEffect(
   const spreadSaving = spreadBps * 0.033 * 10; // 3305 Md€ × 0.01% = 0.33 Md€/10bps
 
   // 2. IDE
-  const itciRanksGained = Math.min(15, capitalCutPercent * 0.8);
+  const itciRanksGained = Math.max(-15, Math.min(15, capitalCutPercent * 0.8));
   const ideBaseline = 40;
   const additionalIDE = ideBaseline * itciRanksGained * 3.0 / 100;
   const idePhaseIn = Math.min(1, year / 2);
@@ -542,7 +543,7 @@ function _simulate(
     const revBaseline = sqPib * sqTaxRate;
     // En mode trajectoire, pas de cutPhaseIn (la rampe est dans la trajectoire)
     const cutPhaseIn = isTrajectoryMode ? 1 : Math.min(y / 3, 1);
-    const activeCut = Math.abs(totalCutMd) * cutPhaseIn;
+    const activeCut = totalCutMd * cutPhaseIn;
 
     // ================================================================
     // CANAL 1 + 5 : Autofinancement comportemental (scindé)
@@ -577,7 +578,7 @@ function _simulate(
     // ================================================================
     // CANAL 2 : Recettes induites par la croissance
     // ================================================================
-    const ch2_supplySide = deltaGDP > 0 ? deltaGDP * MODEL.poTaxRate : 0;
+    const ch2_supplySide = deltaGDP * MODEL.poTaxRate;
 
     // ================================================================
     // CANAL 3 : Marge extensive
@@ -610,7 +611,14 @@ function _simulate(
     const reformRecettes = revBaseline - activeCut + totalRecovered;
     const revDiff = reformRecettes - revBaseline;
     cumulRevDiff += revDiff;
-    const selfFinPct = activeCut > 0 ? (totalRecovered / activeCut) * 100 : 0;
+    // Dénominateur = somme des mouvements absolus individuels (pas le net)
+    // Évite les ratios explosifs quand hausses et baisses se compensent
+    let grossMovement = 0;
+    for (const [type, cutPct] of types) {
+      if (cutPct === 0) continue;
+      grossMovement += taxTypes[type as TaxTypeKey].recettes * (Math.abs(cutPct) / 100) * cutPhaseIn;
+    }
+    const selfFinPct = grossMovement > 0 ? (totalRecovered / grossMovement) * 100 : 0;
 
     // Déficit & dette — CORRIGÉ : séparer dépenses opérationnelles et intérêts
     // dep0 (1670.2 Md€) INCLUT la charge de la dette (55 Md€)

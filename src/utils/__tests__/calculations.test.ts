@@ -863,3 +863,62 @@ describe('Purchasing power in projection', () => {
     expect(result.central[5].ppiInflationOffset).toBeLessThan(0);
   });
 });
+
+// ============================================================
+// Hausses d'impôt (cutPercent négatif)
+// ============================================================
+
+describe('Tax increases (negative cutPercent)', () => {
+  test('pure capital increase should have negative activeCut', () => {
+    const result = computeTenYearProjection({ travail: 0, capital: -10, cotisationsPatronales: 0 });
+    expect(result.central[1].activeCut).toBeLessThan(0);
+  });
+
+  test('pure capital increase should increase reform revenues vs baseline', () => {
+    const result = computeTenYearProjection({ travail: 0, capital: -10, cotisationsPatronales: 0 });
+    // Tax increase → reform revenues > baseline (even with behavioral leakage)
+    expect(result.central[1].reformRecettes).toBeGreaterThan(result.central[1].statusQuoRecettes);
+  });
+
+  test('selfFinPct should stay bounded for mixed scenarios', () => {
+    // This was the -808% bug scenario
+    const result = computeTenYearProjection({ travail: 1, capital: -12, cotisationsPatronales: 3 });
+    for (let y = 1; y <= 20; y++) {
+      expect(Math.abs(result.central[y].selfFinPct)).toBeLessThan(300);
+    }
+  });
+
+  test('ch2_supplySide can be negative when tax increase reduces GDP', () => {
+    const result = computeTenYearProjection({ travail: -10, capital: -10, cotisationsPatronales: -10 });
+    // Large tax increases reduce GDP → ch2 should be negative
+    expect(result.central[5].ch2_supplySide).toBeLessThan(0);
+  });
+
+  test('computeImpact handles negative cutPercent', () => {
+    const result = computeImpact('capital', -10);
+    // grossLoss is negative (it's actually a gain)
+    expect(result.grossLoss).toBeLessThan(0);
+    // selfFinancingTotal should be negative (leakage from expected gain)
+    expect(result.selfFinancingTotal).toBeLessThan(0);
+  });
+
+  test('computeCombinedImpact handles all-increase scenario', () => {
+    const result = computeCombinedImpact({ travail: -10, capital: -10, cotisationsPatronales: -10 });
+    // Total gross loss is negative (total gross gain)
+    expect(result.totalGrossLoss).toBeLessThan(0);
+    // Self-financing is negative (behavioral leakage from expected gains)
+    expect(result.totalSelfFinancing).toBeLessThan(0);
+  });
+
+  test('pure cut scenario is unchanged (no regression)', () => {
+    const result = computeTenYearProjection({ travail: 5, capital: 15, cotisationsPatronales: 10 });
+    const y5 = result.central[5];
+    // activeCut should be positive for cuts
+    expect(y5.activeCut).toBeGreaterThan(0);
+    // selfFinPct should be positive and reasonable
+    expect(y5.selfFinPct).toBeGreaterThan(0);
+    expect(y5.selfFinPct).toBeLessThan(200);
+    // Revenue diff should be negative (reform costs money)
+    expect(y5.revenueDiff).toBeLessThan(0);
+  });
+});
