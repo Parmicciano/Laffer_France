@@ -837,7 +837,7 @@ export default function Dashboard() {
               </ResponsiveContainer>
             </div>
 
-            {/* Pouvoir d'achat par foyer + dette de transition */}
+            {/* Pouvoir d'achat par habitant + dette de transition */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
               {/* Graphe pouvoir d'achat €/mois par habitant */}
               <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
@@ -850,7 +850,7 @@ export default function Dashboard() {
                     <YAxis tick={{ fill: "#94a3b8", fontSize: 11 }} axisLine={{ stroke: "#e2e8f0" }}
                       label={{ value: "€/mois", angle: -90, position: "insideLeft", style: { fill: "#94a3b8", fontSize: 10 } }} />
                     <Tooltip contentStyle={{ backgroundColor: TT.bg, border: TT.border, borderRadius: TT.radius, color: TT.color, fontSize: TT.fontSize }}
-                      formatter={(v) => [`${Number(v) > 0 ? "+" : ""}${Number(v)} €/mois`, "Par foyer"]} />
+                      formatter={(v) => [`${Number(v) > 0 ? "+" : ""}${Number(v)} €/mois`, "Par habitant"]} />
                     <ReferenceLine y={0} stroke="#94a3b8" strokeWidth={1} />
                     <Line type="monotone" dataKey="ppiMonthly" stroke="#059669" strokeWidth={2.5} dot={false} name="ppiMonthly" />
                   </ComposedChart>
