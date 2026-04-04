@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Dossier Parlementaire · Simulateur Laffer France</title>
+<style>
+  @page {
+    size: A4;
+    margin: 18mm 20mm 18mm 20mm;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-size: 10.5pt;
+    line-height: 1.55;
+    color: #1a1a1a;
+    background: #fff;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Titres */
+  h1 {
+    font-size: 20pt;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    margin-bottom: 3mm;
+    color: #000;
+  }
+  h2 {
+    font-size: 13pt;
+    font-weight: 700;
+    margin-top: 6mm;
+    margin-bottom: 2mm;
+    color: #111;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 1mm;
+  }
+  h3 {
+    font-size: 11pt;
+    font-weight: 700;
+    margin-top: 4mm;
+    margin-bottom: 1.5mm;
+    color: #222;
+  }
+
+  /* Sous-titre */
+  .subtitle {
+    font-size: 11pt;
+    color: #555;
+    margin-bottom: 5mm;
+  }
+
+  /* Texte courant */
+  p { margin-bottom: 2.5mm; text-align: justify; }
+  strong { color: #000; }
+
+  /* Séparateur de page */
+  .page-break { page-break-before: always; }
+
+  /* Encadrés chiffres clés */
+  .key-figures {
+    display: flex;
+    gap: 4mm;
+    margin: 4mm 0 5mm 0;
+  }
+  .key-fig {
+    flex: 1;
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 2mm;
+    padding: 3mm 4mm;
+    text-align: center;
+  }
+  .key-fig .number {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 22pt;
+    font-weight: 800;
+    color: #111;
+    line-height: 1.1;
+  }
+  .key-fig .number.red { color: #b91c1c; }
+  .key-fig .number.green { color: #15803d; }
+  .key-fig .number.blue { color: #1d4ed8; }
+  .key-fig .label {
+    font-size: 8pt;
+    color: #666;
+    margin-top: 1mm;
+    line-height: 1.3;
+  }
+
+  /* Graphique barres comparaison */
+  .bar-chart { margin: 3mm 0 4mm 0; }
+  .bar-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5mm;
+  }
+  .bar-label {
+    width: 32mm;
+    font-size: 8.5pt;
+    text-align: right;
+    padding-right: 2mm;
+    color: #444;
+  }
+  .bar-label.highlight { font-weight: 700; color: #b91c1c; }
+  .bar-label.avg { font-weight: 600; color: #1d4ed8; }
+  .bar-track {
+    flex: 1;
+    height: 5mm;
+    background: #eee;
+    border-radius: 1mm;
+    overflow: hidden;
+    position: relative;
+  }
+  .bar-fill {
+    height: 100%;
+    border-radius: 1mm;
+    background: #aaa;
+  }
+  .bar-fill.fr { background: #b91c1c; }
+  .bar-fill.avg { background: #3b82f6; }
+  .bar-value {
+    width: 12mm;
+    font-size: 8.5pt;
+    text-align: right;
+    padding-left: 1.5mm;
+    color: #444;
+  }
+  .bar-value.highlight { font-weight: 700; color: #b91c1c; }
+  .bar-value.avg { font-weight: 600; color: #1d4ed8; }
+
+  /* Timeline historique */
+  .timeline { margin: 3mm 0 4mm 0; }
+  .tl-row {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 2mm;
+    padding-left: 3mm;
+    border-left: 2px solid #ddd;
+  }
+  .tl-row.hausse { border-left-color: #b91c1c; }
+  .tl-row.baisse { border-left-color: #15803d; }
+  .tl-year {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 9pt;
+    font-weight: 800;
+    width: 12mm;
+    flex-shrink: 0;
+    color: #333;
+  }
+  .tl-content {
+    font-size: 8.5pt;
+    color: #333;
+    line-height: 1.4;
+  }
+  .tl-tag {
+    display: inline-block;
+    font-size: 7pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 0.3mm 1.5mm;
+    border-radius: 0.5mm;
+    margin-left: 1mm;
+    vertical-align: middle;
+  }
+  .tl-tag.hausse { background: #fde8e8; color: #b91c1c; }
+  .tl-tag.baisse { background: #dcfce7; color: #15803d; }
+
+  /* Courbe de Laffer SVG */
+  .laffer-container {
+    margin: 4mm auto;
+    text-align: center;
+  }
+  .laffer-container svg {
+    max-width: 100%;
+  }
+
+  /* Encadré conclusion */
+  .conclusion-box {
+    background: #f0f7f0;
+    border: 1.5px solid #86c786;
+    border-radius: 2mm;
+    padding: 3mm 4mm;
+    margin: 3mm 0 0 0;
+  }
+  .conclusion-box p {
+    text-align: center;
+    margin-bottom: 1mm;
+  }
+
+  /* QR section */
+  .qr-section {
+    display: flex;
+    align-items: center;
+    gap: 4mm;
+    margin: 3mm 0;
+    padding: 2.5mm 4mm;
+    background: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 2mm;
+  }
+  .qr-section img { width: 18mm; height: 18mm; }
+  .qr-text { font-size: 9pt; color: #333; }
+  .qr-text .url {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    color: #1d4ed8;
+    font-size: 10pt;
+  }
+
+  /* Sources */
+  .sources {
+    font-size: 7.5pt;
+    color: #888;
+    margin-top: 4mm;
+    line-height: 1.5;
+  }
+  .sources p { text-align: left; margin-bottom: 0.5mm; }
+
+  /* Table résumé */
+  .summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 3mm 0 4mm 0;
+    font-size: 9pt;
+  }
+  .summary-table th {
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    padding: 1.5mm 2mm;
+    text-align: left;
+    font-size: 8pt;
+    font-weight: 700;
+    color: #333;
+  }
+  .summary-table td {
+    border: 1px solid #ddd;
+    padding: 1.5mm 2mm;
+    color: #333;
+  }
+  .summary-table .right { text-align: right; }
+  .summary-table .bold { font-weight: 700; }
+  .summary-table .red { color: #b91c1c; }
+  .summary-table .green { color: #15803d; }
+
+  /* Note de bas */
+  .footnote {
+    font-size: 7.5pt;
+    color: #999;
+    font-style: italic;
+    margin-top: 1mm;
+  }
+
+  /* En-tête page */
+  .page-header {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 7.5pt;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 4mm;
+    border-bottom: 0.5px solid #ddd;
+    padding-bottom: 1.5mm;
+  }
+
+  /* Waterfall chart */
+  .waterfall { margin: 4mm 0; }
+  .wf-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5mm;
+  }
+  .wf-label {
+    width: 45mm;
+    font-size: 8.5pt;
+    text-align: right;
+    padding-right: 2mm;
+    color: #444;
+  }
+  .wf-track {
+    flex: 1;
+    height: 6mm;
+    position: relative;
+  }
+  .wf-bar {
+    height: 100%;
+    border-radius: 0.8mm;
+    position: absolute;
+    top: 0;
+  }
+  .wf-bar.loss { background: #ef4444; left: 0; }
+  .wf-bar.recovery { background: #22c55e; }
+  .wf-bar.net { background: #2563eb; left: 0; }
+  .wf-value {
+    width: 18mm;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 8.5pt;
+    font-weight: 600;
+    text-align: right;
+    padding-left: 1.5mm;
+  }
+  .wf-value.red { color: #b91c1c; }
+  .wf-value.green { color: #15803d; }
+  .wf-value.blue { color: #1d4ed8; }
+</style>
+</head>
+<body>
+
+<!-- ============================================================ -->
+<!-- PAGE 1 : LE CONSTAT                                          -->
+<!-- ============================================================ -->
+
+<div class="page-header">Note d'analyse · Fiscalité et rendement · Avril 2026</div>
+
+<h1>La France au sommet de la courbe de Laffer :<br>quand taxer plus rapporte moins</h1>
+<p class="subtitle">Synthèse à destination des parlementaires · Données INSEE et OCDE 2024 · Sources académiques à comité de lecture</p>
+
+<h2>1. Le constat en quatre chiffres</h2>
+
+<div class="key-figures">
+  <div class="key-fig">
+    <div class="number red">43,5 %</div>
+    <div class="label">du PIB prélevé<br>(2e OCDE, après le Danemark)</div>
+  </div>
+  <div class="key-fig">
+    <div class="number">38<sup style="font-size:12pt">e</sup>/38</div>
+    <div class="label">en compétitivité fiscale<br>(Tax Foundation, 2024)</div>
+  </div>
+  <div class="key-fig">
+    <div class="number red">&minus;169 Md€</div>
+    <div class="label">de déficit public<br>(5,8 % du PIB)</div>
+  </div>
+  <div class="key-fig">
+    <div class="number">113 %</div>
+    <div class="label">de dette publique / PIB<br>(3 305 Md€)</div>
+  </div>
+</div>
+
+<p>La France détient un record paradoxal : <strong>des prélèvements records et un déficit record</strong>. L'État encaisse 1 250 Md€ de prélèvements obligatoires mais dépense 1 670 Md€, soit un trou de 169 Md€ par an. Augmenter les impôts semble la solution évidente. Pourtant, les données académiques montrent que sur certaines bases fiscales, cette stratégie est contre-productive.</p>
+
+<h2>2. Où se situe la France dans le classement international ?</h2>
+
+<div class="bar-chart">
+  <div class="bar-row">
+    <div class="bar-label">Danemark</div>
+    <div class="bar-track"><div class="bar-fill" style="width:90.4%"></div></div>
+    <div class="bar-value">45,2 %</div>
+  </div>
+  <div class="bar-row">
+    <div class="bar-label highlight">France</div>
+    <div class="bar-track"><div class="bar-fill fr" style="width:87.0%"></div></div>
+    <div class="bar-value highlight">43,5 %</div>
+  </div>
+  <div class="bar-row">
+    <div class="bar-label">Belgique</div>
+    <div class="bar-track"><div class="bar-fill" style="width:85.8%"></div></div>
+    <div class="bar-value">42,9 %</div>
+  </div>
+  <div class="bar-row">
+    <div class="bar-label">Italie</div>
+    <div class="bar-track"><div class="bar-fill" style="width:85.0%"></div></div>
+    <div class="bar-value">42,5 %</div>
+  </div>
+  <div class="bar-row">
+    <div class="bar-label">Suède</div>
+    <div class="bar-track"><div class="bar-fill" style="width:82.6%"></div></div>
+    <div class="bar-value">41,3 %</div>
+  </div>
+  <div class="bar-row">
+    <div class="bar-label">Allemagne</div>
+    <div class="bar-track"><div class="bar-fill" style="width:75.2%"></div></div>
+    <div class="bar-value">37,6 %</div>
+  </div>
+  <div class="bar-row">
+    <div class="bar-label avg">Moyenne OCDE</div>
+    <div class="bar-track"><div class="bar-fill avg" style="width:68.2%"></div></div>
+    <div class="bar-value avg">34,1 %</div>
+  </div>
+  <div class="bar-row">
+    <div class="bar-label">Royaume-Uni</div>
+    <div class="bar-track"><div class="bar-fill" style="width:68.6%"></div></div>
+    <div class="bar-value">34,3 %</div>
+  </div>
+  <div class="bar-row">
+    <div class="bar-label">Suisse</div>
+    <div class="bar-track"><div class="bar-fill" style="width:55.6%"></div></div>
+    <div class="bar-value">27,8 %</div>
+  </div>
+  <div class="bar-row">
+    <div class="bar-label">États-Unis</div>
+    <div class="bar-track"><div class="bar-fill" style="width:55.4%"></div></div>
+    <div class="bar-value">27,7 %</div>
+  </div>
+  <div class="bar-row">
+    <div class="bar-label">Irlande</div>
+    <div class="bar-track"><div class="bar-fill" style="width:43.4%"></div></div>
+    <div class="bar-value">21,7 %</div>
+  </div>
+</div>
+
+<p class="footnote">Impôts et cotisations en % du PIB. Source : OCDE Revenue Statistics 2025.</p>
+
+<p>La France prélève <strong>9,4 points de PIB de plus que la moyenne OCDE</strong>, soit environ 275 Md€ de prélèvements supplémentaires chaque année par rapport à un pays « moyen ». Cette pression fiscale n'empêche ni le déficit ni la dette de croître.</p>
+
+<!-- ============================================================ -->
+<!-- PAGE 2 : LA COURBE DE LAFFER                                 -->
+<!-- ============================================================ -->
+
+<div class="page-break"></div>
+<div class="page-header">Note d'analyse · Fiscalité et rendement · Page 2/4</div>
+
+<h2>3. La courbe de Laffer : le rendement décroissant de l'impôt</h2>
+
+<p>La courbe de Laffer établit un principe simple : à taux zéro, l'État ne perçoit rien ; à taux 100 %, personne ne travaille ni n'investit, donc l'État ne perçoit rien non plus. Entre les deux, il existe un <strong>taux optimal qui maximise les recettes</strong>. Au-delà de ce seuil, toute hausse d'impôt <em>réduit</em> les recettes au lieu de les augmenter.</p>
+
+<div class="laffer-container">
+<svg viewBox="0 0 500 260" width="460" xmlns="http://www.w3.org/2000/svg">
+  <!-- Axes -->
+  <line x1="50" y1="220" x2="470" y2="220" stroke="#888" stroke-width="1"/>
+  <line x1="50" y1="220" x2="50" y2="20" stroke="#888" stroke-width="1"/>
+  <!-- Labels axes -->
+  <text x="260" y="252" text-anchor="middle" font-size="9" fill="#666" font-family="Helvetica,Arial,sans-serif">Taux d'imposition (%)</text>
+  <text x="16" y="120" text-anchor="middle" font-size="9" fill="#666" font-family="Helvetica,Arial,sans-serif" transform="rotate(-90,16,120)">Recettes fiscales</text>
+  <!-- Grille -->
+  <line x1="50" y1="120" x2="470" y2="120" stroke="#e5e5e5" stroke-width="0.5" stroke-dasharray="3,3"/>
+  <text x="46" y="124" text-anchor="end" font-size="7" fill="#aaa" font-family="Helvetica,Arial,sans-serif">max</text>
+  <!-- Ticks axe X -->
+  <text x="50" y="234" text-anchor="middle" font-size="7.5" fill="#888" font-family="Helvetica,Arial,sans-serif">0 %</text>
+  <text x="155" y="234" text-anchor="middle" font-size="7.5" fill="#888" font-family="Helvetica,Arial,sans-serif">25 %</text>
+  <text x="260" y="234" text-anchor="middle" font-size="7.5" fill="#888" font-family="Helvetica,Arial,sans-serif">50 %</text>
+  <text x="365" y="234" text-anchor="middle" font-size="7.5" fill="#888" font-family="Helvetica,Arial,sans-serif">75 %</text>
+  <text x="470" y="234" text-anchor="middle" font-size="7.5" fill="#888" font-family="Helvetica,Arial,sans-serif">100 %</text>
+  <!-- Courbe de Laffer (parabole asymétrique, pic vers 55%) -->
+  <path d="M 50 220 Q 130 80, 281 40 Q 380 20, 420 80 Q 450 130, 470 220" fill="none" stroke="#333" stroke-width="2"/>
+  <!-- Zone verte (ok) et zone rouge (danger) -->
+  <rect x="50" y="15" width="231" height="8" rx="1" fill="#22c55e" opacity="0.25"/>
+  <rect x="281" y="15" width="189" height="8" rx="1" fill="#ef4444" opacity="0.25"/>
+  <text x="166" y="13" text-anchor="middle" font-size="7" fill="#22c55e" font-family="Helvetica,Arial,sans-serif" font-weight="600">Hausse d'impôt = plus de recettes</text>
+  <text x="375" y="13" text-anchor="middle" font-size="7" fill="#ef4444" font-family="Helvetica,Arial,sans-serif" font-weight="600">Hausse d'impôt = moins de recettes</text>
+  <!-- Pic optimal -->
+  <line x1="281" y1="40" x2="281" y2="220" stroke="#888" stroke-width="0.8" stroke-dasharray="4,3"/>
+  <text x="281" y="210" text-anchor="middle" font-size="7.5" fill="#888" font-family="Helvetica,Arial,sans-serif">Taux optimal</text>
+  <!-- Curseur FRANCE - Capital (~55%, côté droit du pic) -->
+  <circle cx="330" cy="55" r="5" fill="#b91c1c" stroke="#fff" stroke-width="1.5"/>
+  <line x1="330" y1="60" x2="330" y2="220" stroke="#b91c1c" stroke-width="0.8" stroke-dasharray="2,2"/>
+  <text x="330" y="75" text-anchor="middle" font-size="8" fill="#b91c1c" font-family="Helvetica,Arial,sans-serif" font-weight="700">France (capital)</text>
+  <text x="330" y="86" text-anchor="middle" font-size="7" fill="#b91c1c" font-family="Helvetica,Arial,sans-serif">taux effectif ~55 %</text>
+  <!-- Curseur FRANCE - Travail (~65%, proche du pic) -->
+  <circle cx="295" cy="42" r="4" fill="#d97706" stroke="#fff" stroke-width="1.5"/>
+  <text x="245" y="48" text-anchor="end" font-size="7.5" fill="#d97706" font-family="Helvetica,Arial,sans-serif" font-weight="600">France (travail) ~65 %</text>
+  <line x1="248" y1="46" x2="290" y2="43" stroke="#d97706" stroke-width="0.5"/>
+</svg>
+</div>
+
+<p>La position de la France dépend du type d'impôt considéré :</p>
+
+<table class="summary-table">
+  <thead>
+    <tr>
+      <th>Base fiscale</th>
+      <th>Élasticité (source)</th>
+      <th>Taux optimal</th>
+      <th>Taux actuel</th>
+      <th>Position</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="bold">Capital (IS + PFU + IFI)</td>
+      <td>0,50 (Lefebvre <em>et al.</em>, 2025)</td>
+      <td class="right">43 %</td>
+      <td class="right red bold">~55 %</td>
+      <td class="red bold">Au-delà du sommet</td>
+    </tr>
+    <tr>
+      <td class="bold">Travail (IR + CSG + cotis.)</td>
+      <td>0,35 (Saez <em>et al.</em>, 2012)</td>
+      <td class="right">74 %</td>
+      <td class="right">~65 %</td>
+      <td>Proche du sommet</td>
+    </tr>
+    <tr>
+      <td class="bold">Cotisations patronales</td>
+      <td>0,40 (Crépon &amp; Desplatz, 2001)</td>
+      <td class="right">71 %</td>
+      <td class="right">~45 %</td>
+      <td>Sous le sommet</td>
+    </tr>
+    <tr>
+      <td class="bold">TVA / Consommation</td>
+      <td>0,15 (consensus)</td>
+      <td class="right">87 %</td>
+      <td class="right">20 %</td>
+      <td class="green">Loin du sommet</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Le résultat principal :</strong> sur le capital, la France a dépassé le seuil. Toute hausse supplémentaire de l'impôt sur le capital fait <em>baisser</em> les recettes totales, pas les augmenter. Ce n'est pas une hypothèse théorique : l'épisode de 2013 (abolition du PFL) l'a démontré empiriquement.</p>
+
+<!-- ============================================================ -->
+<!-- PAGE 3 : LES PREUVES HISTORIQUES                             -->
+<!-- ============================================================ -->
+
+<div class="page-break"></div>
+<div class="page-header">Note d'analyse · Fiscalité et rendement · Page 3/4</div>
+
+<h2>4. Les preuves françaises : cinq épisodes, un même résultat</h2>
+
+<p>La France a testé la courbe de Laffer à plusieurs reprises, involontairement. À chaque hausse d'impôt sur le capital, les recettes ont diminué. À chaque baisse, elles ont augmenté.</p>
+
+<div class="timeline">
+  <div class="tl-row hausse">
+    <div class="tl-year">1988</div>
+    <div class="tl-content">
+      <strong>Recréation de l'ISF.</strong> <span class="tl-tag hausse">Hausse</span><br>
+      L'ISF rapporte ~5 Md€ bruts par an. Mais 19 000 foyers fiscaux quittent la France sur la durée. Perte nette estimée : 3,7 Md€/an en base taxable disparue (Rexecode). L'ISF coûte plus qu'il ne rapporte.
+    </div>
+  </div>
+  <div class="tl-row hausse">
+    <div class="tl-year">2012</div>
+    <div class="tl-content">
+      <strong>Taxe à 75 % sur les revenus supérieurs à 1 M€.</strong> <span class="tl-tag hausse">Hausse</span><br>
+      Objectif affiché : 500 M€/an. Résultat : 260 M€ collectés, censure du Conseil constitutionnel, exode médiatisé (Depardieu, entrepreneurs). Abandonnée en 2015.
+    </div>
+  </div>
+  <div class="tl-row hausse">
+    <div class="tl-year">2013</div>
+    <div class="tl-content">
+      <strong>Suppression du Prélèvement Forfaitaire Libératoire (PFL).</strong> <span class="tl-tag hausse">Hausse</span><br>
+      Les revenus du capital passent au barème progressif. Résultat : les distributions de dividendes chutent de 41 %. Les recettes fiscales sur le capital <em>baissent</em>. Lefebvre, Lehmann et Sicsic (2025) montrent que la France était déjà au-delà du sommet.
+    </div>
+  </div>
+  <div class="tl-row baisse">
+    <div class="tl-year">2017</div>
+    <div class="tl-content">
+      <strong>Création du PFU (flat tax 30 %) et remplacement de l'ISF par l'IFI.</strong> <span class="tl-tag baisse">Baisse</span><br>
+      Le taux nominal baisse. Pourtant, les dividendes distribués passent de 14,3 Md€ (2017) à 23,2 Md€ (2019). Les recettes sur le capital <em>augmentent</em> malgré un taux plus bas. Le rapport France Stratégie (2021) le confirme.
+    </div>
+  </div>
+  <div class="tl-row hausse">
+    <div class="tl-year">2024</div>
+    <div class="tl-content">
+      <strong>Contribution exceptionnelle sur les hauts revenus (projet Barnier).</strong> <span class="tl-tag hausse">Hausse</span><br>
+      Quatrième changement majeur en 12 ans. L'instabilité fiscale est elle-même un facteur de fuite des capitaux et des talents.
+    </div>
+  </div>
+</div>
+
+<h2>5. L'autofinancement : ce que rapporte une baisse ciblée</h2>
+
+<p>Les modèles d'équilibre général de Trabandt et Uhlig (2011, <em>Journal of Monetary Economics</em>) montrent que les baisses d'impôt s'autofinancent partiellement grâce aux effets dynamiques sur la base taxable :</p>
+
+<table class="summary-table">
+  <thead>
+    <tr>
+      <th>Base fiscale</th>
+      <th>Taux d'autofinancement</th>
+      <th>Coût net pour 1 € de baisse</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="bold">Capital</td>
+      <td class="right green bold">79 %</td>
+      <td class="right">0,21 €</td>
+    </tr>
+    <tr>
+      <td class="bold">Travail</td>
+      <td class="right">54 %</td>
+      <td class="right">0,46 €</td>
+    </tr>
+    <tr>
+      <td class="bold">Cotisations patronales</td>
+      <td class="right">60 %</td>
+      <td class="right">0,40 €</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Autrement dit : <strong>une baisse d'impôt sur le capital de 1 € ne coûte que 21 centimes</strong> au Trésor public, parce que 79 centimes reviennent par le dynamisme de la base taxable (davantage de distributions, retour de capitaux, investissements supplémentaires).</p>
+
+<p>Sur le travail, l'autofinancement est de 54 %. Sur les cotisations patronales, la baisse crée des emplois qui génèrent eux-mêmes de l'impôt et des cotisations.</p>
+
+<!-- ============================================================ -->
+<!-- PAGE 4 : LA SIMULATION ET L'APPEL                            -->
+<!-- ============================================================ -->
+
+<div class="page-break"></div>
+<div class="page-header">Note d'analyse · Fiscalité et rendement · Page 4/4</div>
+
+<h2>6. Simulation : l'impact d'une réforme modérée sur 10 ans</h2>
+
+<p>Le simulateur permet de tester n'importe quel scénario. Voici ce que donne un scénario <strong>modéré</strong> : baisse de 1 % sur le travail, 6 % sur le capital, 3 % sur les cotisations patronales.</p>
+
+<div class="waterfall">
+  <div class="wf-row">
+    <div class="wf-label">Perte brute (année 1)</div>
+    <div class="wf-track"><div class="wf-bar loss" style="width:100%;"></div></div>
+    <div class="wf-value red">&minus;15,9 Md€</div>
+  </div>
+  <div class="wf-row">
+    <div class="wf-label">Récupération dynamique</div>
+    <div class="wf-track"><div class="wf-bar recovery" style="width:58%; left:0;"></div></div>
+    <div class="wf-value green">+9,2 Md€</div>
+  </div>
+  <div class="wf-row">
+    <div class="wf-label" style="font-weight:700;">Coût net réel (année 1)</div>
+    <div class="wf-track"><div class="wf-bar net" style="width:42%;"></div></div>
+    <div class="wf-value blue">&minus;6,7 Md€</div>
+  </div>
+</div>
+
+<p>Le coût net réel est de 6,7 Md€ la première année, soit <strong>4 % du déficit actuel</strong>. Et ce coût diminue chaque année grâce à l'effet composé de la croissance induite. Au bout de 5 à 8 ans (selon les hypothèses), la réforme s'autofinance intégralement.</p>
+
+<p style="font-size:9pt; color:#444; margin-bottom:2mm;"><strong>Pour comparaison :</strong> le coût net de 6,7 Md€ représente 8 % des niches fiscales (83 Md€), 12 % de la charge de la dette (55 Md€), et 4 % du déficit (169 Md€). Il est absorbable.</p>
+
+<h2 style="margin-top:4mm;">7. Un outil interactif pour tester vos propres hypothèses</h2>
+
+<p style="margin-bottom:1.5mm;">L'ensemble de ces données est disponible dans un simulateur interactif, open source, indépendant et gratuit. Ajustez les curseurs de baisse ou de hausse par type d'impôt, choisissez vos hypothèses, et visualisez l'impact sur les recettes, l'emploi, la dette et le pouvoir d'achat sur 20 ans.</p>
+
+<div class="qr-section">
+  <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https%3A%2F%2Flaffer.quixotry.app%3Futm_source%3Ddossier%26utm_medium%3Dpapier&format=png&color=000000&bgcolor=FFFFFF" alt="QR Code vers le simulateur">
+  <div class="qr-text">
+    <div class="url">laffer.quixotry.app</div>
+    Simulateur Laffer France. Données INSEE et OCDE 2024.<br>
+    Élasticités : Lefebvre, Lehmann &amp; Sicsic (2025).<br>
+    Code source ouvert. Aucun financement externe.
+  </div>
+</div>
+
+<div class="conclusion-box">
+  <p><strong>La question n'est pas de savoir s'il faut taxer plus ou moins.</strong></p>
+  <p>La question est : est-ce qu'un euro d'impôt supplémentaire rapporte réellement un euro de recettes ? Quand la réponse est non, ce sont les services publics qui perdent.</p>
+  <p><strong>Un contribuable qui reste et paie 30 % rapporte infiniment plus qu'un contribuable qui fuit un taux de 50 %.</strong></p>
+  <p style="margin-bottom:0; font-size:7pt; color:#888; border-top:1px solid #c5dfc5; padding-top:2mm; margin-top:2mm; line-height:1.4; text-align:left;">
+    <strong style="color:#666;">Sources :</strong> Lefebvre, Lehmann &amp; Sicsic (2025), <em>Scand. J. Econ.</em> 127(2), 460-489 · Trabandt &amp; Uhlig (2011), <em>J. Monet. Econ.</em> 58(4), 305-327 · Saez, Slemrod &amp; Giertz (2012), <em>J. Econ. Lit.</em> 50(1), 3-50 · Crépon &amp; Desplatz (2001), <em>Écon. &amp; Stat.</em> 348(1), 3-24 · INSEE 2024 · OCDE Rev. Stat. 2025 · France Stratégie (2021, 2023) · Rexecode.
+  </p>
+</div>
+
+</body>
+</html>
