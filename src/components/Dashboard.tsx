@@ -21,6 +21,7 @@ import {
   getCapitalElasticity,
 } from "@/types/modelSettings";
 import SettingsPanel from "./SettingsPanel";
+import ParadoxeSection from "./ParadoxeSection";
 
 function buildShareUrl(scenario: ScenarioInput, settings: ModelSettings): string {
   const params = new URLSearchParams();
@@ -251,6 +252,9 @@ export default function Dashboard() {
           </div>
         </div>
       </section>
+
+      {/* LE PARADOXE — Section conviction (Ethan Hunt × Lupin) */}
+      <ParadoxeSection />
 
       {/* PANNEAU HYPOTHÈSES */}
       <SettingsPanel settings={modelSettings} onChange={setModelSettings} />
