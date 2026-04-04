@@ -16,18 +16,79 @@
   body::before {
     content: '';
     position: absolute; inset: 0;
-    background: linear-gradient(135deg, rgba(30,64,175,0.15), transparent);
+    background: linear-gradient(135deg, rgba(30,64,175,0.18), rgba(15,23,42,0.6), transparent 70%);
   }
-  .hero { font-size: 140px; font-weight: 700; color: #fff; position: relative; }
-  .sub { font-size: 32px; color: #94a3b8; margin-top: 10px; position: relative; }
-  .cta { font-size: 28px; color: #60a5fa; margin-top: 30px; position: relative; }
-  .bottom { position: absolute; bottom: 40px; font-size: 18px; color: #64748b; }
+  /* Stylized Laffer curve in the background */
+  .laffer-curve {
+    position: absolute;
+    right: 60px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.12;
+  }
+  .title {
+    font-size: 52px;
+    font-weight: 300;
+    color: #60a5fa;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    position: relative;
+    margin-bottom: 20px;
+  }
+  .hero {
+    font-size: 140px;
+    font-weight: 700;
+    color: #fff;
+    position: relative;
+    line-height: 1;
+  }
+  .sub {
+    font-size: 30px;
+    color: #94a3b8;
+    margin-top: 12px;
+    position: relative;
+    font-weight: 300;
+  }
+  .tagline {
+    font-size: 22px;
+    color: #60a5fa;
+    margin-top: 24px;
+    position: relative;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+  }
+  .bottom {
+    position: absolute;
+    bottom: 30px;
+    font-size: 16px;
+    color: #475569;
+    letter-spacing: 0.3px;
+  }
 </style>
 </head>
 <body>
+  <!-- Stylized Laffer curve SVG in background -->
+  <svg class="laffer-curve" width="500" height="420" viewBox="0 0 500 420">
+    <!-- Axes -->
+    <line x1="60" y1="20" x2="60" y2="380" stroke="#60a5fa" stroke-width="2"/>
+    <line x1="60" y1="380" x2="460" y2="380" stroke="#60a5fa" stroke-width="2"/>
+    <!-- Laffer curve (inverted parabola) -->
+    <path d="M 60 380 Q 120 370 160 300 Q 220 140 280 80 Q 320 140 360 220 Q 420 340 460 380"
+          fill="none" stroke="#3b82f6" stroke-width="4" stroke-linecap="round"/>
+    <!-- Peak dot -->
+    <circle cx="280" cy="80" r="6" fill="#60a5fa"/>
+    <!-- Vertical dashed line at France's position (~43.5%) -->
+    <line x1="230" y1="120" x2="230" y2="380" stroke="#f59e0b" stroke-width="2" stroke-dasharray="8,6"/>
+    <circle cx="230" cy="120" r="5" fill="#f59e0b"/>
+    <!-- Axis labels -->
+    <text x="250" y="410" fill="#64748b" font-size="16" text-anchor="middle" font-family="-apple-system, sans-serif">Taux d'imposition</text>
+    <text x="20" y="200" fill="#64748b" font-size="16" text-anchor="middle" font-family="-apple-system, sans-serif" transform="rotate(-90, 20, 200)">Recettes</text>
+  </svg>
+
+  <div class="title">Simulateur Laffer France</div>
   <div class="hero">43.5%</div>
-  <div class="sub">La France prélève 43.5% de son PIB</div>
-  <div class="cta">Simulez ce qui se passe si on ajustait →</div>
-  <div class="bottom">laffer.quixotry.app — Sources : INSEE, OCDE, Lefebvre et al. (2025)</div>
+  <div class="sub">La France preleve 43.5% de son PIB en impots</div>
+  <div class="tagline">Simulez l'impact d'une reforme fiscale</div>
+  <div class="bottom">laffer.quixotry.app &mdash; Sources : INSEE, OCDE, Lefebvre et al. (2025)</div>
 </body>
 </html>
