@@ -71,6 +71,12 @@ export function computeImpact(
     const costReduction = cutPercent / 100;
     const employmentIncrease = Math.abs(params.employmentElasticity) * costReduction;
     newJobs = Math.round(EMPLOYMENT.salarie_prive * employmentIncrease);
+    // Recettes fiscales par emploi créé (annuel, conservateur) :
+    // TVA : ~4 000€ (≈20% de ~20k€ de consommation marginale, enquêtes ménages INSEE)
+    // IR :  ~2 000€ (TMI bas, majorité des emplois créés sous le salaire médian)
+    // Cotisations : ~5 000€ (employeur+salarié sur SMIC après allègements Fillon)
+    // Total : ~11 000€/emploi/an — conservateur vs 15-18k€ pour emploi au salaire médian
+    // Ref : France Stratégie (2019), Évaluation des allègements généraux
     tvaInduced = (newJobs * 4000) / 1e9;
     irInduced = (newJobs * 2000) / 1e9;
     employmentGain = tvaInduced + irInduced + (newJobs * 5000) / 1e9;
@@ -326,6 +332,13 @@ const MODEL = {
   avgCreationCost: 350_000,
   growthBoostPerGDPPoint: { travail: GROWTH_BOOST.travail, capital: GROWTH_BOOST.capital, cotisationsPatronales: GROWTH_BOOST.cotisationsPatronales } as Record<string, number>,
   convergenceYears: 15,
+  // poTaxRate (42.8%) = PO/PIB, définition INSEE stricte. Utilisé pour le canal 2
+  //   (supply-side) : ΔRecettes = ΔPIB × poTaxRate. C'est le bon taux car les PO
+  //   répondent proportionnellement aux variations de PIB.
+  // fullTaxRate (51.4%) = recettesPubliques/PIB = 1501.6/2920. Inclut les recettes
+  //   non-PO (revenus du patrimoine, transferts UE, etc.). Utilisé pour le calcul
+  //   baseline des recettes et la comptabilité déficit/dette.
+  // Ces deux taux sont intentionnellement différents.
   poTaxRate: PO_RATE.used,
   fullTaxRate: macroData.recettesPubliques / macroData.pib,
   inflationRate: 0.02,

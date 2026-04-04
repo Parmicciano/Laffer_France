@@ -92,10 +92,16 @@ export function getCapitalElasticity(model: CapitalElasticityModel): {
 } {
   switch (model) {
     case 'direct':
+      // epsilon=0.50 = élasticité directe (Lefebvre et al. 2025, Scand. J. Econ.)
+      // optimalRate=0.43 = τ* du modèle COMPLET avec cross-base responses
+      // Ce n'est PAS 1/(1+0.50)=0.67 — c'est le résultat principal du papier
+      // qui intègre les effets croisés capital→travail. Voir economicData.ts:117-139.
       return { epsilon: 0.50, crossElasticity: 0.05, optimalRate: 0.43 };
     case 'noCross':
+      // Composite sans cross-élasticité : ε=0.75, τ*=1/(1+0.75)=0.57
       return { epsilon: 0.75, crossElasticity: 0, optimalRate: 0.57 };
     case 'withPayroll':
+      // Composite incluant cotisations : ε=1.86, τ*=1/(1+1.86)=0.35
       return { epsilon: 1.86, crossElasticity: 0, optimalRate: 0.35 };
   }
 }

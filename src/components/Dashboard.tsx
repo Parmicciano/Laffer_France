@@ -418,6 +418,29 @@ export default function Dashboard() {
                 })}
               </div>
 
+              {/* PIB créé */}
+              <div className="grid grid-cols-3 gap-3 mb-6">
+                {[
+                  { y: 1, label: "PIB an 1" },
+                  { y: 5, label: "PIB an 5" },
+                  { y: 10, label: "PIB an 10" },
+                ].map(({ y: yr, label }) => {
+                  const p = proj[yr];
+                  if (!p) return null;
+                  return (
+                    <div key={yr} className="text-center py-3 bg-slate-50 rounded-lg">
+                      <div className="text-xl font-semibold" style={{ fontFamily: "'JetBrains Mono', monospace", color: p.deltaGDP > 0 ? "#2563eb" : "#ef4444" }}>
+                        {p.deltaGDP > 0 ? "+" : ""}{p.deltaGDP.toFixed(1)} {"Md€"}
+                      </div>
+                      <div className="text-[10px] text-slate-400 mt-0.5">{label}</div>
+                      <div className="text-[10px] text-slate-500">
+                        {p.statusQuoPib > 0 ? `soit +${((p.deltaGDP / p.statusQuoPib) * 100).toFixed(2)}% du PIB` : ""}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
               {/* Autofinancement par palier */}
               <div className="pt-5 border-t border-slate-100">
                 <div className="text-center mb-4">

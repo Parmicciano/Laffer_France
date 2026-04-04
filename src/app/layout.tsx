@@ -7,6 +7,9 @@ export const metadata: Metadata = {
     "Simulateur interactif de la courbe de Laffer calibré sur les données françaises. Sources : INSEE, OCDE, Lefebvre et al. (2025), Trabandt & Uhlig (2011). Open source.",
   keywords: "courbe de Laffer, simulateur fiscal, France, impôts, prélèvements obligatoires, autofinancement, baisse d'impôt, élasticité, Lefebvre, Trabandt, OCDE, INSEE, politique fiscale, fiscalité française",
   authors: [{ name: "Jean-Marie", url: "https://laffer.quixotry.app" }],
+  icons: {
+    icon: "/favicon.svg",
+  },
   robots: "index, follow",
   alternates: {
     canonical: "https://laffer.quixotry.app/",
