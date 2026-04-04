@@ -121,11 +121,15 @@ export default function Dashboard() {
     optimiste: Math.round(tenYear.optimiste[i].reformRecettes * 10) / 10,
   }));
 
-  // Pouvoir d'achat €/mois par habitant + dette supplémentaire émise
+  // Pouvoir d'achat €/mois par habitant + dette réforme vs statu quo
   const ppiChartData = proj.map((p) => ({
     y: p.year,
     ppiMonthly: p.ppiPerCapitaMonthly,
-    debtDelta: p.cumulAdditionalDebt,
+  }));
+  const debtChartData = proj.map((p) => ({
+    y: p.year,
+    detteSQ: Math.round(p.statusQuoDette),
+    detteReforme: Math.round(p.reformDette),
   }));
 
   const sliders: { key: keyof ScenarioInput; label: string; max: number }[] = [
@@ -744,22 +748,26 @@ export default function Dashboard() {
                 </ResponsiveContainer>
               </div>
 
-              {/* Graphe dette supplémentaire vs statu quo */}
+              {/* Trajectoire de dette : réforme vs statu quo */}
               <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
-                <div className="text-sm font-semibold text-slate-800 mb-0.5">{"Dette supplémentaire vs statu quo"}</div>
-                <div className="text-[11px] text-slate-400 mb-4">{"Md€ — cumul des déficits additionnels (réforme vs statu quo)"}</div>
+                <div className="text-sm font-semibold text-slate-800 mb-0.5">{"Trajectoire de la dette publique"}</div>
+                <div className="text-[11px] text-slate-400 mb-4">{"Md€ — les deux courbes divergent puis convergent si l'autofinancement fonctionne"}</div>
                 <ResponsiveContainer width="100%" height={250}>
-                  <ComposedChart data={ppiChartData} margin={{ top: 10, right: 20, left: 10, bottom: 5 }}>
+                  <ComposedChart data={debtChartData} margin={{ top: 10, right: 20, left: 10, bottom: 5 }}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
                     <XAxis dataKey="y" tick={{ fill: "#94a3b8", fontSize: 11 }} axisLine={{ stroke: "#e2e8f0" }} />
                     <YAxis tick={{ fill: "#94a3b8", fontSize: 11 }} axisLine={{ stroke: "#e2e8f0" }}
+                      domain={["dataMin - 50", "dataMax + 50"]}
                       label={{ value: "Md€", angle: -90, position: "insideLeft", style: { fill: "#94a3b8", fontSize: 10 } }} />
                     <Tooltip contentStyle={{ backgroundColor: TT.bg, border: TT.border, borderRadius: TT.radius, color: TT.color, fontSize: TT.fontSize }}
-                      formatter={(v) => [`${Number(v) > 0 ? "+" : ""}${Number(v)} Md€`, "Dette supplémentaire"]} />
-                    <ReferenceLine y={0} stroke="#94a3b8" strokeWidth={1} />
-                    {crossoverYear && <ReferenceLine x={crossoverYear} stroke="#10b981" strokeDasharray="4 3"
-                      label={{ value: "Crossover", position: "top", fill: "#10b981", fontSize: 9 }} />}
-                    <Line type="monotone" dataKey="debtDelta" stroke="#ef4444" strokeWidth={2.5} dot={false} name="debtDelta" />
+                      formatter={(v, name) => {
+                        const labels: Record<string, string> = { detteSQ: "Sans réforme", detteReforme: "Avec réforme" };
+                        return [`${Number(v).toLocaleString("fr-FR")} Md€`, labels[String(name)] || String(name)];
+                      }} />
+                    <Line type="monotone" dataKey="detteSQ" stroke="#94a3b8" strokeWidth={2} strokeDasharray="6 4" dot={false} name="detteSQ" />
+                    <Line type="monotone" dataKey="detteReforme" stroke="#ef4444" strokeWidth={2.5} dot={false} name="detteReforme" />
+                    <Legend wrapperStyle={{ fontSize: "11px" }}
+                      formatter={(v) => ({ detteSQ: "Sans réforme", detteReforme: "Avec réforme" }[String(v)] || v)} />
                   </ComposedChart>
                 </ResponsiveContainer>
               </div>
