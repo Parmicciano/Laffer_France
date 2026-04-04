@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Flyer Laffer France</title>
+<style>
+  @page {
+    size: A4;
+    margin: 0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background: #fff;
+    color: #111;
+    width: 210mm;
+    min-height: 297mm;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 15mm;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .container {
+    text-align: center;
+    max-width: 170mm;
+  }
+
+  .rank {
+    font-size: 80pt;
+    font-weight: 900;
+    letter-spacing: -3px;
+    color: #000;
+    line-height: 1;
+    margin-bottom: 2mm;
+  }
+
+  .rank sup {
+    font-size: 36pt;
+    color: #444;
+  }
+
+  .subtitle {
+    font-size: 14pt;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    margin-bottom: 14mm;
+  }
+
+  .separator {
+    width: 80mm;
+    border: none;
+    border-top: 2px solid #000;
+    margin: 10mm auto;
+  }
+
+  .headline {
+    font-size: 22pt;
+    font-weight: 700;
+    line-height: 1.4;
+    margin-bottom: 10mm;
+  }
+
+  .stat-bar {
+    width: 100%;
+    height: 7mm;
+    background: #eee;
+    border-radius: 3mm;
+    margin: 5mm 0;
+    position: relative;
+    border: 1px solid #ccc;
+  }
+
+  .stat-bar-fill {
+    height: 100%;
+    border-radius: 3mm;
+    background: #333;
+    width: 87%;
+  }
+
+  .stat-bar-avg {
+    position: absolute;
+    top: 0;
+    left: 68%;
+    height: 100%;
+    border-left: 2px dashed #888;
+  }
+
+  .stat-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10pt;
+    color: #555;
+    margin-bottom: 12mm;
+  }
+
+  .stat-labels strong {
+    color: #000;
+  }
+
+  .punchline {
+    font-size: 14pt;
+    color: #333;
+    line-height: 1.6;
+    margin-bottom: 14mm;
+  }
+
+  .punchline strong {
+    color: #000;
+  }
+
+  .qr-section {
+    margin-top: 6mm;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4mm;
+  }
+
+  .qr-section img {
+    width: 38mm;
+    height: 38mm;
+  }
+
+  .scan-text {
+    font-size: 14pt;
+    font-weight: 800;
+    color: #000;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .url {
+    font-size: 11pt;
+    color: #888;
+    margin-top: 1mm;
+  }
+
+  .footer {
+    font-size: 7.5pt;
+    color: #999;
+    margin-top: 10mm;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <div class="rank">38<sup>e</sup>/38</div>
+    <div class="subtitle">Compétitivité fiscale OCDE</div>
+
+    <hr class="separator">
+
+    <div class="headline">
+      La France prélève <strong>43,5%</strong> de son PIB.<br>
+      Dernière du classement.
+    </div>
+
+    <div class="stat-bar">
+      <div class="stat-bar-fill"></div>
+      <div class="stat-bar-avg"></div>
+    </div>
+    <div class="stat-labels">
+      <span>Moyenne OCDE : 34,1%</span>
+      <strong>▲ France : 43,5%</strong>
+    </div>
+
+    <div class="punchline">
+      Sur le capital, la France est <strong>au-delà du sommet<br>
+      de la courbe de Laffer</strong> : chaque hausse d'impôt<br>
+      fait <strong>baisser</strong> les recettes.
+    </div>
+
+    <hr class="separator">
+
+    <div class="qr-section">
+      <div class="scan-text">Simulez vous-même →</div>
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https%3A%2F%2Flaffer.quixotry.app%3Futm_source%3Dflyer%26utm_medium%3Dprint&format=png&color=000000&bgcolor=FFFFFF" alt="QR Code">
+      <div class="url">laffer.quixotry.app</div>
+    </div>
+
+    <div class="footer">
+      Sources : Trabandt & Uhlig (2011) — Lefebvre, Lehmann & Sicsic (2025) — INSEE — OCDE
+    </div>
+
+  </div>
+</body>
+</html>

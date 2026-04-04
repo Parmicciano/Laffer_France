@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Flyer Guérilla A5 Recto-Verso</title>
+<style>
+  @page {
+    size: A5;
+    margin: 0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background: #fff;
+    color: #111;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page {
+    width: 148mm;
+    height: 210mm;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 12mm 14mm;
+    page-break-after: always;
+    position: relative;
+  }
+  .page:last-child { page-break-after: auto; }
+
+  /* ============ RECTO ============ */
+  .recto .context {
+    font-size: 8.5pt;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 14mm;
+  }
+
+  .recto .expected {
+    font-size: 15pt;
+    color: #555;
+    line-height: 1.5;
+    text-align: center;
+    margin-bottom: 10mm;
+  }
+
+  .recto .result {
+    font-size: 42pt;
+    font-weight: 900;
+    color: #b91c1c;
+    text-align: center;
+    line-height: 1.1;
+    margin-bottom: 3mm;
+  }
+
+  .recto .result-sub {
+    font-size: 14pt;
+    color: #b91c1c;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 16mm;
+  }
+
+  .recto .separator {
+    width: 40mm;
+    border: none;
+    border-top: 1.5px solid #ddd;
+    margin: 0 auto 12mm auto;
+  }
+
+  .recto .others {
+    font-size: 10pt;
+    color: #444;
+    text-align: center;
+    line-height: 1.8;
+  }
+
+  .recto .others .num {
+    font-weight: 800;
+    color: #b91c1c;
+  }
+
+  .recto .explain {
+    font-size: 11.5pt;
+    color: #222;
+    text-align: center;
+    line-height: 1.6;
+    margin-top: 16mm;
+  }
+
+  .recto .explain strong {
+    color: #000;
+  }
+
+  .recto .flip {
+    position: absolute;
+    bottom: 10mm;
+    font-size: 8pt;
+    color: #bbb;
+    letter-spacing: 1px;
+  }
+
+  /* ============ VERSO ============ */
+  .verso {
+    justify-content: flex-start;
+    padding-top: 14mm;
+  }
+
+  .verso .title {
+    font-size: 16pt;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 3mm;
+    color: #000;
+  }
+
+  .verso .title-sub {
+    font-size: 9.5pt;
+    color: #666;
+    text-align: center;
+    margin-bottom: 10mm;
+  }
+
+  .verso .fact-list {
+    width: 100%;
+    margin-bottom: 8mm;
+  }
+
+  .verso .fact {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 5mm;
+    padding-bottom: 5mm;
+    border-bottom: 1px solid #eee;
+  }
+  .verso .fact:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .verso .fact-num {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 22pt;
+    font-weight: 900;
+    color: #b91c1c;
+    width: 28mm;
+    flex-shrink: 0;
+    text-align: right;
+    padding-right: 4mm;
+    line-height: 1;
+    padding-top: 1mm;
+  }
+
+  .verso .fact-text {
+    font-size: 9pt;
+    color: #333;
+    line-height: 1.5;
+  }
+
+  .verso .fact-text strong {
+    color: #000;
+  }
+
+  .verso .bottom-section {
+    margin-top: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .verso .message-box {
+    background: #f8f8f8;
+    border: 1px solid #e0e0e0;
+    border-radius: 2mm;
+    padding: 4mm 5mm;
+    text-align: center;
+    margin-bottom: 8mm;
+    width: 100%;
+  }
+
+  .verso .message-box p {
+    font-size: 10pt;
+    color: #222;
+    line-height: 1.5;
+  }
+
+  .verso .message-box strong {
+    color: #000;
+  }
+
+  .verso .qr-row {
+    display: flex;
+    align-items: center;
+    gap: 4mm;
+    margin-bottom: 6mm;
+  }
+
+  .verso .qr-row img {
+    width: 22mm;
+    height: 22mm;
+  }
+
+  .verso .qr-info {
+    font-size: 9pt;
+    color: #444;
+    line-height: 1.5;
+  }
+
+  .verso .qr-info .url {
+    font-weight: 800;
+    color: #000;
+    font-size: 11pt;
+  }
+
+  .verso .qr-info .desc {
+    font-size: 8pt;
+    color: #888;
+  }
+
+  .verso .sources {
+    font-size: 6.5pt;
+    color: #aaa;
+    text-align: center;
+    line-height: 1.5;
+  }
+</style>
+</head>
+<body>
+
+  <!-- ============ RECTO ============ -->
+  <div class="page recto">
+    <div class="context">Données publiques · France · 2024</div>
+
+    <div class="expected">
+      La taxe sur les « superprofits » énergie<br>
+      devait rapporter <strong>12,3 milliards €</strong>.
+    </div>
+
+    <div class="result">600 M€</div>
+    <div class="result-sub">Soit 5 % de l'objectif.</div>
+
+    <hr class="separator">
+
+    <div class="others">
+      Taxe à 75 % (2012) : <span class="num">52 %</span> de l'objectif<br>
+      Contribution dividendes (2012) : <span class="num">résultat négatif</span><br>
+      Suppression du PFL (2013) : recettes en <span class="num">baisse</span>
+    </div>
+
+    <div class="explain">
+      Ce n'est pas un accident.<br>
+      C'est la <strong>courbe de Laffer</strong> :<br>
+      au-delà d'un seuil, taxer plus rapporte moins.
+    </div>
+
+    <div class="flip">▶ RETOURNER</div>
+  </div>
+
+  <!-- ============ VERSO ============ -->
+  <div class="page verso">
+    <div class="title">La France au sommet de Laffer</div>
+    <div class="title-sub">2ᵉ prélèvements OCDE · 38ᵉ/38 en compétitivité fiscale</div>
+
+    <div class="fact-list">
+      <div class="fact">
+        <div class="fact-num">55 %</div>
+        <div class="fact-text">
+          <strong>Coin fiscal sur le capital</strong> (IS + PFU + IFI).<br>
+          Le seuil de Laffer est à 43 %. Dépassé de 12 points :<br>
+          chaque hausse fait <strong>baisser</strong> les recettes.
+        </div>
+      </div>
+      <div class="fact">
+        <div class="fact-num">65 %</div>
+        <div class="fact-text">
+          <strong>Coin fiscal sur le travail</strong> (IR + CSG + cotisations).<br>
+          Le seuil ajusté est à ~66 %. La France est <strong>au sommet</strong> :<br>
+          quasi aucune marge de hausse restante.
+        </div>
+      </div>
+      <div class="fact">
+        <div class="fact-num">0,21 €</div>
+        <div class="fact-text">
+          <strong>Coût réel d'une baisse de 1 € sur le capital.</strong><br>
+          79 % revient via la base taxable (Trabandt & Uhlig, 2011).<br>
+          Baisser l'impôt coûte moins qu'on ne croit.
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom-section">
+      <div class="message-box">
+        <p>
+          Un contribuable qui reste et paie 30 %<br>
+          rapporte <strong>infiniment plus</strong> qu'un<br>
+          contribuable qui fuit un taux de 50 %.
+        </p>
+      </div>
+
+      <div class="qr-row">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https%3A%2F%2Flaffer.quixotry.app%3Futm_source%3Dflyer_a5%26utm_medium%3Dprint&format=png&color=000000&bgcolor=FFFFFF" alt="QR Code">
+        <div class="qr-info">
+          <div class="url">laffer.quixotry.app</div>
+          Simulateur interactif · Open source<br>
+          <span class="desc">Données INSEE & OCDE 2024 · Testez vos propres hypothèses</span>
+        </div>
+      </div>
+
+      <div class="sources">
+        Lefebvre, Lehmann & Sicsic (2025), <em>Scand. J. Econ.</em> · Trabandt & Uhlig (2011), <em>J. Monet. Econ.</em><br>
+        Saez, Slemrod & Giertz (2012), <em>J. Econ. Lit.</em> · INSEE 2024 · OCDE Rev. Stat. 2025 · Sénat, rapport n°86
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
