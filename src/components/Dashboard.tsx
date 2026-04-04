@@ -998,6 +998,78 @@ export default function Dashboard() {
             </div>
           </section>
 
+          {/* ACTE 6 — LES VISAGES CACHÉS */}
+          <section className="pb-10">
+            <h2 className="text-xl font-bold text-slate-900 mb-2">{"Au-delà des exilés fiscaux : les effets invisibles"}</h2>
+            <p className="text-sm text-slate-500 mb-5">
+              {"Trappier et Niel font les gros titres. Ils ne sont que la partie visible."}
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {[
+                {
+                  icon: "🩺",
+                  title: "Médecins qui lèvent le pied",
+                  description: "Un médecin libéral au TMI de 45% + CSG (9,2%) + URSSAF (~30%) conserve ~25 centimes par euro facturé au-delà du seuil. Résultat : des praticiens qui refusent des patients, ferment le vendredi, ou partent en retraite anticipée.",
+                  stat: "~30%",
+                  statLabel: "des médecins libéraux limitent volontairement leur activité (DREES 2023)",
+                  color: "#0ea5e9",
+                },
+                {
+                  icon: "🧑‍💻",
+                  title: "Ingénieurs qui partent",
+                  description: "Un ingénieur senior gagne ~55k€ net en France vs ~90-120k€ net en Suisse, Pays-Bas ou Irlande. Le coin fiscal français (IR + CSG + cotisations) absorbe 55-62% du coût employeur. En 2023, 340 000 Français vivent en Suisse, 160 000 au Royaume-Uni.",
+                  stat: "3,5 M",
+                  statLabel: "de Français inscrits au registre des Français de l'étranger (+4,5%/an)",
+                  color: "#8b5cf6",
+                },
+                {
+                  icon: "🏗️",
+                  title: "Entrepreneurs qui n'embauchent pas",
+                  description: "Pour verser 2 000€ net à un salarié, l'employeur débourse ~3 800€ (cotisations patronales + salariales). Ce coin fiscal de 47% est le plus élevé de l'OCDE. Chaque embauche non réalisée est un emploi qui ne paie ni IR, ni TVA, ni cotisations.",
+                  stat: "47%",
+                  statLabel: "coin fiscal employeur → net (1er de l'OCDE, OCDE Taxing Wages 2024)",
+                  color: "#f59e0b",
+                },
+                {
+                  icon: "📉",
+                  title: "Investissements qui ne se font pas",
+                  description: "Un investisseur choisit entre la France (IS 25% + PFU 30% sur dividendes = charge effective ~47%) et l'Irlande (IS 12,5%). Les IDE entrants en France stagnent à 40 Md€/an quand l'Irlande en attire 80 Md€ avec 5× moins d'habitants.",
+                  stat: "38e/38",
+                  statLabel: "en compétitivité fiscale (Tax Foundation ITCI 2024)",
+                  color: "#ef4444",
+                },
+              ].map((item, i) => (
+                <div key={i} className="bg-white rounded-xl p-5 border border-slate-200 shadow-sm">
+                  <div className="flex items-start gap-3">
+                    <span className="text-2xl">{item.icon}</span>
+                    <div className="flex-1">
+                      <div className="text-sm font-bold text-slate-800 mb-1">{item.title}</div>
+                      <p className="text-xs text-slate-500 mb-3">{item.description}</p>
+                      <div className="bg-slate-50 rounded-lg p-3 flex items-center gap-3">
+                        <span className="text-2xl font-bold" style={{ fontFamily: "'JetBrains Mono', monospace", color: item.color }}>{item.stat}</span>
+                        <span className="text-[10px] text-slate-500">{item.statLabel}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-4 bg-slate-50 border border-slate-200 rounded-xl p-4 text-xs text-slate-500">
+              <p className="mb-1">
+                <strong className="text-slate-700">{"Ce que le simulateur ne capture pas :"}</strong>
+                {" ces effets (réduction d'activité, émigration de talents, non-embauche) sont inclus "}
+                {"dans les élasticités agrégées (canal 1), mais leurs conséquences de second ordre ne le sont pas : "}
+                {"un médecin qui refuse 10 patients, c'est 10 consultations non facturées, mais aussi 10 ordonnances "}
+                {"non prescrites, 10 arrêts maladie prolongés, et un hôpital plus engorgé."}
+              </p>
+              <p>
+                {"L'élasticité mesure la réaction directe. Le coût social total est plus élevé."}
+              </p>
+            </div>
+          </section>
+
           {/* TRANSPARENCE MÉTHODOLOGIQUE */}
           <section className="pb-6">
             <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 text-xs text-slate-500">
