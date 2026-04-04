@@ -18,6 +18,7 @@ export interface ModelSettings {
   formalisationShare: number;      // 0.30–0.70 : part formalisation dans l'ETI
   capitalBaseWidening: number;     // 0.10–0.70 : élargissement base capital (ex: 0.40 = +40%)
   credibilityMultiplier: number;   // 1.0–2.0
+  baseDeficitPctGDP: number;       // -10 à +10 (négatif = déficit, positif = excédent)
 }
 
 // ============================================================
@@ -36,6 +37,7 @@ export const DEFAULT_SETTINGS: ModelSettings = {
   formalisationShare: 0.50,
   capitalBaseWidening: 0.025,
   credibilityMultiplier: 1.0,
+  baseDeficitPctGDP: -5.8,
 };
 
 export const CONSERVATIVE_PRESET: ModelSettings = {
@@ -49,6 +51,7 @@ export const CONSERVATIVE_PRESET: ModelSettings = {
   formalisationShare: 0.30,
   capitalBaseWidening: 0.01,
   credibilityMultiplier: 1.0,
+  baseDeficitPctGDP: -5.8,
 };
 
 export const CENTRAL_PRESET: ModelSettings = {
@@ -62,6 +65,7 @@ export const CENTRAL_PRESET: ModelSettings = {
   formalisationShare: 0.50,
   capitalBaseWidening: 0.025,
   credibilityMultiplier: 1.0,
+  baseDeficitPctGDP: -5.8,
 };
 
 export const OPTIMISTIC_PRESET: ModelSettings = {
@@ -75,11 +79,13 @@ export const OPTIMISTIC_PRESET: ModelSettings = {
   formalisationShare: 0.65,
   capitalBaseWidening: 0.05,
   credibilityMultiplier: 1.3,
+  baseDeficitPctGDP: -5.8,
 };
 
 export const OPTIMISTIC_COORDINATED_PRESET: ModelSettings = {
   ...OPTIMISTIC_PRESET,
   credibilityMultiplier: 1.5,
+  baseDeficitPctGDP: -5.8,
 };
 
 // ============================================================
@@ -209,6 +215,7 @@ function settingsEqual(a: ModelSettings, b: ModelSettings): boolean {
     a.fastChannelsEnabled === b.fastChannelsEnabled &&
     a.formalisationShare === b.formalisationShare &&
     a.capitalBaseWidening === b.capitalBaseWidening &&
-    a.credibilityMultiplier === b.credibilityMultiplier
+    a.credibilityMultiplier === b.credibilityMultiplier &&
+    a.baseDeficitPctGDP === b.baseDeficitPctGDP
   );
 }

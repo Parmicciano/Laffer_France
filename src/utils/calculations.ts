@@ -618,7 +618,10 @@ function _simulate(
     // Les dépenses opérationnelles croissent au MÊME rythme que le PIB nominal (3.1%)
     // car retraites, santé, salaires fonctionnaires croissent avec le PIB.
     // Seule la réforme (boost supply-side) crée un ÉCART recettes > dépenses.
-    const dep0Operating = dep0 - macroData.chargeDette; // 1615.2 Md€ hors intérêts
+    // dep0Operating ajusté pour le déficit cible choisi par l'utilisateur
+    // Formule : depOp = recettes - chargeDette - (targetDeficit en Md€)
+    const targetDeficitMd = settings.baseDeficitPctGDP * MODEL.baseGDP / 100;
+    const dep0Operating = macroData.recettesPubliques - macroData.chargeDette - targetDeficitMd;
     const depOperating = dep0Operating * Math.pow(1 + nominalGrowth, y);
     // Intérêts — malus dette/PIB > 120% appliqué aux DEUX trajectoires (symétrique)
     const sqDettePibRatio = sqDette / sqPib;

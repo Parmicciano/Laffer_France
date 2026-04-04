@@ -327,6 +327,31 @@ export default function Dashboard() {
           ))}
         </div>
 
+        {/* Curseur déficit gouvernemental */}
+        <div className="mt-5 bg-white rounded-xl border border-slate-200 shadow-sm p-4">
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-sm font-semibold text-slate-700">{"Déficit public de base (% PIB)"}</span>
+            <span className="text-lg font-semibold font-mono" style={{
+              color: modelSettings.baseDeficitPctGDP >= 0 ? "#10b981" : "#ef4444",
+            }}>
+              {modelSettings.baseDeficitPctGDP > 0 ? "+" : ""}{modelSettings.baseDeficitPctGDP.toFixed(1)}%
+            </span>
+          </div>
+          <input type="range" min="-10" max="10" step="0.5"
+            value={modelSettings.baseDeficitPctGDP}
+            onChange={(e) => setModelSettings({ ...modelSettings, baseDeficitPctGDP: Number(e.target.value) })}
+            className="w-full" />
+          <div className="flex justify-between text-[10px] text-slate-400 mt-1">
+            <span className="text-red-400">{"Déficit −10%"}</span>
+            <span>{"France actuelle : −5.8%"}</span>
+            <span>{"Maastricht : −3%"}</span>
+            <span className="text-emerald-500">{"Excédent +10%"}</span>
+          </div>
+          <div className="text-[10px] text-slate-400 mt-1">
+            {"Hypothèse sur la politique budgétaire de base (hors réforme fiscale). Négatif = déficit, positif = excédent."}
+          </div>
+        </div>
+
         {/* Mode trajectoire */}
         <div className="mt-5 bg-white rounded-xl border border-slate-200 shadow-sm p-4">
           <div className="flex items-center gap-3 mb-3">
