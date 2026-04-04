@@ -92,18 +92,13 @@ export default function Dashboard() {
     for (let i = 1; i <= limitIdx && i < proj.length; i++) {
       if (proj[i].revenueDiff < 0) cumulLoss += proj[i].revenueDiff;
     }
-    // Delta dette au crossover (ou à 10 ans si pas de crossover)
-    const refIdx = crossIdx ?? Math.min(10, proj.length - 1);
-    const debtDelta = proj[refIdx]
-      ? proj[refIdx].reformDette - proj[refIdx].statusQuoDette
-      : 0;
     // Mandats
     const yearsToBreakeven = crossIdx ?? null;
     const mandats = yearsToBreakeven ? Math.ceil(yearsToBreakeven / 5) : null;
-    // Delta dette à an 5
-    const debt5 = proj[5] ? proj[5].reformDette - proj[5].statusQuoDette : 0;
-    const debt10 = proj[10] ? proj[10].reformDette - proj[10].statusQuoDette : 0;
-    return { cumulLoss, debtDelta, yearsToBreakeven, mandats, debt5, debt10, refIdx };
+    // Delta dette (utilise cumulAdditionalDebt = reformDette - statusQuoDette)
+    const debt5 = proj[5] ? proj[5].cumulAdditionalDebt : 0;
+    const debt10 = proj[10] ? proj[10].cumulAdditionalDebt : 0;
+    return { cumulLoss, yearsToBreakeven, mandats, debt5, debt10 };
   }, [proj, crossoverYear]);
 
   const coutNetData = proj.slice(1).map((p, i) => ({
@@ -886,6 +881,11 @@ export default function Dashboard() {
             </div>
           </div>
         </details>
+        <div className="text-center mt-4">
+          <a href="/methodologie" className="text-sm text-blue-600 hover:underline">
+            {"Voir la méthodologie complète (toutes les formules) →"}
+          </a>
+        </div>
       </section>
     </div>
   );

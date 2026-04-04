@@ -633,9 +633,8 @@ function _simulate(
     // Totaux
     const ppiTotalMdAn = ppiDirect + ppiEmployment + ppiGrowth;
     const ppiPerCapitaMonthly = (ppiTotalMdAn * 1e9) / PP.population / 12;
-    // Dette supplémentaire émise = cumul des déficits additionnels (réforme vs SQ)
-    const additionalDeficit = refDef - sqDef; // négatif = réforme a un déficit plus creusé
-    cumulAdditionalDebt += additionalDeficit < 0 ? Math.abs(additionalDeficit) : -Math.abs(additionalDeficit);
+    // Dette supplémentaire = différence de stocks (la vraie mesure)
+    cumulAdditionalDebt = refDette - sqDette;
 
     const r = (v: number) => Math.round(v * 10) / 10;
     projections.push({
