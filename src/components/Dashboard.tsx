@@ -182,8 +182,8 @@ export default function Dashboard() {
   }));
   const debtChartData = proj.map((p) => ({
     y: p.year,
-    detteSQ: Math.round(p.statusQuoDette),
-    detteReforme: Math.round(p.reformDette),
+    detteSQ: Math.round((p.statusQuoDette / p.statusQuoPib) * 100),
+    detteReforme: Math.round((p.reformDette / p.reformPib) * 100),
   }));
 
   const sliders: { key: keyof ScenarioInput; label: string; max: number }[] = [
@@ -832,24 +832,36 @@ export default function Dashboard() {
                 </ResponsiveContainer>
               </div>
 
-              {/* Trajectoire de dette : réforme vs statu quo */}
+              {/* Trajectoire de dette/PIB : réforme vs statu quo */}
               <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
-                <div className="text-sm font-semibold text-slate-800 mb-0.5">{"Trajectoire de la dette publique"}</div>
-                <div className="text-[11px] text-slate-400 mb-4">{"Md€ — les deux courbes divergent puis convergent si l'autofinancement fonctionne"}</div>
-                <ResponsiveContainer width="100%" height={250}>
+                <div className="text-sm font-semibold text-slate-800 mb-0.5">{"Trajectoire dette / PIB"}</div>
+                <div className="text-[11px] text-slate-400 mb-4">{"% du PIB — avec repères internationaux"}</div>
+                <ResponsiveContainer width="100%" height={300}>
                   <ComposedChart data={debtChartData} margin={{ top: 10, right: 20, left: 10, bottom: 5 }}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
                     <XAxis dataKey="y" tick={{ fill: "#94a3b8", fontSize: 11 }} axisLine={{ stroke: "#e2e8f0" }} />
                     <YAxis tick={{ fill: "#94a3b8", fontSize: 11 }} axisLine={{ stroke: "#e2e8f0" }}
-                      domain={["dataMin - 50", "dataMax + 50"]}
-                      label={{ value: "Md€", angle: -90, position: "insideLeft", style: { fill: "#94a3b8", fontSize: 10 } }} />
+                      domain={[40, "dataMax + 20"]}
+                      label={{ value: "% PIB", angle: -90, position: "insideLeft", style: { fill: "#94a3b8", fontSize: 10 } }} />
                     <Tooltip contentStyle={{ backgroundColor: TT.bg, border: TT.border, borderRadius: TT.radius, color: TT.color, fontSize: TT.fontSize }}
                       formatter={(v, name) => {
                         const labels: Record<string, string> = { detteSQ: "Sans réforme", detteReforme: "Avec réforme" };
-                        return [`${Number(v).toLocaleString("fr-FR")} Md€`, labels[String(name)] || String(name)];
+                        return [`${Number(v)}% du PIB`, labels[String(name)] || String(name)];
                       }} />
+                    {/* Repères internationaux */}
+                    <ReferenceLine y={60} stroke="#10b981" strokeWidth={1} strokeDasharray="4 4"
+                      label={{ value: "Maastricht (60%)", position: "right", fill: "#10b981", fontSize: 8 }} />
+                    <ReferenceLine y={98} stroke="#94a3b8" strokeWidth={1} strokeDasharray="4 4"
+                      label={{ value: "USA (98%)", position: "right", fill: "#94a3b8", fontSize: 8 }} />
+                    <ReferenceLine y={113} stroke="#f59e0b" strokeWidth={1} strokeDasharray="4 4"
+                      label={{ value: "France actuelle (113%)", position: "right", fill: "#f59e0b", fontSize: 8 }} />
+                    <ReferenceLine y={144} stroke="#ef4444" strokeWidth={1} strokeDasharray="4 4"
+                      label={{ value: "Italie (144%)", position: "right", fill: "#ef4444", fontSize: 8 }} />
+                    <ReferenceLine y={255} stroke="#991b1b" strokeWidth={1} strokeDasharray="4 4"
+                      label={{ value: "Japon (255%)", position: "right", fill: "#991b1b", fontSize: 8 }} />
+                    {/* Courbes */}
                     <Line type="monotone" dataKey="detteSQ" stroke="#94a3b8" strokeWidth={2} strokeDasharray="6 4" dot={false} name="detteSQ" />
-                    <Line type="monotone" dataKey="detteReforme" stroke="#ef4444" strokeWidth={2.5} dot={false} name="detteReforme" />
+                    <Line type="monotone" dataKey="detteReforme" stroke="#2563eb" strokeWidth={2.5} dot={false} name="detteReforme" />
                     <Legend wrapperStyle={{ fontSize: "11px" }}
                       formatter={(v) => ({ detteSQ: "Sans réforme", detteReforme: "Avec réforme" }[String(v)] || v)} />
                   </ComposedChart>
