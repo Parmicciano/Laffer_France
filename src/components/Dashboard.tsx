@@ -288,6 +288,11 @@ export default function Dashboard() {
                   className="w-full"
                   aria-label={`${s.label} : ${val > 0 ? "baisse" : val < 0 ? "hausse" : "neutre"} de ${Math.abs(val)}%`}
                   aria-valuemin={-s.max} aria-valuemax={s.max} aria-valuenow={val} />
+                {val !== 0 && (
+                  <div className="text-[10px] text-slate-400 mt-1">
+                    Perte brute : {(taxTypes[s.key].recettes * Math.abs(val) / 100).toFixed(1)} Md€/an
+                  </div>
+                )}
                 <div className="flex justify-between text-[10px] mt-2 text-slate-400">
                   <span className="text-red-400">Hausse +{s.max}%</span>
                   <span>{taxTypes[s.key].recettes} {"Md€"}</span>
@@ -995,9 +1000,9 @@ export default function Dashboard() {
               ))}
             </div>
             <div className="flex gap-5 text-[10px] pt-2 border-t border-slate-100 text-slate-400">
-              <span className="flex items-center gap-1.5"><span className="w-8 h-[3px] rounded-full bg-emerald-500" /> Solide</span>
-              <span className="flex items-center gap-1.5"><span className="w-5 h-[3px] rounded-full bg-blue-500" /> {"Calibré"}</span>
-              <span className="flex items-center gap-1.5"><span className="w-3 h-[3px] rounded-full bg-amber-400" /> Extrapolation</span>
+              <span className="flex items-center gap-1.5" title="Basé sur des élasticités publiées dans des revues à comité de lecture"><span className="w-8 h-[3px] rounded-full bg-emerald-500" /> Solide</span>
+              <span className="flex items-center gap-1.5" title="Calibré sur des épisodes fiscaux historiques français"><span className="w-5 h-[3px] rounded-full bg-blue-500" /> {"Calibré"}</span>
+              <span className="flex items-center gap-1.5" title="Extrapolé au-delà du domaine de validité des données"><span className="w-3 h-[3px] rounded-full bg-amber-400" /> Extrapolation</span>
             </div>
           </div>
         </details>
