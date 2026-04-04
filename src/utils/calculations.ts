@@ -624,16 +624,19 @@ function _simulate(
     const dep0Operating = macroData.recettesPubliques - macroData.chargeDette - targetDeficitMd;
     const depOperating = dep0Operating * Math.pow(1 + nominalGrowth, y);
     // Intérêts — malus dette/PIB > 120% appliqué aux DEUX trajectoires (symétrique)
+    // Plafonné à 150bp : l'Italie à 144% dette/PIB a un spread ~150bp ;
+    // au-delà, le BCE/marché obligataire empêche un emballement linéaire.
+    const MALUS_CAP = 0.015;
     const sqDettePibRatio = sqDette / sqPib;
     const sqMalus = sqDettePibRatio > 1.20
-      ? 0.005 * ((sqDettePibRatio - 1.20) / 0.10)
+      ? Math.min(MALUS_CAP, 0.005 * ((sqDettePibRatio - 1.20) / 0.10))
       : 0;
     const sqRate = MODEL.baseInterestRate + sqMalus;
     const sqInt = sqDette * sqRate;
 
     const refDettePibRatio = refDette / refPib;
     const refMalus = refDettePibRatio > 1.20
-      ? 0.005 * ((refDettePibRatio - 1.20) / 0.10)
+      ? Math.min(MALUS_CAP, 0.005 * ((refDettePibRatio - 1.20) / 0.10))
       : 0;
     // Bonus spread si le déficit réforme est MEILLEUR que le déficit SQ
     // (basé sur le ratio dette/PIB, pas sur revDiff annuel)
