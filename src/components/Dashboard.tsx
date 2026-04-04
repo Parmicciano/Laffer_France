@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
 import {
   ComposedChart, Line,
   XAxis, YAxis, CartesianGrid,
@@ -22,6 +22,40 @@ import {
 } from "@/types/modelSettings";
 import SettingsPanel from "./SettingsPanel";
 
+function buildShareUrl(scenario: ScenarioInput, settings: ModelSettings): string {
+  const params = new URLSearchParams();
+  if (scenario.travail !== 0) params.set("t", String(scenario.travail));
+  if (scenario.capital !== 0) params.set("c", String(scenario.capital));
+  if (scenario.cotisationsPatronales !== 0) params.set("p", String(scenario.cotisationsPatronales));
+  if (settings.selfFinancingModel !== DEFAULT_SETTINGS.selfFinancingModel) params.set("model", settings.selfFinancingModel);
+  if (settings.supplySideModel !== DEFAULT_SETTINGS.supplySideModel) params.set("supply", settings.supplySideModel);
+  if (settings.okunCoefficient !== DEFAULT_SETTINGS.okunCoefficient) params.set("okun", String(settings.okunCoefficient));
+  const base = typeof window !== "undefined" ? `${window.location.origin}${window.location.pathname}` : "https://laffer.quixotry.app/";
+  return `${base}${params.toString() ? "?" + params.toString() : ""}`;
+}
+
+function parseUrlParams(): { scenario?: Partial<ScenarioInput>; settings?: Partial<ModelSettings> } | null {
+  if (typeof window === "undefined") return null;
+  const params = new URLSearchParams(window.location.search);
+  if (params.toString() === "") return null;
+  const result: { scenario?: Partial<ScenarioInput>; settings?: Partial<ModelSettings> } = {};
+  const t = params.get("t"), c = params.get("c"), p = params.get("p");
+  if (t !== null || c !== null || p !== null) {
+    result.scenario = {};
+    if (t !== null) result.scenario.travail = Number(t);
+    if (c !== null) result.scenario.capital = Number(c);
+    if (p !== null) result.scenario.cotisationsPatronales = Number(p);
+  }
+  const model = params.get("model"), supply = params.get("supply"), okun = params.get("okun");
+  if (model || supply || okun) {
+    result.settings = {};
+    if (model === "eti" || model === "trabandt_uhlig") result.settings.selfFinancingModel = model;
+    if (supply === "level" || supply === "permanent" || supply === "hybrid") result.settings.supplySideModel = supply;
+    if (okun) result.settings.okunCoefficient = Number(okun);
+  }
+  return Object.keys(result).length > 0 ? result : null;
+}
+
 function fmt(n: number): string {
   return n >= 1000 ? `${(n / 1000).toFixed(0)}k` : n.toLocaleString("fr-FR");
 }
@@ -38,6 +72,26 @@ export default function Dashboard() {
   const [rampYears, setRampYears] = useState(5);
   const [shockMultiplier, setShockMultiplier] = useState(2.0); // choc = target × multiplier
   const [rollbackPerYear, setRollbackPerYear] = useState(2);
+
+  // Load from URL params on mount
+  useEffect(() => {
+    const fromUrl = parseUrlParams();
+    if (fromUrl) {
+      if (fromUrl.scenario) {
+        setScenario(s => ({ ...s, ...fromUrl.scenario }));
+        setActivePreset("");
+      }
+      if (fromUrl.settings) setModelSettings(s => ({ ...s, ...fromUrl.settings }));
+    }
+  }, []);
+
+  const [copied, setCopied] = useState(false);
+  const handleShare = useCallback(async () => {
+    const url = buildShareUrl(scenario, modelSettings);
+    await navigator.clipboard.writeText(url);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  }, [scenario, modelSettings]);
 
   // Construire le scénario effectif
   const effectiveScenario: AnyScenario = useMemo(() => {
@@ -867,6 +921,39 @@ export default function Dashboard() {
         </>
       )}
 
+      {/* PARTAGE */}
+      {hasChange && (
+        <section className="py-6">
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <button
+              onClick={handleShare}
+              className="inline-flex items-center gap-2 rounded-full px-5 py-2 text-sm font-medium bg-blue-50 border border-blue-200 text-blue-700 hover:bg-blue-100 transition-colors"
+              aria-label="Copier le lien de cette simulation"
+            >
+              {copied ? "Lien copié !" : "Copier le lien"}
+            </button>
+            <a
+              href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(buildShareUrl(scenario, modelSettings))}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium bg-white border border-slate-200 text-slate-600 hover:border-slate-300 transition-colors"
+              aria-label="Partager sur LinkedIn"
+            >
+              LinkedIn
+            </a>
+            <a
+              href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(buildShareUrl(scenario, modelSettings))}&text=${encodeURIComponent("Simulateur Laffer France — simulez l'impact d'une réforme fiscale")}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium bg-white border border-slate-200 text-slate-600 hover:border-slate-300 transition-colors"
+              aria-label="Partager sur X / Twitter"
+            >
+              X / Twitter
+            </a>
+          </div>
+        </section>
+      )}
+
       {/* FOOTER */}
       <section className="pb-12">
         <details className="bg-white rounded-xl border border-slate-200 shadow-sm">
@@ -894,6 +981,51 @@ export default function Dashboard() {
             {"Voir la méthodologie complète (toutes les formules) →"}
           </a>
         </div>
+      </section>
+
+      {/* SEO — Contenu textuel indexable */}
+      <section id="a-propos" className="pb-12 space-y-4" aria-label="À propos du simulateur">
+        <h2 className="text-lg font-semibold text-slate-700">À propos du Simulateur Laffer France</h2>
+        <p className="text-sm text-slate-500 leading-relaxed">
+          Ce simulateur modélise la position de la France sur la courbe de Laffer
+          et calcule l{"'"}impact net de différents scénarios de réforme fiscale.
+          Il utilise les élasticités estimées par Lefebvre, Lehmann et Sicsic
+          (Scandinavian Journal of Economics, 2025) pour l{"'"}impôt sur le capital,
+          les taux d{"'"}autofinancement de Trabandt et Uhlig (Journal of Monetary
+          Economics, 2011) pour l{"'"}EU-14, et les données macroéconomiques
+          INSEE et OCDE 2024.
+        </p>
+        <p className="text-sm text-slate-500 leading-relaxed">
+          La France prélève 43.5% de son PIB en impôts et cotisations sociales,
+          soit le 2e taux le plus élevé de l{"'"}OCDE après le Danemark. Elle est
+          classée dernière (38e sur 38) au classement de compétitivité fiscale
+          du Tax Foundation (International Tax Competitiveness Index 2024).
+        </p>
+        <p className="text-sm text-slate-500 leading-relaxed">
+          L{"'"}utilisateur peut ajuster les taux d{"'"}imposition sur le travail,
+          le capital et les cotisations patronales, choisir ses hypothèses
+          de modélisation (équilibre partiel ou général, effet de niveau ou
+          de croissance permanente), et visualiser l{"'"}impact sur les recettes
+          publiques, l{"'"}emploi et le pouvoir d{"'"}achat sur 20 ans.
+        </p>
+        <h3 className="text-base font-semibold text-slate-600 pt-2">Sources académiques</h3>
+        <ul className="text-xs text-slate-500 space-y-1 list-disc pl-5">
+          <li>Lefebvre, M.-N., Lehmann, E. et Sicsic, M. (2025). Estimating the Laffer Tax Rate on Capital Income. <em>Scandinavian Journal of Economics</em>, 127(2), 460-489.</li>
+          <li>Trabandt, M. et Uhlig, H. (2011). The Laffer Curve Revisited. <em>Journal of Monetary Economics</em>, 58(4), 305-327.</li>
+          <li>OCDE (2010). Tax Policy Reform and Economic Growth. OECD Tax Policy Studies No. 20.</li>
+          <li>Arnold, J. et al. (2008). Taxation and Economic Growth. OECD Economics Department Working Papers No. 620.</li>
+          <li>Saez, E., Slemrod, J. et Giertz, S. (2012). The Elasticity of Taxable Income. <em>Journal of Economic Literature</em>, 50(1), 3-50.</li>
+        </ul>
+        <h3 className="text-base font-semibold text-slate-600 pt-2">Données macroéconomiques</h3>
+        <ul className="text-xs text-slate-500 space-y-1 list-disc pl-5">
+          <li>INSEE — Comptes nationaux 2024</li>
+          <li>OCDE — Revenue Statistics 2025</li>
+          <li>Tax Foundation — International Tax Competitiveness Index 2024</li>
+          <li>France Stratégie — Comité d{"'"}évaluation des réformes de la fiscalité du capital (2020, 2023)</li>
+        </ul>
+        <p className="text-xs text-slate-400 pt-2">
+          Dernière mise à jour : avril 2026 · Toutes les hypothèses sont ajustables et documentées.
+        </p>
       </section>
     </div>
   );
