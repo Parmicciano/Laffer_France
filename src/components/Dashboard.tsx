@@ -1067,6 +1067,7 @@ export default function Dashboard() {
                     order: 0,
                     label: "Mécanique",
                     title: "L'État prélève 1\u20AC de plus",
+                    detail: "Le Parlement vote une hausse. Bercy inscrit la recette dans le PLF. C'est le seul instant où « plus de taux = plus de recettes » est vrai : avant que quiconque n'ait réagi. Ex : la contribution de 3% sur les dividendes (2012) prévoyait 2 Md\u20AC/an.",
                     examples: ["Hausse d'IR, de CSG, d'IS, ou de cotisations", "Recette attendue : 1,00\u20AC"],
                     captured: true,
                     color: "#64748b",
@@ -1075,12 +1076,13 @@ export default function Dashboard() {
                   {
                     order: 1,
                     label: "Comportemental direct",
-                    title: "Les contribuables réagissent",
+                    title: "Les contribuables réagissent (12 à 36 mois)",
+                    detail: "Le médecin au TMI 45% + CSG 9,2% + URSSAF ~30% garde 25 cts/\u20AC supplémentaire — il refuse des gardes et ferme le vendredi. L'ingénieur compare 55k\u20AC net France vs 110k\u20AC Suisse — il part. L'entrepreneur débourse 3 800\u20AC pour verser 2 000\u20AC net — il gèle l'embauche. C'est ce que mesurent les élasticités : la base taxable rétrécit.",
                     examples: [
-                      "Le médecin refuse 5 patients par semaine",
-                      "L'ingénieur accepte l'offre à Zurich",
-                      "L'entrepreneur gèle l'embauche prévue",
-                      "L'investisseur redirige vers Dublin",
+                      "~30% des médecins libéraux limitent volontairement leur activité (DREES 2023)",
+                      "3,5 M de Français à l'étranger, +4,5%/an — ingénieurs, chercheurs, entrepreneurs",
+                      "Coin fiscal employeur→net de 47% : 1er de l'OCDE (OCDE Taxing Wages 2024)",
+                      "IDE entrants : France 40 Md\u20AC vs Irlande 80 Md\u20AC (5\u00D7 moins d'habitants)",
                     ],
                     captured: true,
                     color: "#f59e0b",
@@ -1088,12 +1090,14 @@ export default function Dashboard() {
                   },
                   {
                     order: 2,
-                    label: "Effets en chaîne",
-                    title: "L'activité perdue génère des pertes fiscales",
+                    label: "Pertes fiscales en cascade",
+                    title: "L'activité perdue supprime d'autres recettes",
+                    detail: "Chaque action de l'ordre 1 détruit de l'activité qui aurait généré des recettes. Le médecin qui refuse 5 patients, c'est aussi 5 ordonnances non prescrites (0\u20AC de TVA pharmacie) et 5 diagnostics retardés. L'ingénieur parti, c'est 6 mois de poste vacant : 0\u20AC de cotisations, 0\u20AC d'IR, 0\u20AC de TVA sur sa consommation. L'embauche gelée prive l'État de ~11 000\u20AC/an (cotis + IR + TVA).",
                     examples: [
-                      "5 patients refusés = 5 consultations non facturées = 0\u20AC d'IR + 0\u20AC de TVA pharmacie",
-                      "1 ingénieur parti = 1 poste vacant = 0\u20AC de cotisations pendant 6 mois",
-                      "1 embauche gelée = 0\u20AC d'IR + 0\u20AC de cotisations + 0\u20AC de TVA (consommation perdue)",
+                      "5 patients refusés/semaine \u00D7 52 semaines = 260 consultations = ~15 000\u20AC de recettes IR + TVA pharmacie perdues",
+                      "1 ingénieur parti = poste vacant 6 mois = ~25 000\u20AC de cotisations + IR perdus",
+                      "1 embauche gelée = ~11 000\u20AC/an de recettes fiscales qui n'existeront jamais",
+                      "1 investissement redirigé = dividendes, salaires et TVA qui ne seront jamais perçus en France",
                     ],
                     captured: false,
                     color: "#ef4444",
@@ -1101,12 +1105,14 @@ export default function Dashboard() {
                   },
                   {
                     order: 3,
-                    label: "Coût social",
-                    title: "Les services publics absorbent le choc",
+                    label: "Coût social et dépense induite",
+                    title: "L'impôt ne réduit pas seulement les recettes — il augmente les dépenses",
+                    detail: "Les patients refusés se reportent aux urgences : coût moyen 300\u20AC vs 25\u20AC en consultation de ville (\u00D712). L'embauche gelée, c'est un chômeur de plus : RSA (607\u20AC/mois) + ARE + CMU-C = ~12 000\u20AC/an de dépense au lieu de 11 000\u20AC de recettes — un swing de 23 000\u20AC. Le poste vacant retarde un projet R&D et affaiblit la compétitivité du secteur.",
                     examples: [
-                      "Patients refusés → urgences saturées → coût hospitalier +4\u00D7 vs consultation",
-                      "Postes vacants → projets retardés → perte de compétitivité → moins d'IDE",
-                      "Chômage → RSA + ARE + CMU → dépense publique additionnelle",
+                      "Urgences saturées : coût 4\u00D7 à 12\u00D7 supérieur à la consultation de ville refusée",
+                      "1 chômeur = −11 000\u20AC de recettes + 12 000\u20AC de dépenses = swing de 23 000\u20AC/an",
+                      "Postes vacants R&D → projets retardés → brevets perdus → compétitivité en baisse → moins d'IDE",
+                      "Déserts médicaux → fermeture de services → déclin démographique des territoires",
                     ],
                     captured: false,
                     color: "#dc2626",
@@ -1115,11 +1121,13 @@ export default function Dashboard() {
                   {
                     order: 4,
                     label: "Spirale structurelle",
-                    title: "Le déficit persiste, on augmente encore",
+                    title: "Le déficit persiste — on augmente encore",
+                    detail: "Les recettes réelles sont inférieures au PLF. Le déficit ne se résorbe pas. Bercy propose un nouveau tour de vis, et le cycle repart à l'ordre 0. En parallèle, l'instabilité fiscale (5 changements majeurs en 12 ans) crée une prime de risque : le spread OAT-Bund se creuse, la charge de la dette augmente (55 Md\u20AC/an). Le classement ITCI se dégrade (38e/38). La France a bouclé ce cycle au moins 4 fois : IGF 1982 → ISF 1988 → taxe 75% 2012 → contribution Barnier 2024.",
                     examples: [
-                      "Recettes décevantes → nouveau tour de vis fiscal → retour à l'ordre 0",
-                      "Instabilité fiscale chronique → prime de risque → coût de la dette +",
-                      "Signal international négatif → classement ITCI 38e → moins d'investissements",
+                      "2012-2017 : +30 Md\u20AC de hausses fiscales, déficit passé de −4,8% à −3,4% seulement (objectif : −3%)",
+                      "Charge de la dette : 55 Md\u20AC/an — chaque point de spread = ~3,3 Md\u20AC de coût supplémentaire",
+                      "Classement ITCI 38e/38 → signal toxique pour les investisseurs internationaux",
+                      "Cycle complet : IGF 82 → suppression 86 → ISF 88 → PFU 2017 → contribution 2024",
                     ],
                     captured: false,
                     color: "#991b1b",
@@ -1137,7 +1145,7 @@ export default function Dashboard() {
                       </div>
 
                       {/* Contenu */}
-                      <div className={`flex-1 pb-4 ${i < 4 ? "border-l border-slate-100" : ""} pl-4`}>
+                      <div className={`flex-1 pb-5 ${i < 4 ? "border-l border-slate-100" : ""} pl-4`}>
                         <div className="flex items-center gap-2 mb-1">
                           <span className="text-[9px] font-bold uppercase px-1.5 py-0.5 rounded" style={{ background: step.color + "15", color: step.color }}>
                             {"Ordre "}{step.order}{" — "}{step.label}
@@ -1148,7 +1156,8 @@ export default function Dashboard() {
                             <span className="text-[8px] px-1.5 py-0.5 rounded bg-red-50 text-red-500 font-medium">{"Non modélisé"}</span>
                           )}
                         </div>
-                        <div className="text-sm font-semibold text-slate-800 mb-1.5">{step.title}</div>
+                        <div className="text-sm font-semibold text-slate-800 mb-1">{step.title}</div>
+                        <p className="text-[11px] text-slate-600 mb-2 leading-relaxed">{step.detail}</p>
                         <ul className="space-y-0.5">
                           {step.examples.map((ex, j) => (
                             <li key={j} className="text-[11px] text-slate-500 flex items-start gap-1.5">

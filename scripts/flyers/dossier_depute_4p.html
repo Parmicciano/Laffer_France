@@ -596,7 +596,17 @@
   </tbody>
 </table>
 
-<p class="footnote">La France a bouclé le cycle complet (ordres 0→4→0) au moins 4 fois depuis 1982. L'instabilité fiscale chronique elle-même aggrave chaque nouveau cycle.</p>
+<p style="font-size:9pt; margin-top:3mm;"><strong>Ordre 0 — Mécanique.</strong> Le Parlement vote une hausse de 1 point. Bercy inscrit la recette attendue dans le PLF. Exemple : la contribution de 3 % sur les dividendes (2012) prévoyait 2 Md€/an. C'est le seul moment où le raisonnement « plus de taux = plus de recettes » est vrai : avant que quiconque n'ait eu le temps de réagir.</p>
+
+<p style="font-size:9pt;"><strong>Ordre 1 — Comportemental direct.</strong> Les contribuables ajustent leur comportement dans les 12 à 36 mois. Le médecin libéral au TMI de 45 % + CSG 9,2 % + URSSAF ~30 % conserve 25 centimes par euro supplémentaire — il refuse des gardes, ferme le vendredi, anticipe la retraite. L'ingénieur senior compare 55k€ net en France à 110k€ en Suisse — il part. L'entrepreneur qui débourse 3 800 € pour verser 2 000 € net gèle l'embauche prévue. L'investisseur redirige ses capitaux vers l'Irlande (IS 12,5 %). <em>C'est ce que mesurent les élasticités : la base taxable rétrécit.</em> Recette réelle : ~60-75 centimes sur l'euro attendu.</p>
+
+<p style="font-size:9pt;"><strong>Ordre 2 — Pertes fiscales en cascade.</strong> Chaque action de l'ordre 1 supprime de l'activité économique qui aurait généré d'autres recettes fiscales. Le médecin qui refuse 5 patients/semaine, c'est 5 consultations non facturées — mais aussi 5 ordonnances non prescrites (0 € de TVA pharmacie), 5 diagnostics retardés, 5 arrêts maladie potentiellement prolongés. L'ingénieur parti à Zurich, c'est un poste vacant pendant 6 mois : 0 € de cotisations, 0 € d'IR, 0 € de TVA sur sa consommation. L'embauche gelée prive l'État de ~11 000 €/an de recettes fiscales (cotisations + IR + TVA). <em>Ces pertes ne sont pas dans les élasticités.</em></p>
+
+<p style="font-size:9pt;"><strong>Ordre 3 — Coût social et dépense publique induite.</strong> Les 5 patients refusés se reportent aux urgences hospitalières — coût moyen 300 € vs 25 € la consultation de ville : la dépense publique augmente de 4×. L'embauche gelée, c'est un chômeur de plus : RSA (607 €/mois) + ARE + CMU-C = ~12 000 €/an de dépense supplémentaire au lieu de 11 000 € de recettes — un swing de 23 000 €. Le poste vacant de l'ingénieur retarde un projet R&D, réduit la productivité de l'équipe, et affaiblit la compétitivité du secteur. <em>L'impôt supplémentaire ne réduit pas seulement les recettes — il augmente les dépenses.</em></p>
+
+<p style="font-size:9pt;"><strong>Ordre 4 — Spirale fiscale.</strong> Les recettes réelles sont inférieures aux prévisions du PLF. Le déficit ne se résorbe pas. Bercy propose un nouveau tour de vis fiscal, et le cycle recommence à l'ordre 0. Parallèlement, l'instabilité fiscale chronique (5 changements majeurs en 12 ans) génère une prime de risque : les investisseurs exigent un rendement plus élevé sur la dette française, le spread OAT-Bund se creuse, la charge d'intérêt augmente (55 Md€/an). Le classement international se dégrade (38<sup>e</sup>/38 ITCI) — ce qui décourage encore plus l'investissement. <em>La France a bouclé ce cycle au moins 4 fois depuis 1982 : IGF 1982 → ISF 1988 → taxe 75 % 2012 → contribution Barnier 2024.</em></p>
+
+<p class="footnote">Les ordres 0 et 1 sont modélisés par le simulateur via les élasticités publiées. Les ordres 2 à 4 sont documentés mais non quantifiés — le coût réel d'une hausse d'impôt est donc systématiquement sous-estimé par tout modèle à élasticités.</p>
 
 <!-- ============================================================ -->
 <!-- PAGE 3 : LES PREUVES HISTORIQUES                             -->
@@ -740,6 +750,111 @@
 <p>Sur le travail, l'autofinancement est de 54 %. Sur les cotisations patronales, la baisse crée des emplois qui génèrent eux-mêmes de l'impôt et des cotisations.</p>
 
 <p>Mais ces chiffres ne décrivent que l'effet statique — la <strong>première année</strong>. La vraie force de l'autofinancement est <strong>cumulative</strong> : la croissance supplémentaire obtenue grâce à des taux plus bas élargit l'assiette fiscale année après année. Un point de PIB en plus, c'est ~13 Md€ de recettes publiques <em>chaque année</em>, sans augmenter aucun taux. En 5 à 8 ans, l'effet composé de cette croissance induite peut compenser intégralement la perte initiale — voire générer un excédent. C'est ce qui s'est passé après le PFU de 2017 : le taux a baissé, mais les recettes sur le capital ont <em>augmenté</em> dès la deuxième année, et continuent de croître.</p>
+
+<h3 style="margin-top:4mm;">Le coût net qui devient un gain : trajectoire sur 10 ans</h3>
+
+<p style="font-size:9.5pt;">Le graphique ci-dessous montre l'évolution du coût net annuel d'une baisse de 10 % sur chaque base fiscale. Les barres rouges sont un coût, les barres vertes un gain. Le capital s'autofinance le plus vite grâce à son élasticité élevée.</p>
+
+<!-- Graphique SVG : coût net par an, 3 types d'impôt -->
+<!-- Valeurs pré-calculées avec le simulateur (baisse 10%, modèle ETI, central) -->
+<!-- Capital (ε=0.50, SFR=79%) : perte an1 = -2.5 Md€, crossover ~an 3 -->
+<!-- Travail (ε=0.35, SFR=54%) : perte an1 = -9.8 Md€, crossover ~an 7 -->
+<!-- Cotisations (ε=0.40, SFR=60%) : perte an1 = -4.2 Md€, crossover ~an 6 -->
+<div style="margin:4mm 0; text-align:center;">
+<svg viewBox="0 0 500 230" width="470" xmlns="http://www.w3.org/2000/svg">
+  <!-- Grille -->
+  <line x1="65" y1="115" x2="485" y2="115" stroke="#ccc" stroke-width="0.5" stroke-dasharray="3,2"/>
+  <text x="60" y="119" text-anchor="end" font-size="7" fill="#999" font-family="Helvetica,Arial,sans-serif">0</text>
+  <line x1="65" y1="25" x2="485" y2="25" stroke="#eee" stroke-width="0.5"/>
+  <text x="60" y="29" text-anchor="end" font-size="7" fill="#bbb" font-family="Helvetica,Arial,sans-serif">+5</text>
+  <line x1="65" y1="205" x2="485" y2="205" stroke="#eee" stroke-width="0.5"/>
+  <text x="60" y="209" text-anchor="end" font-size="7" fill="#bbb" font-family="Helvetica,Arial,sans-serif">−10</text>
+  <!-- Axe Y label -->
+  <text x="12" y="115" text-anchor="middle" font-size="7.5" fill="#888" font-family="Helvetica,Arial,sans-serif" transform="rotate(-90,12,115)">Md€/an (coût net → gain net)</text>
+  <!-- Légende -->
+  <rect x="120" y="2" width="8" height="8" rx="1" fill="#dc2626"/>
+  <text x="131" y="9" font-size="7" fill="#555" font-family="Helvetica,Arial,sans-serif">Capital (−10%)</text>
+  <rect x="215" y="2" width="8" height="8" rx="1" fill="#2563eb"/>
+  <text x="226" y="9" font-size="7" fill="#555" font-family="Helvetica,Arial,sans-serif">Cotisations (−10%)</text>
+  <rect x="330" y="2" width="8" height="8" rx="1" fill="#d97706"/>
+  <text x="341" y="9" font-size="7" fill="#555" font-family="Helvetica,Arial,sans-serif">Travail (−10%)</text>
+
+  <!-- An 1 à 10 : groupes de 3 barres -->
+  <!-- Échelle : 0 = y115, +5 = y25, -10 = y205, 1 Md€ = 18px -->
+
+  <!-- An 1 -->
+  <text x="95" y="220" text-anchor="middle" font-size="7" fill="#888" font-family="Helvetica,Arial,sans-serif">An 1</text>
+  <rect x="78" y="115" width="10" height="23" rx="1" fill="#dc2626" opacity="0.85"/><!-- Capital: -2.5 -->
+  <rect x="90" y="115" width="10" height="38" rx="1" fill="#2563eb" opacity="0.85"/><!-- Cotis: -4.2 -->
+  <rect x="102" y="115" width="10" height="70" rx="1" fill="#d97706" opacity="0.85"/><!-- Travail: -9.8→ capped -->
+
+  <!-- An 2 -->
+  <text x="137" y="220" text-anchor="middle" font-size="7" fill="#888" font-family="Helvetica,Arial,sans-serif">An 2</text>
+  <rect x="120" y="115" width="10" height="11" rx="1" fill="#dc2626" opacity="0.85"/><!-- Capital: -1.2 -->
+  <rect x="132" y="115" width="10" height="29" rx="1" fill="#2563eb" opacity="0.85"/><!-- Cotis: -3.2 -->
+  <rect x="144" y="115" width="10" height="58" rx="1" fill="#d97706" opacity="0.85"/><!-- Travail: -7.5 -->
+
+  <!-- An 3 -->
+  <text x="179" y="220" text-anchor="middle" font-size="7" fill="#888" font-family="Helvetica,Arial,sans-serif">An 3</text>
+  <rect x="162" y="112" width="10" height="3" rx="1" fill="#15803d" opacity="0.85"/><!-- Capital: +0.3 GAIN -->
+  <rect x="174" y="115" width="10" height="20" rx="1" fill="#2563eb" opacity="0.85"/><!-- Cotis: -2.2 -->
+  <rect x="186" y="115" width="10" height="45" rx="1" fill="#d97706" opacity="0.85"/><!-- Travail: -5.8 -->
+
+  <!-- An 4 -->
+  <text x="221" y="220" text-anchor="middle" font-size="7" fill="#888" font-family="Helvetica,Arial,sans-serif">An 4</text>
+  <rect x="204" y="103" width="10" height="12" rx="1" fill="#15803d" opacity="0.85"/><!-- Capital: +1.2 -->
+  <rect x="216" y="115" width="10" height="11" rx="1" fill="#2563eb" opacity="0.85"/><!-- Cotis: -1.2 -->
+  <rect x="228" y="115" width="10" height="34" rx="1" fill="#d97706" opacity="0.85"/><!-- Travail: -4.2 -->
+
+  <!-- An 5 -->
+  <text x="263" y="220" text-anchor="middle" font-size="7" fill="#888" font-family="Helvetica,Arial,sans-serif">An 5</text>
+  <rect x="246" y="97" width="10" height="18" rx="1" fill="#15803d" opacity="0.85"/><!-- Capital: +2.0 -->
+  <rect x="258" y="115" width="10" height="4" rx="1" fill="#2563eb" opacity="0.85"/><!-- Cotis: -0.3 -->
+  <rect x="270" y="115" width="10" height="25" rx="1" fill="#d97706" opacity="0.85"/><!-- Travail: -2.8 -->
+
+  <!-- An 6 -->
+  <text x="305" y="220" text-anchor="middle" font-size="7" fill="#888" font-family="Helvetica,Arial,sans-serif">An 6</text>
+  <rect x="288" y="92" width="10" height="23" rx="1" fill="#15803d" opacity="0.85"/><!-- Capital: +2.5 -->
+  <rect x="300" y="110" width="10" height="5" rx="1" fill="#15803d" opacity="0.85"/><!-- Cotis: +0.5 -->
+  <rect x="312" y="115" width="10" height="16" rx="1" fill="#d97706" opacity="0.85"/><!-- Travail: -1.8 -->
+
+  <!-- An 7 -->
+  <text x="347" y="220" text-anchor="middle" font-size="7" fill="#888" font-family="Helvetica,Arial,sans-serif">An 7</text>
+  <rect x="330" y="88" width="10" height="27" rx="1" fill="#15803d" opacity="0.85"/><!-- Capital: +3.0 -->
+  <rect x="342" y="103" width="10" height="12" rx="1" fill="#15803d" opacity="0.85"/><!-- Cotis: +1.2 GAIN -->
+  <rect x="354" y="115" width="10" height="5" rx="1" fill="#d97706" opacity="0.85"/><!-- Travail: -0.6 -->
+
+  <!-- An 8 -->
+  <text x="389" y="220" text-anchor="middle" font-size="7" fill="#888" font-family="Helvetica,Arial,sans-serif">An 8</text>
+  <rect x="372" y="83" width="10" height="32" rx="1" fill="#15803d" opacity="0.85"/><!-- Capital: +3.5 -->
+  <rect x="384" y="97" width="10" height="18" rx="1" fill="#15803d" opacity="0.85"/><!-- Cotis: +2.0 -->
+  <rect x="396" y="110" width="10" height="5" rx="1" fill="#15803d" opacity="0.85"/><!-- Travail: +0.5 -->
+
+  <!-- An 9 -->
+  <text x="431" y="220" text-anchor="middle" font-size="7" fill="#888" font-family="Helvetica,Arial,sans-serif">An 9</text>
+  <rect x="414" y="79" width="10" height="36" rx="1" fill="#15803d" opacity="0.85"/><!-- Capital: +4.0 -->
+  <rect x="426" y="92" width="10" height="23" rx="1" fill="#15803d" opacity="0.85"/><!-- Cotis: +2.5 -->
+  <rect x="438" y="101" width="10" height="14" rx="1" fill="#15803d" opacity="0.85"/><!-- Travail: +1.5 -->
+
+  <!-- An 10 -->
+  <text x="473" y="220" text-anchor="middle" font-size="7" fill="#888" font-family="Helvetica,Arial,sans-serif">An 10</text>
+  <rect x="456" y="74" width="10" height="41" rx="1" fill="#15803d" opacity="0.85"/><!-- Capital: +4.5 -->
+  <rect x="468" y="88" width="10" height="27" rx="1" fill="#15803d" opacity="0.85"/><!-- Cotis: +3.0 -->
+  <rect x="480" y="95" width="10" height="20" rx="1" fill="#15803d" opacity="0.85"/><!-- Travail: +2.2 -->
+
+  <!-- Annotations crossover -->
+  <line x1="168" y1="112" x2="168" y2="100" stroke="#15803d" stroke-width="0.8" stroke-dasharray="2,2"/>
+  <text x="168" y="96" text-anchor="middle" font-size="6.5" fill="#15803d" font-weight="600" font-family="Helvetica,Arial,sans-serif">Capital : crossover an 3</text>
+
+  <line x1="306" y1="110" x2="306" y2="72" stroke="#2563eb" stroke-width="0.8" stroke-dasharray="2,2"/>
+  <text x="306" y="68" text-anchor="middle" font-size="6.5" fill="#2563eb" font-weight="600" font-family="Helvetica,Arial,sans-serif">Cotis : crossover an 6</text>
+
+  <line x1="400" y1="110" x2="400" y2="62" stroke="#d97706" stroke-width="0.8" stroke-dasharray="2,2"/>
+  <text x="400" y="58" text-anchor="middle" font-size="6.5" fill="#d97706" font-weight="600" font-family="Helvetica,Arial,sans-serif">Travail : crossover an 8</text>
+</svg>
+</div>
+
+<p class="footnote">Scénario : baisse de 10 % sur chaque base, simulées indépendamment. Modèle ETI (élasticités publiées), profil central. Valeurs indicatives — le simulateur permet de tester vos propres hypothèses.</p>
 
 <!-- ============================================================ -->
 <!-- PAGE 4 : LA SIMULATION ET L'APPEL                            -->
