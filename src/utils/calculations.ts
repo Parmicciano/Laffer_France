@@ -329,7 +329,8 @@ const MODEL = {
   poTaxRate: PO_RATE.used,
   fullTaxRate: macroData.recettesPubliques / macroData.pib,
   inflationRate: 0.02,
-  baseGrowthRate: 0.011,
+  baseGrowthRate: 0.011, // réel
+  baseInterestRate: macroData.chargeDette / macroData.dette, // 55/3305 = 1.66%
 };
 
 // ============================================================
@@ -454,7 +455,9 @@ function _simulate(
       continue;
     }
 
-    const sqPib = MODEL.baseGDP * Math.pow(1 + baseGrowthRate, y);
+    // PIB nominal = croissance réelle + inflation (pour cohérence avec dépenses nominales)
+    const nominalGrowth = baseGrowthRate + MODEL.inflationRate;
+    const sqPib = MODEL.baseGDP * Math.pow(1 + nominalGrowth, y);
 
     // Résoudre le scénario pour cette année
     const yearScenario = resolveScenarioAtYear(scenario, y);
@@ -485,7 +488,7 @@ function _simulate(
       case 'permanent': decay = 1; break;
       case 'hybrid': decay = 0.5 + 0.5 * Math.max(0, 1 - (y - 1) / MODEL.convergenceYears); break;
     }
-    refPib *= (1 + baseGrowthRate + additionalGrowthRate * gPhaseIn * decay);
+    refPib *= (1 + nominalGrowth + additionalGrowthRate * gPhaseIn * decay);
     const deltaGDP = refPib - sqPib;
 
     // Décomposition ΔPIB par type
@@ -593,14 +596,14 @@ function _simulate(
     const dep0Operating = dep0 - macroData.chargeDette; // 1615.2 Md€ hors intérêts
     const depOperating = dep0Operating * Math.pow(1 + MODEL.inflationRate, y);
     // Intérêts calculés sur le stock de dette réel
-    const sqInt = sqDette * 0.025;
+    const sqInt = sqDette * MODEL.baseInterestRate;
     // Malus spread si dette/PIB dépasse 120% : +50 bps par tranche de 10% au-delà
     const refDettePibRatio = refDette / refPib;
     const debtMalus = refDettePibRatio > 1.20
       ? 0.005 * Math.floor((refDettePibRatio - 1.20) / 0.10)
       : 0;
     const spreadBonus = (reformRecettes - revBaseline) > (revBaseline - depOperating - sqInt) * 0.01 ? 0.001 * Math.min(y, 5) : 0;
-    const refRate = 0.025 - spreadBonus + debtMalus;
+    const refRate = MODEL.baseInterestRate - spreadBonus + debtMalus;
     const refInt = refDette * refRate;
     // Déficits = recettes - dépenses opérationnelles - intérêts
     const sqDef = revBaseline - depOperating - sqInt;
