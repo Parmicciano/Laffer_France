@@ -632,8 +632,9 @@ function _simulate(
     const refMalus = refDettePibRatio > 1.20
       ? 0.005 * ((refDettePibRatio - 1.20) / 0.10)
       : 0;
-    // Bonus spread si la réforme améliore le solde structurel
-    const spreadBonus = revDiff > 0 ? 0.001 * Math.min(y, 5) : 0;
+    // Bonus spread si le déficit réforme est MEILLEUR que le déficit SQ
+    // (basé sur le ratio dette/PIB, pas sur revDiff annuel)
+    const spreadBonus = refDettePibRatio < sqDettePibRatio ? 0.001 * Math.min(y, 5) : 0;
     const refRate = MODEL.baseInterestRate + refMalus - spreadBonus;
     const refInt = refDette * refRate;
     // Déficits = recettes - dépenses opérationnelles - intérêts

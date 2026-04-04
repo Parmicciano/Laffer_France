@@ -24,11 +24,12 @@ export interface ModelSettings {
 // Presets
 // ============================================================
 
+// DEFAULT = CENTRAL_PRESET (pour que le profil affiche "Central" au chargement)
 export const DEFAULT_SETTINGS: ModelSettings = {
   selfFinancingModel: 'eti',
-  capitalElasticityModel: 'direct',
+  capitalElasticityModel: 'noCross',
   supplySideModel: 'hybrid',
-  okunCoefficient: 0.30,
+  okunCoefficient: 0.35,
   behavioralPhaseInYears: 5,
   supplySidePhaseInYears: 8,
   fastChannelsEnabled: true,
