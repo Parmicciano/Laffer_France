@@ -139,7 +139,7 @@ export default function Dashboard() {
 
   // Coût de la transition : dette supplémentaire et recettes perdues avant le crossover
   const transitionCost = useMemo(() => {
-    const crossIdx = crossoverYear ? crossoverYear - 2024 : null;
+    const crossIdx = crossoverYear ? crossoverYear - 2026 : null;
     // Cumul des pertes de recettes (revenueDiff négatif) avant crossover
     let cumulLoss = 0;
     const limitIdx = crossIdx ?? proj.length - 1;
@@ -285,7 +285,9 @@ export default function Dashboard() {
                 )}
                 <input type="range" min={-s.max} max={s.max} value={val}
                   onChange={(e) => { setScenario({ ...scenario, [s.key]: Number(e.target.value) }); setActivePreset(""); }}
-                  className="w-full" />
+                  className="w-full"
+                  aria-label={`${s.label} : ${val > 0 ? "baisse" : val < 0 ? "hausse" : "neutre"} de ${Math.abs(val)}%`}
+                  aria-valuemin={-s.max} aria-valuemax={s.max} aria-valuenow={val} />
                 <div className="flex justify-between text-[10px] mt-2 text-slate-400">
                   <span className="text-red-400">Hausse +{s.max}%</span>
                   <span>{taxTypes[s.key].recettes} {"Md€"}</span>
@@ -345,17 +347,17 @@ export default function Dashboard() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                 <div>
                   <div className="text-xs text-slate-600 mb-1">{"Durée de la rampe : "}<span className="font-semibold">{rampYears} ans</span></div>
-                  <input type="range" min="2" max="10" step="1" value={rampYears} onChange={(e) => setRampYears(Number(e.target.value))} className="w-full" />
+                  <input type="range" min="2" max="10" step="1" value={rampYears} onChange={(e) => setRampYears(Number(e.target.value))} className="w-full" aria-label={`Durée de la rampe : ${rampYears} ans`} />
                 </div>
                 {trajectoryType === 'shock_rollback' && (
                   <>
                     <div>
                       <div className="text-xs text-slate-600 mb-1">{"Intensité du choc : "}<span className="font-semibold">{shockMultiplier.toFixed(1)}× la cible</span></div>
-                      <input type="range" min="1.5" max="3.0" step="0.1" value={shockMultiplier} onChange={(e) => setShockMultiplier(Number(e.target.value))} className="w-full" />
+                      <input type="range" min="1.5" max="3.0" step="0.1" value={shockMultiplier} onChange={(e) => setShockMultiplier(Number(e.target.value))} className="w-full" aria-label={`Intensité du choc : ${shockMultiplier.toFixed(1)}× la cible`} />
                     </div>
                     <div>
                       <div className="text-xs text-slate-600 mb-1">{"Rollback : "}<span className="font-semibold">{rollbackPerYear}%/an</span></div>
-                      <input type="range" min="1" max="5" step="1" value={rollbackPerYear} onChange={(e) => setRollbackPerYear(Number(e.target.value))} className="w-full" />
+                      <input type="range" min="1" max="5" step="1" value={rollbackPerYear} onChange={(e) => setRollbackPerYear(Number(e.target.value))} className="w-full" aria-label={`Rollback : ${rollbackPerYear}%/an`} />
                     </div>
                   </>
                 )}
@@ -740,11 +742,11 @@ export default function Dashboard() {
                   {crossoverYear && <ReferenceLine x={crossoverYear} stroke="#10b981" strokeDasharray="4 3"
                     label={{ value: "Crossover", position: "top", fill: "#10b981", fontSize: 9 }} />}
                   {/* Marqueurs mandats présidentiels */}
-                  <ReferenceLine x={2029} stroke="#cbd5e1" strokeWidth={1} strokeDasharray="2 4"
+                  <ReferenceLine x={2031} stroke="#cbd5e1" strokeWidth={1} strokeDasharray="2 4"
                     label={{ value: "Mandat 1", position: "insideTopLeft", fill: "#94a3b8", fontSize: 8 }} />
-                  <ReferenceLine x={2034} stroke="#cbd5e1" strokeWidth={1} strokeDasharray="2 4"
+                  <ReferenceLine x={2036} stroke="#cbd5e1" strokeWidth={1} strokeDasharray="2 4"
                     label={{ value: "Mandat 2", position: "insideTopLeft", fill: "#94a3b8", fontSize: 8 }} />
-                  <ReferenceLine x={2039} stroke="#cbd5e1" strokeWidth={1} strokeDasharray="2 4"
+                  <ReferenceLine x={2041} stroke="#cbd5e1" strokeWidth={1} strokeDasharray="2 4"
                     label={{ value: "Mandat 3", position: "insideTopLeft", fill: "#94a3b8", fontSize: 8 }} />
                   <Line type="monotone" dataKey="pessimiste" stroke="#fca5a5" strokeWidth={1} strokeDasharray="4 3" dot={false} name="pessimiste" />
                   <Line type="monotone" dataKey="optimiste" stroke="#6ee7b7" strokeWidth={1} strokeDasharray="4 3" dot={false} name="optimiste" />

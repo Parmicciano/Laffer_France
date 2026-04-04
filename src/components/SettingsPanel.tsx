@@ -218,6 +218,7 @@ export default function SettingsPanel({ settings, onChange }: SettingsPanelProps
                 })
               }
               className="w-full"
+              aria-label={`Coefficient d'Okun : ${settings.okunCoefficient.toFixed(2)}`}
             />
             <div className="flex justify-between text-[10px] text-slate-400 mt-1">
               <span>{"0.25 — Très rigide"}</span>
@@ -255,6 +256,7 @@ export default function SettingsPanel({ settings, onChange }: SettingsPanelProps
                   })
                 }
                 className="w-full"
+                aria-label={`Phase-in comportemental : ${settings.behavioralPhaseInYears} ans`}
               />
               <div className="flex justify-between text-[10px] text-slate-400 mt-1">
                 <span>4 ans (rapide)</span>
@@ -281,6 +283,7 @@ export default function SettingsPanel({ settings, onChange }: SettingsPanelProps
                   })
                 }
                 className="w-full"
+                aria-label={`Phase-in supply-side : ${settings.supplySidePhaseInYears} ans`}
               />
               <div className="flex justify-between text-[10px] text-slate-400 mt-1">
                 <span>4 ans (rapide)</span>
@@ -318,7 +321,8 @@ export default function SettingsPanel({ settings, onChange }: SettingsPanelProps
                 <input type="range" min="0.30" max="0.70" step="0.05"
                   value={settings.formalisationShare}
                   onChange={(e) => onChange({ ...settings, formalisationShare: Number(e.target.value) })}
-                  className="w-full" />
+                  className="w-full"
+                  aria-label={`Part formalisation dans l'ETI : ${Math.round(settings.formalisationShare * 100)}%`} />
                 <div className="flex justify-between text-[10px] text-slate-400 mt-1">
                   <span>{"30% (conservateur)"}</span>
                   <span>{"70% (Chetty 2009)"}</span>
@@ -337,7 +341,8 @@ export default function SettingsPanel({ settings, onChange }: SettingsPanelProps
                 <input type="range" min="0.005" max="0.07" step="0.005"
                   value={settings.capitalBaseWidening}
                   onChange={(e) => onChange({ ...settings, capitalBaseWidening: Number(e.target.value) })}
-                  className="w-full" />
+                  className="w-full"
+                  aria-label={`Élargissement base capital : +${(settings.capitalBaseWidening * 100).toFixed(1)}%`} />
                 <div className="flex justify-between text-[10px] text-slate-400 mt-1">
                   <span>{"+0.5% (minimal)"}</span>
                   <span>{"+7% (très généreux)"}</span>
@@ -356,7 +361,8 @@ export default function SettingsPanel({ settings, onChange }: SettingsPanelProps
                 <input type="range" min="1.0" max="2.0" step="0.1"
                   value={settings.credibilityMultiplier}
                   onChange={(e) => onChange({ ...settings, credibilityMultiplier: Number(e.target.value) })}
-                  className="w-full" />
+                  className="w-full"
+                  aria-label={`Multiplicateur de crédibilité : ${settings.credibilityMultiplier.toFixed(1)}×`} />
                 <div className="flex justify-between text-[10px] text-slate-400 mt-1">
                   <span>{"1.0× (réforme seule)"}</span>
                   <span>{"2.0× (package complet)"}</span>

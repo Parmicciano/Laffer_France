@@ -30,7 +30,7 @@ export const macroData = {
 export const EMPLOYMENT = {
   total: 30_500_000,        // INSEE, emploi total 2024
   salarie_prive: 20_000_000, // Pour les calculs cotisations patronales
-  population_active: 30_500_000,
+  population_active: 32_900_000, // INSEE 2024 : emploi (30.5M) + chômeurs (~2.4M, taux 7.2%)
 };
 
 export const PO_RATE = {
@@ -370,6 +370,12 @@ export const internationalComparison = [
 // ============================================================
 
 export const GROWTH_BOOST = {
+  // Dérivation : ranking qualitatif OCDE (2010) et Arnold et al. (2008) :
+  //   - Impôts sur les sociétés/capital : les plus nocifs pour la croissance → 0.30
+  //   - IR/travail : modérément nocifs → 0.10
+  //   - Cotisations sociales : intermédiaire → 0.15
+  // Le ranking ordinal EST robuste (confirmé par Acosta-Ormaechea & Yoo 2012,
+  // Xing 2012), mais les magnitudes cardinales sont notre inférence.
   travail: 0.10,
   capital: 0.30,
   cotisationsPatronales: 0.15,
@@ -386,6 +392,7 @@ export const PURCHASING_POWER = {
   population: 68_000_000,              // INSEE 2024
   foyersFiscaux: 40_000_000,          // INSEE 2024
   salaireNetAnnuelMoyen: 30_000,      // €/an (INSEE 2024, tous salariés)
+  newJobNetAnnualSalary: 21_000,     // €/an (P25 distribution, INSEE) — emplois créés en majorité bas salaires
   wageShareOfGDP: 0.50,               // part masse salariale / PIB
   wageGDPElasticity: 0.70,            // Verdugo (2016), INSEE Analyses : 0.6-0.8
   cotisPassthroughShortTerm: 0.40,    // Crépon & Desplatz (2001) : 30-50% court terme

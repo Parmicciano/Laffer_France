@@ -233,6 +233,9 @@ function computeMargeExtensive(
     const targetWidening = capitalBaseWideningParam * capitalRecettes * cutRatio;
     // Phase-in en S sur 3 ans
     const t = year / 3;
+    // S-curve avec ×1.2 : accélération intentionnelle, atteint ~100% légèrement
+    // avant t=1 (année 3), puis clampé à 1. Les effets de base widening (retour
+    // d'exilés, type PFU) se manifestent sous 2-3 ans.
     const sCurve = Math.min(1, (Math.tanh(2 * t - 1) + 1) / 2 * 1.2);
     // Ajuster pour le nouveau taux (plus bas → recettes unitaires moindres)
     const rateAdj = (1 - capitalCutPercent / 100);
@@ -258,6 +261,12 @@ function computeMargeExtensive(
 }
 
 // --- Canal 4 : Signal et anticipations ---
+// Confiance : [SPÉCULATION]
+// - ITCI rank → +3% IDE : non publié. Loosely inspiré de la corrélation entre
+//   classement ITCI et flux IDE entrants dans l'OCDE, mais pas une élasticité publiée.
+// - Spread OAT : ad-hoc. Suppose qu'une amélioration fiscale réduit le spread
+//   OAT-Bund. Mécanisme plausible, magnitude non vérifiée.
+// Ce canal est correctement labellé [Spéculation] dans l'UI.
 function computeSignalEffect(
   totalCutMd: number,
   capitalCutPercent: number,
@@ -455,7 +464,7 @@ function _simulate(
   for (let y = 0; y <= 20; y++) {
     if (y === 0) {
       projections.push({
-        year: 2024, statusQuoPib: MODEL.baseGDP, reformPib: MODEL.baseGDP, deltaGDP: 0,
+        year: 2026, statusQuoPib: MODEL.baseGDP, reformPib: MODEL.baseGDP, deltaGDP: 0,
         statusQuoRecettes: macroData.recettesPubliques, reformRecettes: macroData.recettesPubliques,
         revenueDiff: 0, cumulativeRevenueDiff: 0, statusQuoDeficit: macroData.deficit,
         reformDeficit: macroData.deficit, statusQuoDette: sqDette, reformDette: refDette,
@@ -612,8 +621,9 @@ function _simulate(
     const sqInt = sqDette * MODEL.baseInterestRate;
     // Malus spread si dette/PIB dépasse 120% : +50 bps par tranche de 10% au-delà
     const refDettePibRatio = refDette / refPib;
+    // Malus continu : +50 bps par tranche de 10pp au-delà de 120% dette/PIB
     const debtMalus = refDettePibRatio > 1.20
-      ? 0.005 * Math.floor((refDettePibRatio - 1.20) / 0.10)
+      ? 0.005 * ((refDettePibRatio - 1.20) / 0.10)
       : 0;
     const spreadBonus = (reformRecettes - revBaseline) > (revBaseline - depOperating - sqInt) * 0.01 ? 0.001 * Math.min(y, 5) : 0;
     const refRate = MODEL.baseInterestRate - spreadBonus + debtMalus;
@@ -641,7 +651,8 @@ function _simulate(
     const ppiCapital = taxTypes.capital.recettes * (yearScenario.capital / 100) * cutPhaseIn * PP.capitalBroadDiffusionRate;
     const ppiDirect = ppiTravail + ppiCotis + ppiCapital;
     // Emploi : nouveaux salaires
-    const ppiEmployment = jobs * PP.salaireNetAnnuelMoyen / 1e9;
+    // Emplois créés majoritairement à bas salaires (effet allègements, entrée de gamme)
+    const ppiEmployment = jobs * PP.newJobNetAnnualSalary / 1e9;
     // Croissance salariale
     const ppiGrowth = deltaGDP > 0 ? deltaGDP * PP.wageShareOfGDP * PP.wageGDPElasticity : 0;
     // Inflation (contexte, pas soustrait)
@@ -654,7 +665,7 @@ function _simulate(
 
     const r = (v: number) => Math.round(v * 10) / 10;
     projections.push({
-      year: 2024 + y, statusQuoPib: r(sqPib), reformPib: r(refPib), deltaGDP: r(deltaGDP),
+      year: 2026 + y, statusQuoPib: r(sqPib), reformPib: r(refPib), deltaGDP: r(deltaGDP),
       statusQuoRecettes: r(revBaseline), reformRecettes: r(reformRecettes),
       revenueDiff: r(revDiff), cumulativeRevenueDiff: r(cumulRevDiff),
       statusQuoDeficit: r(sqDef), reformDeficit: r(refDef),
