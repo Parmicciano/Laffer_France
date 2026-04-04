@@ -414,42 +414,43 @@
 
 <p>La courbe de Laffer établit un principe simple : à taux zéro, l'État ne perçoit rien ; à taux 100 %, personne ne travaille ni n'investit, donc l'État ne perçoit rien non plus. Entre les deux, il existe un <strong>taux optimal qui maximise les recettes</strong>. Au-delà de ce seuil, toute hausse d'impôt <em>réduit</em> les recettes au lieu de les augmenter.</p>
 
+<!-- Courbe de Laffer — R(t) = t × (1−t)^1.5, pic à τ*=40%, pré-calculé -->
 <div class="laffer-container">
 <svg viewBox="0 0 500 260" width="460" xmlns="http://www.w3.org/2000/svg">
   <!-- Axes -->
   <line x1="50" y1="220" x2="470" y2="220" stroke="#888" stroke-width="1"/>
   <line x1="50" y1="220" x2="50" y2="20" stroke="#888" stroke-width="1"/>
-  <!-- Labels axes -->
-  <text x="260" y="252" text-anchor="middle" font-size="9" fill="#666" font-family="Helvetica,Arial,sans-serif">Taux d'imposition (%)</text>
+  <text x="260" y="252" text-anchor="middle" font-size="9" fill="#666" font-family="Helvetica,Arial,sans-serif">Taux d'imposition effectif (%)</text>
   <text x="16" y="120" text-anchor="middle" font-size="9" fill="#666" font-family="Helvetica,Arial,sans-serif" transform="rotate(-90,16,120)">Recettes fiscales</text>
-  <!-- Grille -->
-  <line x1="50" y1="120" x2="470" y2="120" stroke="#e5e5e5" stroke-width="0.5" stroke-dasharray="3,3"/>
-  <text x="46" y="124" text-anchor="end" font-size="7" fill="#aaa" font-family="Helvetica,Arial,sans-serif">max</text>
-  <!-- Ticks axe X -->
+  <!-- Ticks -->
   <text x="50" y="234" text-anchor="middle" font-size="7.5" fill="#888" font-family="Helvetica,Arial,sans-serif">0 %</text>
   <text x="155" y="234" text-anchor="middle" font-size="7.5" fill="#888" font-family="Helvetica,Arial,sans-serif">25 %</text>
   <text x="260" y="234" text-anchor="middle" font-size="7.5" fill="#888" font-family="Helvetica,Arial,sans-serif">50 %</text>
   <text x="365" y="234" text-anchor="middle" font-size="7.5" fill="#888" font-family="Helvetica,Arial,sans-serif">75 %</text>
   <text x="470" y="234" text-anchor="middle" font-size="7.5" fill="#888" font-family="Helvetica,Arial,sans-serif">100 %</text>
-  <!-- Courbe de Laffer (parabole asymétrique, pic vers 55%) -->
-  <path d="M 50 220 Q 130 80, 281 40 Q 380 20, 420 80 Q 450 130, 470 220" fill="none" stroke="#333" stroke-width="2"/>
-  <!-- Zone verte (ok) et zone rouge (danger) -->
-  <rect x="50" y="15" width="231" height="8" rx="1" fill="#22c55e" opacity="0.25"/>
-  <rect x="281" y="15" width="189" height="8" rx="1" fill="#ef4444" opacity="0.25"/>
-  <text x="166" y="13" text-anchor="middle" font-size="7" fill="#22c55e" font-family="Helvetica,Arial,sans-serif" font-weight="600">Hausse d'impôt = plus de recettes</text>
-  <text x="375" y="13" text-anchor="middle" font-size="7" fill="#ef4444" font-family="Helvetica,Arial,sans-serif" font-weight="600">Hausse d'impôt = moins de recettes</text>
-  <!-- Pic optimal -->
-  <line x1="281" y1="40" x2="281" y2="220" stroke="#888" stroke-width="0.8" stroke-dasharray="4,3"/>
-  <text x="281" y="210" text-anchor="middle" font-size="7.5" fill="#888" font-family="Helvetica,Arial,sans-serif">Taux optimal</text>
-  <!-- Curseur FRANCE - Capital (~55%, côté droit du pic) -->
-  <circle cx="330" cy="55" r="5" fill="#b91c1c" stroke="#fff" stroke-width="1.5"/>
-  <line x1="330" y1="60" x2="330" y2="220" stroke="#b91c1c" stroke-width="0.8" stroke-dasharray="2,2"/>
-  <text x="330" y="75" text-anchor="middle" font-size="8" fill="#b91c1c" font-family="Helvetica,Arial,sans-serif" font-weight="700">France (capital)</text>
-  <text x="330" y="86" text-anchor="middle" font-size="7" fill="#b91c1c" font-family="Helvetica,Arial,sans-serif">taux effectif ~55 %</text>
-  <!-- Curseur FRANCE - Travail (~65%, proche du pic) -->
-  <circle cx="295" cy="42" r="4" fill="#d97706" stroke="#fff" stroke-width="1.5"/>
-  <text x="245" y="48" text-anchor="end" font-size="7.5" fill="#d97706" font-family="Helvetica,Arial,sans-serif" font-weight="600">France (travail) ~65 %</text>
-  <line x1="248" y1="46" x2="290" y2="43" stroke="#d97706" stroke-width="0.5"/>
+  <!-- Zone bands -->
+  <text x="134" y="13" text-anchor="middle" font-size="7" fill="#22c55e" font-family="Helvetica,Arial,sans-serif" font-weight="600">Hausse = plus de recettes</text>
+  <text x="365" y="13" text-anchor="middle" font-size="7" fill="#ef4444" font-family="Helvetica,Arial,sans-serif" font-weight="600">Hausse = moins de recettes</text>
+  <rect x="50" y="16" width="168" height="6" rx="1" fill="#22c55e" opacity="0.2"/>
+  <rect x="218" y="16" width="252" height="6" rx="1" fill="#ef4444" opacity="0.2"/>
+  <!-- Courbe : polyline pré-calculée, R(t)=t(1-t)^1.5, ε=1.5, τ*=40% -->
+  <!-- Zone sous la courbe -->
+  <path d="M 50,220 L 71,173 L 92,133 L 113,100 L 134,74 L 155,54 L 176,40 L 197,32 L 218,30 L 239,33 L 260,39 L 281,50 L 302,65 L 323,83 L 344,102 L 365,124 L 386,147 L 407,170 L 428,191 L 449,209 L 470,220 L 470,220 L 50,220 Z" fill="#f0f0f0" opacity="0.5"/>
+  <!-- Courbe elle-même -->
+  <path d="M 50,220 L 71,173 L 92,133 L 113,100 L 134,74 L 155,54 L 176,40 L 197,32 L 218,30 L 239,33 L 260,39 L 281,50 L 302,65 L 323,83 L 344,102 L 365,124 L 386,147 L 407,170 L 428,191 L 449,209 L 470,220" fill="none" stroke="#333" stroke-width="2.2" stroke-linejoin="round"/>
+  <!-- Pic optimal (τ*≈40%, x=218) -->
+  <line x1="218" y1="33" x2="218" y2="220" stroke="#888" stroke-width="0.8" stroke-dasharray="4,3"/>
+  <text x="218" y="210" text-anchor="middle" font-size="7" fill="#888" font-family="Helvetica,Arial,sans-serif">Taux optimal</text>
+  <!-- FRANCE CAPITAL : τ=55%, x=281, y=50 -->
+  <line x1="281" y1="55" x2="281" y2="220" stroke="#b91c1c" stroke-width="0.8" stroke-dasharray="2,2"/>
+  <circle cx="281" cy="50" r="5" fill="#b91c1c" stroke="#fff" stroke-width="1.5"/>
+  <text x="291" y="47" font-size="8" fill="#b91c1c" font-weight="700" font-family="Helvetica,Arial,sans-serif">France (capital)</text>
+  <text x="291" y="58" font-size="7" fill="#b91c1c" font-family="Helvetica,Arial,sans-serif">taux effectif ~55 %</text>
+  <!-- FRANCE TRAVAIL : τ=65%, x=323, y=83 -->
+  <line x1="323" y1="88" x2="323" y2="220" stroke="#d97706" stroke-width="0.8" stroke-dasharray="2,2"/>
+  <circle cx="323" cy="83" r="4.5" fill="#d97706" stroke="#fff" stroke-width="1.5"/>
+  <text x="333" y="80" font-size="7.5" fill="#d97706" font-weight="600" font-family="Helvetica,Arial,sans-serif">France (travail)</text>
+  <text x="333" y="90" font-size="7" fill="#d97706" font-family="Helvetica,Arial,sans-serif">taux effectif ~65 %</text>
 </svg>
 </div>
 
@@ -490,12 +491,14 @@
     <tr>
       <td class="bold">TVA / Consommation</td>
       <td>0,15 (consensus)</td>
-      <td class="right">87 %</td>
+      <td class="right">Très élevé*</td>
       <td class="right">20 %</td>
       <td class="green">Loin du sommet</td>
     </tr>
   </tbody>
 </table>
+
+<p class="footnote" style="margin-bottom:2mm;">* La consommation étant peu élastique, le seuil théorique de la TVA est très élevé (>80 %). Cela signifie que la TVA est l'impôt le moins distorsif, pas qu'il faut l'augmenter à ce niveau.</p>
 
 <p><strong>Le résultat principal :</strong> sur le capital, la France a dépassé le seuil. Toute hausse supplémentaire de l'impôt sur le capital fait <em>baisser</em> les recettes totales, pas les augmenter. Ce n'est pas une hypothèse théorique : l'épisode de 2013 (abolition du PFL) l'a démontré empiriquement.</p>
 
