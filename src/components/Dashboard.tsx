@@ -1058,6 +1058,35 @@ export default function Dashboard() {
         </section>
       )}
 
+      {/* AGIR — Télécharger et faire circuler */}
+      <section className="py-10 border-t border-slate-100">
+        <div className="max-w-xl mx-auto text-center">
+          <h2 className="text-xl font-bold text-slate-900 mb-2">Faites circuler</h2>
+          <p className="text-sm text-slate-500 mb-6">
+            {"Téléchargez le dossier de 4 pages (PDF), imprimez-le et envoyez-le à votre député, votre maire, votre médecin, votre patron. Partagez le simulateur autour de vous. Chaque personne qui comprend le problème fait avancer la solution."}
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-3 mb-4">
+            <a
+              href="/dossier-parlementaire.pdf"
+              download="Dossier_Laffer_France.pdf"
+              className="inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-sm font-semibold bg-slate-900 text-white hover:bg-slate-800 transition-colors shadow-md"
+            >
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2v8m0 0L5 7m3 3l3-3M3 12h10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              Télécharger le dossier PDF (4 pages)
+            </a>
+            <button
+              onClick={handleShare}
+              className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium bg-blue-50 border border-blue-200 text-blue-700 hover:bg-blue-100 transition-colors"
+            >
+              {copied ? "Lien copié !" : "Copier le lien du simulateur"}
+            </button>
+          </div>
+          <p className="text-xs text-slate-400">
+            {"Dossier sourcé : Lefebvre et al. (2025), Trabandt & Uhlig (2011), INSEE, OCDE. Imprimable en A4 recto-verso."}
+          </p>
+        </div>
+      </section>
+
       {/* FOOTER */}
       <section className="pb-12">
         <details className="bg-white rounded-xl border border-slate-200 shadow-sm">
