@@ -1056,17 +1056,124 @@ export default function Dashboard() {
               ))}
             </div>
 
-            <div className="mt-4 bg-slate-50 border border-slate-200 rounded-xl p-4 text-xs text-slate-500">
-              <p className="mb-1">
-                <strong className="text-slate-700">{"Ce que le simulateur ne capture pas :"}</strong>
-                {" ces effets (réduction d'activité, émigration de talents, non-embauche) sont inclus "}
-                {"dans les élasticités agrégées (canal 1), mais leurs conséquences de second ordre ne le sont pas : "}
-                {"un médecin qui refuse 10 patients, c'est 10 consultations non facturées, mais aussi 10 ordonnances "}
-                {"non prescrites, 10 arrêts maladie prolongés, et un hôpital plus engorgé."}
-              </p>
-              <p>
-                {"L'élasticité mesure la réaction directe. Le coût social total est plus élevé."}
-              </p>
+            {/* Cascade d'effets : ordres 0 → 4 */}
+            <div className="mt-6">
+              <h3 className="text-sm font-bold text-slate-800 mb-1">{"Anatomie d'un euro d'impôt supplémentaire"}</h3>
+              <p className="text-xs text-slate-500 mb-4">{"Chaque ordre déclenche le suivant. Le simulateur capture les ordres 0 et 1. Les ordres 2 à 4 sont réels mais non modélisés."}</p>
+
+              <div className="space-y-0">
+                {[
+                  {
+                    order: 0,
+                    label: "Mécanique",
+                    title: "L'État prélève 1\u20AC de plus",
+                    examples: ["Hausse d'IR, de CSG, d'IS, ou de cotisations", "Recette attendue : 1,00\u20AC"],
+                    captured: true,
+                    color: "#64748b",
+                    arrow: "100%",
+                  },
+                  {
+                    order: 1,
+                    label: "Comportemental direct",
+                    title: "Les contribuables réagissent",
+                    examples: [
+                      "Le médecin refuse 5 patients par semaine",
+                      "L'ingénieur accepte l'offre à Zurich",
+                      "L'entrepreneur gèle l'embauche prévue",
+                      "L'investisseur redirige vers Dublin",
+                    ],
+                    captured: true,
+                    color: "#f59e0b",
+                    arrow: "~60-75%",
+                  },
+                  {
+                    order: 2,
+                    label: "Effets en chaîne",
+                    title: "L'activité perdue génère des pertes fiscales",
+                    examples: [
+                      "5 patients refusés = 5 consultations non facturées = 0\u20AC d'IR + 0\u20AC de TVA pharmacie",
+                      "1 ingénieur parti = 1 poste vacant = 0\u20AC de cotisations pendant 6 mois",
+                      "1 embauche gelée = 0\u20AC d'IR + 0\u20AC de cotisations + 0\u20AC de TVA (consommation perdue)",
+                    ],
+                    captured: false,
+                    color: "#ef4444",
+                    arrow: "~40-60%",
+                  },
+                  {
+                    order: 3,
+                    label: "Coût social",
+                    title: "Les services publics absorbent le choc",
+                    examples: [
+                      "Patients refusés → urgences saturées → coût hospitalier +4\u00D7 vs consultation",
+                      "Postes vacants → projets retardés → perte de compétitivité → moins d'IDE",
+                      "Chômage → RSA + ARE + CMU → dépense publique additionnelle",
+                    ],
+                    captured: false,
+                    color: "#dc2626",
+                    arrow: "~20-40%",
+                  },
+                  {
+                    order: 4,
+                    label: "Spirale structurelle",
+                    title: "Le déficit persiste, on augmente encore",
+                    examples: [
+                      "Recettes décevantes → nouveau tour de vis fiscal → retour à l'ordre 0",
+                      "Instabilité fiscale chronique → prime de risque → coût de la dette +",
+                      "Signal international négatif → classement ITCI 38e → moins d'investissements",
+                    ],
+                    captured: false,
+                    color: "#991b1b",
+                    arrow: "",
+                  },
+                ].map((step, i) => (
+                  <div key={i}>
+                    <div className="flex items-stretch gap-0">
+                      {/* Barre verticale de connexion */}
+                      <div className="flex flex-col items-center w-10 flex-shrink-0">
+                        <div className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold" style={{ background: step.color }}>
+                          {step.order}
+                        </div>
+                        {i < 4 && <div className="w-px flex-1" style={{ background: step.color, opacity: 0.3 }} />}
+                      </div>
+
+                      {/* Contenu */}
+                      <div className={`flex-1 pb-4 ${i < 4 ? "border-l border-slate-100" : ""} pl-4`}>
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="text-[9px] font-bold uppercase px-1.5 py-0.5 rounded" style={{ background: step.color + "15", color: step.color }}>
+                            {"Ordre "}{step.order}{" — "}{step.label}
+                          </span>
+                          {step.captured ? (
+                            <span className="text-[8px] px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-600 font-medium">{"Modélisé"}</span>
+                          ) : (
+                            <span className="text-[8px] px-1.5 py-0.5 rounded bg-red-50 text-red-500 font-medium">{"Non modélisé"}</span>
+                          )}
+                        </div>
+                        <div className="text-sm font-semibold text-slate-800 mb-1.5">{step.title}</div>
+                        <ul className="space-y-0.5">
+                          {step.examples.map((ex, j) => (
+                            <li key={j} className="text-[11px] text-slate-500 flex items-start gap-1.5">
+                              <span className="text-slate-300 mt-0.5">{"›"}</span>
+                              <span>{ex}</span>
+                            </li>
+                          ))}
+                        </ul>
+                        {step.arrow && (
+                          <div className="mt-2 flex items-center gap-1.5">
+                            <div className="h-1 rounded-full" style={{ width: step.arrow, background: step.color, opacity: 0.4 }} />
+                            <span className="text-[9px] font-mono" style={{ color: step.color }}>{"→ recette réelle : "}{step.arrow}{" de l'attendu"}</span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-2 bg-slate-50 border border-slate-200 rounded-lg p-3 text-[10px] text-slate-500">
+                {"Le simulateur modélise les ordres 0 et 1 via les élasticités publiées. Les ordres 2 à 4 sont documentés mais non quantifiés — ce qui signifie que "}
+                <strong className="text-slate-700">{"le coût réel d'une hausse d'impôt est systématiquement sous-estimé"}</strong>
+                {" par tout modèle à élasticités."}
+              </div>
             </div>
           </section>
 
