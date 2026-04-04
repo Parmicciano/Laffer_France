@@ -128,8 +128,16 @@ export default function Dashboard() {
   const y1 = proj[1];
   const y5 = proj[5];
   const y1NetCost = y1 ? Math.abs(y1.revenueDiff) : 0;
+  // Hausse d'impôt ? On montre le taux de collecte effectif au lieu du selfFinPct
+  const isNetIncrease = y5 ? y5.activeCut < 0 : false;
   const y5SelfFin = y5 ? y5.selfFinPct : 0;
+  const y5DisplayPct = isNetIncrease && y5 && y5.activeCut !== 0
+    ? (y5.revenueDiff / Math.abs(y5.activeCut)) * 100
+    : y5SelfFin;
   const lastSelfFin = last ? last.selfFinPct : 0;
+  const lastDisplayPct = isNetIncrease && last && last.activeCut !== 0
+    ? (last.revenueDiff / Math.abs(last.activeCut)) * 100
+    : lastSelfFin;
 
   const crossoverYear = useMemo(() => {
     for (let i = 1; i < proj.length; i++) {
@@ -477,15 +485,26 @@ export default function Dashboard() {
                 })}
               </div>
 
-              {/* Autofinancement par palier */}
+              {/* Autofinancement / taux de collecte par palier */}
               <div className="pt-5 border-t border-slate-100">
                 <div className="text-center mb-4">
-                  <span className={`text-5xl font-semibold ${y5SelfFin >= 0 ? "text-emerald-600" : "text-red-500"}`} style={{ fontFamily: "'JetBrains Mono', monospace" }}>
-                    {Math.round(y5SelfFin)}%
+                  <span className={`text-5xl font-semibold ${
+                    isNetIncrease
+                      ? y5DisplayPct >= 100 ? "text-emerald-600" : y5DisplayPct >= 50 ? "text-amber-500" : "text-red-500"
+                      : y5DisplayPct >= 0 ? "text-emerald-600" : "text-red-500"
+                  }`} style={{ fontFamily: "'JetBrains Mono', monospace" }}>
+                    {Math.round(y5DisplayPct)}%
                   </span>
                   <div className="text-lg text-slate-500 mt-1">
-                    {y5SelfFin >= 0 ? "récupéré en 5 ans" : "perdu en réponse comportementale à 5 ans"}
+                    {isNetIncrease
+                      ? "effectivement collecté en 5 ans"
+                      : "récupéré en 5 ans"}
                   </div>
+                  {isNetIncrease && (
+                    <div className="text-[10px] text-slate-400 mt-1">
+                      {"Sur 1\u20AC de hausse attendue, "}{(y5DisplayPct / 100).toFixed(2)}{"\u20AC rentre effectivement."}
+                    </div>
+                  )}
                 </div>
                 <div className="flex items-center justify-center gap-1 flex-wrap">
                   {[
@@ -497,38 +516,50 @@ export default function Dashboard() {
                   ].map(({ y, label }) => {
                     const p = proj[y];
                     if (!p) return null;
-                    const sf = p.selfFinPct;
-                    const over100 = sf >= 100;
+                    // Pour les hausses : taux de collecte effectif (revenueDiff / |activeCut|)
+                    // Pour les baisses : selfFinPct (% récupéré)
+                    const displayVal = isNetIncrease && p.activeCut !== 0
+                      ? (p.revenueDiff / Math.abs(p.activeCut)) * 100
+                      : p.selfFinPct;
+                    const over100 = displayVal >= 100;
                     return (
                       <div key={y} className="text-center px-3 py-2 min-w-[70px]">
                         <div className="text-xl font-semibold" style={{
                           fontFamily: "'JetBrains Mono', monospace",
-                          color: sf < 0 ? "#ef4444" : over100 ? "#059669" : sf > 80 ? "#10b981" : sf > 50 ? "#3b82f6" : "#64748b",
+                          color: isNetIncrease
+                            ? over100 ? "#059669" : displayVal >= 50 ? "#f59e0b" : "#ef4444"
+                            : displayVal < 0 ? "#ef4444" : over100 ? "#059669" : displayVal > 80 ? "#10b981" : displayVal > 50 ? "#3b82f6" : "#64748b",
                         }}>
-                          {Math.round(sf)}%
+                          {Math.round(displayVal)}%
                         </div>
                         <div className="text-[10px] text-slate-400 mt-0.5">{label}</div>
                         <div className="mx-auto mt-1 h-[3px] rounded-full" style={{
-                          width: `${Math.min(Math.abs(sf), 100)}%`,
+                          width: `${Math.min(Math.abs(displayVal), 100)}%`,
                           maxWidth: "48px",
-                          background: sf < 0 ? "#ef4444" : over100 ? "#059669" : sf > 80 ? "#10b981" : sf > 50 ? "#3b82f6" : "#94a3b8",
+                          background: isNetIncrease
+                            ? over100 ? "#059669" : displayVal >= 50 ? "#f59e0b" : "#ef4444"
+                            : displayVal < 0 ? "#ef4444" : over100 ? "#059669" : displayVal > 80 ? "#10b981" : displayVal > 50 ? "#3b82f6" : "#94a3b8",
                         }} />
                       </div>
                     );
                   })}
                 </div>
                 <div className="text-center text-[10px] text-slate-400 mt-2">
-                  {lastSelfFin >= 100
+                  {isNetIncrease
+                    ? lastDisplayPct >= 100
+                      ? "La hausse collecte plus que le montant mécanique attendu."
+                      : lastDisplayPct > 0
+                      ? `La hausse perd ${Math.round(100 - lastDisplayPct)}% de son rendement via les réponses comportementales.`
+                      : "La hausse coûte plus qu'elle ne rapporte : on est au-delà du sommet de la courbe de Laffer."
+                    : lastSelfFin >= 100
                     ? "La baisse se rembourse intégralement et génère un excédent."
-                    : lastSelfFin < 0
-                    ? "La hausse d'impôt perd une partie de son rendement via les 5 canaux comportementaux."
                     : "L'autofinancement monte chaque année grâce aux 5 canaux."}
                 </div>
 
                 {/* Décomposition par canal — timeline stacked */}
                 {modelSettings.fastChannelsEnabled && (
                   <div className="mt-6 pt-4 border-t border-slate-100">
-                    <div className="text-[11px] font-semibold text-slate-600 mb-3">{"Décomposition par canal (Md€ récupérés)"}</div>
+                    <div className="text-[11px] font-semibold text-slate-600 mb-3">{isNetIncrease ? "Décomposition par canal (Md€ d'impact comportemental)" : "Décomposition par canal (Md€ récupérés)"}</div>
                     <div className="overflow-x-auto">
                       <table className="w-full text-[10px] min-w-[500px]">
                         <thead>
