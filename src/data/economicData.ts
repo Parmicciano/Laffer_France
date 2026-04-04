@@ -280,11 +280,11 @@ export const historicalEvents: HistoricalEvent[] = [
     type: "hausse",
     impact: "Reprise des départs : ~19 000 foyers émigrés sur la durée",
     recettesAvant: "~5 Md€/an (ISF brut)",
-    recettesApres: "Perte nette estimée ~3,7 Md€/an (Rexecode)",
+    recettesApres: "Manque à gagner total ~7 Md€/an, bilan net ~-2 Md€/an (Rexecode)",
     verdict: "laffer_confirme",
     verdictLabel: "Laffer confirmé",
     details:
-      "L'ISF rapporte ~5 Md€ bruts mais coûte ~3,7 Md€/an en perte de base taxable (exil fiscal, départ de capitaux). Bilan net quasi nul ou négatif selon les estimations.",
+      "L'ISF rapporte ~5 Md€ bruts par an, mais les 19 000 contribuables partis emportent leur IR, IS, plus-values et consommation taxable. Manque à gagner total : ~7 Md€/an (Rexecode). Bilan net : l'ISF coûte au moins 2 Md€/an de plus qu'il ne rapporte.",
   },
   {
     year: 2012,

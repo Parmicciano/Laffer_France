@@ -42,9 +42,9 @@ const actes = [
     numero: "I",
     intuition: "Taxer plus les riches finance les hôpitaux",
     reveal: "Quand les riches partent, leur impôt part avec eux.",
-    preuve: "L'ISF rapportait 5 Md€ bruts mais provoquait 19 000 départs et une perte nette de ~3,7 Md€/an. Résultat net pour les hôpitaux : négatif.",
-    source: "Rexecode ; DGFiP",
-    verdict: "L'ISF a COÛTÉ de l'argent aux services publics.",
+    preuve: "L'ISF rapportait 5 Md€ bruts. Mais les 19 000 contribuables partis ont emporté leur IR, leur IS, leurs plus-values et leur consommation taxable. Rexecode estime le manque à gagner total à 7 Md€/an minimum. Bilan : l'ISF a fait perdre au moins 2 Md€/an de recettes nettes.",
+    source: "Rexecode ; DGFiP ; Cour des Comptes",
+    verdict: "L'ISF coûtait plus qu'il ne rapportait.",
   },
   {
     numero: "II",
