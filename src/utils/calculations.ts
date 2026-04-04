@@ -615,8 +615,11 @@ function _simulate(
     // Déficit & dette — CORRIGÉ : séparer dépenses opérationnelles et intérêts
     // dep0 (1670.2 Md€) INCLUT la charge de la dette (55 Md€)
     // On sépare pour éviter le double-comptage des intérêts
+    // Les dépenses opérationnelles croissent au MÊME rythme que le PIB nominal (3.1%)
+    // car retraites, santé, salaires fonctionnaires croissent avec le PIB.
+    // Seule la réforme (boost supply-side) crée un ÉCART recettes > dépenses.
     const dep0Operating = dep0 - macroData.chargeDette; // 1615.2 Md€ hors intérêts
-    const depOperating = dep0Operating * Math.pow(1 + MODEL.inflationRate, y);
+    const depOperating = dep0Operating * Math.pow(1 + nominalGrowth, y);
     // Intérêts calculés sur le stock de dette réel
     const sqInt = sqDette * MODEL.baseInterestRate;
     // Malus spread si dette/PIB dépasse 120% : +50 bps par tranche de 10% au-delà
