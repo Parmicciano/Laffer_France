@@ -620,16 +620,21 @@ function _simulate(
     // Seule la réforme (boost supply-side) crée un ÉCART recettes > dépenses.
     const dep0Operating = dep0 - macroData.chargeDette; // 1615.2 Md€ hors intérêts
     const depOperating = dep0Operating * Math.pow(1 + nominalGrowth, y);
-    // Intérêts calculés sur le stock de dette réel
-    const sqInt = sqDette * MODEL.baseInterestRate;
-    // Malus spread si dette/PIB dépasse 120% : +50 bps par tranche de 10% au-delà
+    // Intérêts — malus dette/PIB > 120% appliqué aux DEUX trajectoires (symétrique)
+    const sqDettePibRatio = sqDette / sqPib;
+    const sqMalus = sqDettePibRatio > 1.20
+      ? 0.005 * ((sqDettePibRatio - 1.20) / 0.10)
+      : 0;
+    const sqRate = MODEL.baseInterestRate + sqMalus;
+    const sqInt = sqDette * sqRate;
+
     const refDettePibRatio = refDette / refPib;
-    // Malus continu : +50 bps par tranche de 10pp au-delà de 120% dette/PIB
-    const debtMalus = refDettePibRatio > 1.20
+    const refMalus = refDettePibRatio > 1.20
       ? 0.005 * ((refDettePibRatio - 1.20) / 0.10)
       : 0;
-    const spreadBonus = (reformRecettes - revBaseline) > (revBaseline - depOperating - sqInt) * 0.01 ? 0.001 * Math.min(y, 5) : 0;
-    const refRate = MODEL.baseInterestRate - spreadBonus + debtMalus;
+    // Bonus spread si la réforme améliore le solde structurel
+    const spreadBonus = revDiff > 0 ? 0.001 * Math.min(y, 5) : 0;
+    const refRate = MODEL.baseInterestRate + refMalus - spreadBonus;
     const refInt = refDette * refRate;
     // Déficits = recettes - dépenses opérationnelles - intérêts
     const sqDef = revBaseline - depOperating - sqInt;
