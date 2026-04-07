@@ -954,7 +954,7 @@ export default function Dashboard() {
 
           {/* ACTE 5 — L'HISTOIRE LE CONFIRME */}
           <section className="pb-10">
-            <h2 className="text-xl font-bold text-slate-900 mb-5">{"L'histoire française le confirme"}</h2>
+            <h2 className="text-xl font-bold text-slate-900 mb-5">{"L'histoire française est cohérente avec cette hypothèse"}</h2>
 
             <div className="relative px-4 mb-8">
               <div className="absolute top-4 left-8 right-8 h-px bg-slate-200" />
@@ -1301,8 +1301,8 @@ export default function Dashboard() {
         <p className="text-sm text-slate-500 leading-relaxed">
           Ce simulateur modélise la position de la France sur la courbe de Laffer
           et calcule l{"'"}impact net de différents scénarios de réforme fiscale.
-          Il utilise les élasticités estimées par Lefebvre, Lehmann et Sicsic
-          (Scandinavian Journal of Economics, 2025) pour l{"'"}impôt sur le capital,
+          Ses paramètres sont des choix de calibration inspirés des estimations publiées,
+          notamment Lefebvre, Lehmann et Sicsic (Scandinavian Journal of Economics, 2025) pour l{"'"}impôt sur le capital,
           les taux d{"'"}autofinancement de Trabandt et Uhlig (Journal of Monetary
           Economics, 2011) pour l{"'"}EU-14, et les données macroéconomiques
           INSEE et OCDE 2024.
@@ -1322,7 +1322,7 @@ export default function Dashboard() {
         </p>
         <h3 className="text-base font-semibold text-slate-600 pt-2">Sources académiques</h3>
         <ul className="text-xs text-slate-500 space-y-1 list-disc pl-5">
-          <li>Lefebvre, M.-N., Lehmann, E. et Sicsic, M. (2025). Estimating the Laffer Tax Rate on Capital Income. <em>Scandinavian Journal of Economics</em>, 127(2), 460-489.</li>
+          <li>Lefebvre, M.-N., Lehmann, E. et Sicsic, M. (2025). Estimating the Laffer Tax Rate on Capital Income. <em>Scandinavian Journal of Economics</em>, 127(2), 460-489. <span className="text-slate-400">[Calibration inspirée — n{"'"}engage pas les auteurs]</span></li>
           <li>Trabandt, M. et Uhlig, H. (2011). The Laffer Curve Revisited. <em>Journal of Monetary Economics</em>, 58(4), 305-327.</li>
           <li>OCDE (2010). Tax Policy Reform and Economic Growth. OECD Tax Policy Studies No. 20.</li>
           <li>Arnold, J. et al. (2008). Taxation and Economic Growth. OECD Economics Department Working Papers No. 620.</li>

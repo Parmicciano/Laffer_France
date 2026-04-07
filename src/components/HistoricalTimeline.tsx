@@ -110,7 +110,7 @@ export default function HistoricalTimeline() {
     <div className="space-y-6">
       <div className="bg-[#141414] border border-[#222] rounded-xl p-6 mb-6">
         <h3 className="text-lg font-semibold text-white mb-2">
-          L&apos;histoire fiscale confirme Laffer
+          L&apos;histoire fiscale est cohérente avec l&apos;effet Laffer
         </h3>
         <p className="text-sm text-neutral-400 leading-relaxed">
           Depuis 40 ans, la France a expérimenté involontairement la courbe de

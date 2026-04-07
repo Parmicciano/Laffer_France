@@ -22,7 +22,7 @@ const keyEvents = [
     title: "Fin du prélèvement forfaitaire",
     type: "hausse" as const,
     result: "L'impot sur les dividendes passe au barème. Les distributions chutent. Les recettes totales BAISSENT.",
-    verdict: "Preuve directe de l'effet Laffer (Lefebvre et al. 2024)",
+    verdict: "Cohérent avec l'effet Laffer (calibration inspirée de Lefebvre et al. 2024)",
     color: "red",
   },
   {
@@ -39,7 +39,7 @@ export default function HistoriqueSection() {
   return (
     <section id="historique" className="py-16 border-t border-slate-100">
       <h2 className="text-2xl md:text-3xl font-bold text-slate-900 text-center mb-3">
-        L&apos;histoire française le prouve
+        L&apos;histoire française est cohérente avec cette hypothèse
       </h2>
       <p className="text-slate-500 text-center mb-10 max-w-xl mx-auto">
         En 40 ans, la France a involontairement testé la courbe de Laffer

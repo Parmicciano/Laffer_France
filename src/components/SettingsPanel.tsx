@@ -132,7 +132,7 @@ export default function SettingsPanel({ settings, onChange }: SettingsPanelProps
             label="Lefebvre et al. — résultat principal"
             description="ε_direct = 0.50 | Cross-élasticité capital→travail = 0.05 | τ* ≈ 43%"
             detail="Inclut la cross-élasticité sur le revenu du travail."
-            source="Lefebvre, Lehmann & Sicsic (2025), Scand. J. Econ. 127(2), 460-489"
+            source="Calibration inspirée de Lefebvre, Lehmann & Sicsic (2025), Scand. J. Econ. 127(2), 460-489"
             tag="🟢 Conservateur"
           />
           <RadioOption
@@ -145,7 +145,7 @@ export default function SettingsPanel({ settings, onChange }: SettingsPanelProps
             label="Lefebvre et al. — sans cross-élasticité"
             description="ε_composite = 0.75 | Cross-élasticité = 0 | τ* = 57%"
             detail="Élasticité directe seule, sans effet sur le revenu du travail."
-            source="Lefebvre, Lehmann & Sicsic (2025)"
+            source="Calibration inspirée de Lefebvre, Lehmann & Sicsic (2025)"
             tag="🟡 Central"
           />
           <RadioOption
@@ -158,7 +158,7 @@ export default function SettingsPanel({ settings, onChange }: SettingsPanelProps
             label="Lefebvre et al. — avec cotisations sociales"
             description="ε_composite = 1.86 | Cross-élasticité = 0 | τ* = 35%"
             detail="Estimation la plus complète, incluant l'impact sur les cotisations sociales."
-            source="Lefebvre, Lehmann & Sicsic (2025)"
+            source="Calibration inspirée de Lefebvre, Lehmann & Sicsic (2025)"
             tag="🔴 Fourchette basse"
           />
         </SettingGroup>

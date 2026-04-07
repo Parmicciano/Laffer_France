@@ -73,7 +73,6 @@ export default function RootLayout({
                 {
                   "@type": "ScholarlyArticle",
                   name: "Estimating the Laffer Tax Rate on Capital Income: Cross-Base Responses Matter!",
-                  author: ["Marie-Noëlle Lefebvre", "Etienne Lehmann", "Michaël Sicsic"],
                   datePublished: "2025",
                   isPartOf: {
                     "@type": "Periodical",
@@ -83,7 +82,6 @@ export default function RootLayout({
                 {
                   "@type": "ScholarlyArticle",
                   name: "The Laffer Curve Revisited",
-                  author: ["Mathias Trabandt", "Harald Uhlig"],
                   datePublished: "2011",
                   isPartOf: {
                     "@type": "Periodical",

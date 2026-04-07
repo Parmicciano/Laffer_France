@@ -15,6 +15,8 @@
 > - Les estimations à court terme ne préjugent pas des valeurs à long terme
 > - Les effets sur l'emploi et l'investissement des entreprises peuvent nuancer voire contredire les conclusions d'un modèle en équilibre partiel (cf. Matray 2022)
 > - Un meilleur recouvrement fiscal pourrait atténuer ces élasticités
+> - Le périmètre exact des taux laffériens estimés (PFU seul vs PFU + IS) doit être clarifié ; notre modèle agrège l'ensemble de la fiscalité du capital (IS + PFU + IFI + plus-values), ce qui constitue un choix de modélisation
+> - L'interprétation de ces estimations dans un cadre macroéconomique intertemporel (et non en équilibre partiel statique) reste une question ouverte
 >
 > Toute interprétation en termes de recommandation de politique économique est de notre seule responsabilité.
 

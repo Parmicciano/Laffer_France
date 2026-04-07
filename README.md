@@ -8,7 +8,7 @@
 
 Un outil interactif qui modélise l'impact de réformes fiscales en France, calibré sur la littérature académique :
 
-- **Elasticités** : Lefebvre, Lehmann & Sicsic (2025), Saez et al. (2012)
+- **Élasticités** : calibration inspirée de Lefebvre, Lehmann & Sicsic (2025), Saez et al. (2012)
 - **Autofinancement** : Trabandt & Uhlig (2011)
 - **Données macro** : INSEE 2024, OCDE Revenue Statistics 2025
 - **Croissance** : OCDE (2010), Arnold et al. (2008)
@@ -50,7 +50,7 @@ Le document [AUDIT_METHODOLOGY.md](./AUDIT_METHODOLOGY.md) détaille les formule
 
 ## Sources principales
 
-- Lefebvre, M.-N., Lehmann, E. et Sicsic, M. (2025). *Scandinavian Journal of Economics*, 127(2), 460-489.
+- Lefebvre, M.-N., Lehmann, E. et Sicsic, M. (2025). *Scandinavian Journal of Economics*, 127(2), 460-489. [Calibration inspirée — n'engage pas les auteurs]
 - Trabandt, M. et Uhlig, H. (2011). *Journal of Monetary Economics*, 58(4), 305-327.
 - Saez, E., Slemrod, J. et Giertz, S. (2012). *Journal of Economic Literature*, 50(1), 3-50.
 - OCDE (2010). Tax Policy Reform and Economic Growth. OECD Tax Policy Studies No. 20.

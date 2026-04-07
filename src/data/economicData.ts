@@ -229,7 +229,7 @@ export const concreteExamples: ConcreteExample[] = [
     marginalRate: 0.475,
     netPerEuro: 0.525,
     optimalRate: 0.43,
-    verdict: "Position relative au sommet variable selon le modèle (τ*=35% à 57%). Prouvé empiriquement en 2013 (recettes en baisse).",
+    verdict: "Position relative au sommet variable selon le modèle (τ*=35% à 57%). Cohérent avec les données observées en 2013 (recettes en baisse).",
     category: "capital",
   },
 ];
