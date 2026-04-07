@@ -225,7 +225,7 @@ export const concreteExamples: ConcreteExample[] = [
   {
     title: "Actionnaire (IS + PFU combinés)",
     description:
-      "100€ de bénéfice → IS 25% = 75€ distribuables → PFU 30% = -22.50€ → net 52.50€. Taux combiné : 47.5%. Le seuil de Lefebvre et al. (2025) dépend du modèle choisi (35%-57%).",
+      "100€ de bénéfice → IS 25% = 75€ distribuables → PFU 30% = -22.50€ → net 52.50€. Taux combiné : 47.5%. Le seuil selon notre calibration (inspirée de Lefebvre et al. 2025) dépend du modèle choisi (35%-57%).",
     marginalRate: 0.475,
     netPerEuro: 0.525,
     optimalRate: 0.43,
@@ -246,7 +246,7 @@ export interface HistoricalEvent {
   impact: string;
   recettesAvant?: string;
   recettesApres?: string;
-  verdict: "laffer_confirme" | "laffer_infirme" | "neutre";
+  verdict: "pattern_coherent" | "laffer_infirme" | "neutre";
   verdictLabel: string;
   details: string;
 }
@@ -258,10 +258,10 @@ export const historicalEvents: HistoricalEvent[] = [
     description: "Mitterrand crée l'IGF, ancêtre de l'ISF.",
     type: "hausse",
     impact: "Début de l'exode fiscal des grandes fortunes",
-    verdict: "laffer_confirme",
-    verdictLabel: "Laffer confirmé",
+    verdict: "pattern_coherent",
+    verdictLabel: "Pattern cohérent : exode fiscal",
     details:
-      "Les premiers départs de contribuables fortunés commencent dès la création de l'IGF. La fuite des capitaux s'amorce.",
+      "Les premiers départs de contribuables fortunés commencent dès la création de l'IGF. Des sources (Rexecode, Pichet 2007) documentent une fuite de capitaux, compatible avec une réaction élastique à la hausse du taux.",
   },
   {
     year: 1986,
@@ -269,10 +269,10 @@ export const historicalEvents: HistoricalEvent[] = [
     description: "Le gouvernement Chirac supprime l'IGF.",
     type: "baisse",
     impact: "Retour de capitaux, amélioration de l'attractivité",
-    verdict: "laffer_confirme",
-    verdictLabel: "Laffer confirmé",
+    verdict: "pattern_coherent",
+    verdictLabel: "Pattern cohérent : retour de capitaux",
     details:
-      "La suppression entraîne un retour de capitaux et une amélioration de l'attractivité fiscale de la France.",
+      "La suppression s'accompagne d'un retour de capitaux apparent et d'une amélioration relative de l'attractivité fiscale, suggérant une réaction élastique positive à la réduction du taux.",
   },
   {
     year: 1988,
@@ -282,10 +282,10 @@ export const historicalEvents: HistoricalEvent[] = [
     impact: "Reprise des départs : ~19 000 foyers émigrés sur la durée",
     recettesAvant: "~5 Md€/an (ISF brut)",
     recettesApres: "Manque à gagner total ~7 Md€/an, bilan net ~-2 Md€/an (Rexecode)",
-    verdict: "laffer_confirme",
-    verdictLabel: "Laffer confirmé",
+    verdict: "pattern_coherent",
+    verdictLabel: "Bilan net négatif estimé",
     details:
-      "L'ISF rapporte ~5 Md€ bruts par an, mais les 19 000 contribuables partis emportent leur IR, IS, plus-values et consommation taxable. Manque à gagner total : ~7 Md€/an (Rexecode). Bilan net : l'ISF coûte au moins 2 Md€/an de plus qu'il ne rapporte.",
+      "L'ISF rapporte ~5 Md€ bruts par an. Cependant, les 19 000 départs observés s'accompagnent d'une perte estimée de IR, IS, plus-values et consommation taxable. Perte totale estimée : ~7 Md€/an (selon Rexecode). Bilan net estimé : environ -2 Md€/an.",
   },
   {
     year: 2012,
@@ -296,10 +296,10 @@ export const historicalEvents: HistoricalEvent[] = [
     impact: "Exode médiatisé (Depardieu, entrepreneurs), recul de l'investissement",
     recettesAvant: "Objectif : 500 M€/an",
     recettesApres: "~260 M€ collectés avant annulation",
-    verdict: "laffer_confirme",
-    verdictLabel: "Laffer confirmé",
+    verdict: "pattern_coherent",
+    verdictLabel: "Recettes bien en-deçà de l'objectif",
     details:
-      "La taxe est censurée par le Conseil Constitutionnel puis reformulée. Elle rapporte bien moins que prévu et provoque un signal désastreux. Abandonnée en 2015.",
+      "La taxe est censurée puis reformulée. Elle collecte ~52% de l'objectif (260 M€ vs 500 M€ ciblés), suggérant une forte réaction comportementale. Signal négatif documenté sur les intentions d'investissement. Abandonnée en 2015.",
   },
   {
     year: 2013,
@@ -310,7 +310,7 @@ export const historicalEvents: HistoricalEvent[] = [
     impact: "Hausse du taux effectif sur les dividendes → BAISSE des recettes",
     recettesAvant: "Recettes dividendes stables",
     recettesApres: "Baisse significative des distributions",
-    verdict: "laffer_confirme",
+    verdict: "pattern_coherent",
     verdictLabel: "Cohérent avec l'effet Laffer",
     details:
       "Lefebvre, Lehmann & Sicsic (2025, Scand. J. Econ.) estiment des élasticités qui, si elles sont retenues, suggéreraient un taux lafférien sur les dividendes proche du taux effectif d'alors — avec une incertitude substantielle et au conditionnel. La hausse du taux a réduit les distributions de dividendes. NB : Matray (2022, NBER WP 30099) montre par ailleurs que cette hausse a stimulé l'investissement des entreprises concernées.",
@@ -324,10 +324,10 @@ export const historicalEvents: HistoricalEvent[] = [
     impact: "Retour de capitaux, hausse des investissements, hausse des recettes sur le capital",
     recettesAvant: "ISF : ~5 Md€ ; impôt capital total : ~100 Md€",
     recettesApres: "IFI : ~2 Md€ ; mais recettes capital totales en hausse grâce au PFU",
-    verdict: "laffer_confirme",
-    verdictLabel: "Laffer confirmé",
+    verdict: "pattern_coherent",
+    verdictLabel: "Recettes en hausse malgré taux réduit",
     details:
-      "Malgré la baisse du taux nominal (30% flat vs barème progressif), les recettes sur le capital augmentent grâce au dynamisme des distributions et au retour de capitaux. Le rapport France Stratégie 2021 le confirme.",
+      "Malgré la baisse du taux nominal (30% flat vs barème progressif), les recettes sur le capital augmentent grâce au dynamisme des distributions et au retour de capitaux (source : France Stratégie 2021, 2023). Ceci est compatible avec la courbe de Laffer si le taux d'avant 2017 était au-delà du sommet.",
   },
   {
     year: 2012,
@@ -338,10 +338,10 @@ export const historicalEvents: HistoricalEvent[] = [
     impact: "Déclarée inconstitutionnelle — l'État rembourse ~10 Md€",
     recettesAvant: "Objectif : 2 Md€/an",
     recettesApres: "Bilan net : −10 Md€ (remboursements après censure CJUE 2017)",
-    verdict: "laffer_confirme",
-    verdictLabel: "La hausse a coûté de l'argent",
+    verdict: "pattern_coherent",
+    verdictLabel: "Hausse au bilan négatif",
     details:
-      "La CJUE puis le Conseil constitutionnel (2017) censurent la taxe. L'État doit rembourser ~10 Md€ aux entreprises. La hausse fiscale censée combler le déficit a finalement CREUSÉ le déficit.",
+      "La CJUE puis le Conseil constitutionnel (2017) censurent la taxe. L'État doit rembourser ~10 Md€ aux entreprises. Au plan budgétaire brut, la hausse a eu un impact fortement négatif.",
   },
   {
     year: 2023,
@@ -352,10 +352,10 @@ export const historicalEvents: HistoricalEvent[] = [
     impact: "Attendu 12,3 Md€ — collecté ~600 M€ (5% de l'objectif)",
     recettesAvant: "Objectif : 12,3 Md€",
     recettesApres: "~600 M€ collectés (Sénat, rapport n°86)",
-    verdict: "laffer_confirme",
-    verdictLabel: "Laffer confirmé",
+    verdict: "pattern_coherent",
+    verdictLabel: "Rendement très en-deçà des objectifs",
     details:
-      "Les entreprises ont restructuré leurs contrats pour éviter l'assiette. Le rendement réel est 20× inférieur aux prévisions. Illustration parfaite de l'élasticité de la base taxable quand le taux augmente brutalement.",
+      "Les entreprises ont restructuré leurs contrats pour éviter l'assiette. Le rendement réel est 20× inférieur aux prévisions (~600 M€ vs 12,3 Md€ ciblés). Ceci illustre une élasticité substantielle de la base taxable en réaction à une hausse brusque du taux.",
   },
   {
     year: 2024,

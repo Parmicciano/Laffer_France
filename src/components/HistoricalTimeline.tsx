@@ -4,7 +4,7 @@ import { historicalEvents, type HistoricalEvent } from "@/data/economicData";
 
 function VerdictBadge({ event }: { event: HistoricalEvent }) {
   const colors = {
-    laffer_confirme:
+    pattern_coherent:
       event.type === "hausse"
         ? "bg-red-500/10 text-red-400 border-red-500/20"
         : "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
@@ -110,17 +110,18 @@ export default function HistoricalTimeline() {
     <div className="space-y-6">
       <div className="bg-[#141414] border border-[#222] rounded-xl p-6 mb-6">
         <h3 className="text-lg font-semibold text-white mb-2">
-          L&apos;histoire fiscale est cohérente avec l&apos;effet Laffer
+          Épisodes historiques et effet Laffer
         </h3>
         <p className="text-sm text-neutral-400 leading-relaxed">
           Depuis 40 ans, la France a expérimenté involontairement la courbe de
           Laffer à travers des hausses et baisses d&apos;impôt sur le capital et les
-          hauts revenus. Le résultat est sans appel :{" "}
+          hauts revenus.{" "}
           <span className="text-amber-400 font-medium">
-            chaque hausse au-delà du sommet a réduit les recettes
+            Plusieurs épisodes suggèrent que les variations de taux
+            s&apos;accompagnent de variations opposées des recettes
           </span>
-          , chaque baisse les a restaurées. Ce ne sont pas des théories — ce
-          sont des données.
+          . Cette interprétation dépend des élasticités supposées et reste
+          entourée d&apos;incertitudes.
         </p>
       </div>
 
@@ -160,7 +161,7 @@ export default function HistoricalTimeline() {
       {/* Conclusion */}
       <div className="bg-gradient-to-r from-amber-500/5 to-transparent border border-amber-500/20 rounded-xl p-6">
         <h4 className="text-amber-400 font-semibold mb-2">
-          Le pattern est clair
+          Un pattern récurrent
         </h4>
         <p className="text-neutral-300 text-sm leading-relaxed">
           Sur le capital et les hauts revenus, la France oscille entre hausse

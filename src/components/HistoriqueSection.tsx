@@ -22,7 +22,7 @@ const keyEvents = [
     title: "Fin du prélèvement forfaitaire",
     type: "hausse" as const,
     result: "L'impot sur les dividendes passe au barème. Les distributions chutent. Les recettes totales BAISSENT.",
-    verdict: "Cohérent avec l'effet Laffer (calibration inspirée de Lefebvre et al. 2024)",
+    verdict: "Pattern cohérent avec un dépassement possible du seuil (calibration inspirée de Lefebvre et al. 2025, avec incertitude substantielle)",
     color: "red",
   },
   {
@@ -39,11 +39,12 @@ export default function HistoriqueSection() {
   return (
     <section id="historique" className="py-16 border-t border-slate-100">
       <h2 className="text-2xl md:text-3xl font-bold text-slate-900 text-center mb-3">
-        L&apos;histoire française est cohérente avec cette hypothèse
+        Épisodes historiques et fiscalité du capital
       </h2>
       <p className="text-slate-500 text-center mb-10 max-w-xl mx-auto">
-        En 40 ans, la France a involontairement testé la courbe de Laffer
-        à travers ses réformes fiscales. Le résultat est sans appel.
+        En 40 ans, plusieurs réformes fiscales françaises offrent des
+        épisodes compatibles avec la courbe de Laffer. L&apos;interprétation
+        dépend des hypothèses d&apos;élasticité retenues.
       </p>
 
       <div className="max-w-2xl mx-auto space-y-4">
@@ -88,9 +89,10 @@ export default function HistoriqueSection() {
 
       <div className="max-w-2xl mx-auto mt-8 bg-amber-50 border border-amber-200 rounded-xl p-5 text-center">
         <p className="text-amber-800 text-sm font-semibold">
-          Le pattern est clair : chaque fois qu&apos;on a augmenté les impots
-          sur le capital au-delà du seuil, les recettes ont baissé.
-          Chaque fois qu&apos;on les a réduits, elles sont remontées.
+          Selon notre calibration, ces épisodes suggèrent que les variations
+          de taux sur le capital s&apos;accompagnent souvent de variations
+          opposées des recettes. Cette interprétation dépend des hypothèses
+          d&apos;élasticité retenues et reste entourée d&apos;incertitudes.
         </p>
       </div>
     </section>

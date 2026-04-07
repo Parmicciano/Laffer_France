@@ -48,7 +48,7 @@
 | Type | Recettes (Md EUR) | Elasticite (epsilon) | Taux optimal (tau*) | Taux effectif actuel | Source elasticite |
 |------|-------------------|---------------------|--------------------|--------------------|-------------------|
 | Travail (IR+CSG+cotis. salariales) | 650 | 0.35 | 74% | 65% | Saez, Slemrod & Giertz (2012), ETI mediane France |
-| Capital (IS+PFU+IFI+PV) | 120 | 0.77 | 57% | 55% | Calibration inspirée de Lefebvre, Lehmann & Sicsic (2024)* |
+| Capital (IS+PFU+IFI+PV) | 120 | 0.77 | 57% | 55% | Calibration inspirée de Lefebvre, Lehmann & Sicsic (2025)* |
 | Cotisations patronales | 280 | 0.50 | 67% | 45% | Cahuc & Carcillo (2014) |
 | TVA | 200 | 0.15 | ~87% (theorique) | 20% | Keen & Lockwood (2010) |
 
@@ -203,7 +203,7 @@ Trois scenarios scalent les parametres :
 
 ---
 
-## IV. Episodes historiques de validation
+## IV. Episodes historiques : patterns observés
 
 ### Episode 1 --- PFU 2017 (Flat Tax 30% + IFI)
 

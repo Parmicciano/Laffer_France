@@ -357,33 +357,6 @@ export default function ParadoxeSection() {
               </p>
             </div>
 
-            {/* FOR THE GREATER GOOD — L'épilogue moral */}
-            <div className="mt-8 text-center">
-              <div className="inline-block">
-                <div className="w-px h-8 bg-slate-200 mx-auto mb-6" />
-                <h3 className="text-xl md:text-2xl font-black text-slate-900 leading-snug">
-                  For the greater good.
-                </h3>
-                <p className="text-sm text-slate-500 mt-4 max-w-lg mx-auto leading-relaxed">
-                  Baisser l{"'"}impôt sur le capital n{"'"}est pas un cadeau aux riches.
-                  C{"'"}est le moyen le plus efficace de <strong className="text-slate-800">maximiser les recettes</strong> qui
-                  financent les hôpitaux, les écoles et les retraites de tous.
-                </p>
-                <p className="text-sm text-slate-500 mt-3 max-w-lg mx-auto leading-relaxed">
-                  Les bien intentionnés sont des millions.
-                  Les départs médiatisés ne sont que la partie visible
-                  d{"'"}un phénomène plus large — dont l{"'"}ampleur reste difficile à estimer avec précision.
-                  <strong className="text-slate-800"> Garder ces forces en France, c{"'"}est protéger l{"'"}intérêt général.</strong>
-                </p>
-                <div className="mt-6 inline-flex items-center gap-3 bg-slate-900 text-white px-6 py-3 rounded-xl">
-                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                  <span className="text-sm font-medium">
-                    Le vrai progressisme, c{"'"}est de choisir ce qui marche pour tous.
-                  </span>
-                </div>
-                <div className="w-px h-8 bg-slate-200 mx-auto mt-6" />
-              </div>
-            </div>
           </div>
         )}
       </div>

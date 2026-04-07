@@ -952,9 +952,9 @@ export default function Dashboard() {
             </div>
           </section>
 
-          {/* ACTE 5 — L'HISTOIRE LE CONFIRME */}
+          {/* ACTE 5 — ÉPISODES HISTORIQUES */}
           <section className="pb-10">
-            <h2 className="text-xl font-bold text-slate-900 mb-5">{"L'histoire française est cohérente avec cette hypothèse"}</h2>
+            <h2 className="text-xl font-bold text-slate-900 mb-5">{"Épisodes historiques et fiscalité du capital"}</h2>
 
             <div className="relative px-4 mb-8">
               <div className="absolute top-4 left-8 right-8 h-px bg-slate-200" />

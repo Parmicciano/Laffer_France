@@ -129,7 +129,7 @@ export default function SettingsPanel({ settings, onChange }: SettingsPanelProps
             onChange={() =>
               onChange({ ...settings, capitalElasticityModel: "direct" })
             }
-            label="Lefebvre et al. — résultat principal"
+            label="Résultat principal (calibration inspirée de Lefebvre et al. 2025)"
             description="ε_direct = 0.50 | Cross-élasticité capital→travail = 0.05 | τ* ≈ 43%"
             detail="Inclut la cross-élasticité sur le revenu du travail."
             source="Calibration inspirée de Lefebvre, Lehmann & Sicsic (2025), Scand. J. Econ. 127(2), 460-489"
@@ -142,7 +142,7 @@ export default function SettingsPanel({ settings, onChange }: SettingsPanelProps
             onChange={() =>
               onChange({ ...settings, capitalElasticityModel: "noCross" })
             }
-            label="Lefebvre et al. — sans cross-élasticité"
+            label="Sans cross-élasticité (calibration inspirée de Lefebvre et al. 2025)"
             description="ε_composite = 0.75 | Cross-élasticité = 0 | τ* = 57%"
             detail="Élasticité directe seule, sans effet sur le revenu du travail."
             source="Calibration inspirée de Lefebvre, Lehmann & Sicsic (2025)"
@@ -155,7 +155,7 @@ export default function SettingsPanel({ settings, onChange }: SettingsPanelProps
             onChange={() =>
               onChange({ ...settings, capitalElasticityModel: "withPayroll" })
             }
-            label="Lefebvre et al. — avec cotisations sociales"
+            label="Avec cotisations sociales (calibration inspirée de Lefebvre et al. 2025)"
             description="ε_composite = 1.86 | Cross-élasticité = 0 | τ* = 35%"
             detail="Estimation la plus complète, incluant l'impact sur les cotisations sociales."
             source="Calibration inspirée de Lefebvre, Lehmann & Sicsic (2025)"
