@@ -171,7 +171,7 @@ export const taxTypes: Record<TaxTypeKey, TaxTypeParams> = {
     position: "left_of_peak",
     positionLabel: "Large marge",
     positionDescription:
-      "Pas de pic de Laffer pour la TVA dans les modèles standards (Trabandt & Uhlig 2011, confirmé). C'est l'impôt le moins distorsif — de nombreux pays sont à 25% (Danemark, Suède) ou 27% (Hongrie).",
+      "Pas de pic de Laffer pour la TVA dans les modèles standards (Trabandt & Uhlig 2011, résultat cohérent avec le consensus). C'est l'impôt le moins distorsif — de nombreux pays sont à 25% (Danemark, Suède) ou 27% (Hongrie).",
     color: "#10b981",
     sourceElasticity: "Estimation consensus (ε ≈ 0.15). Pas de source directe unique.",
   },
@@ -403,7 +403,7 @@ export const GROWTH_BOOST = {
   //   - Impôts sur les sociétés/capital : les plus nocifs pour la croissance → 0.30
   //   - IR/travail : modérément nocifs → 0.10
   //   - Cotisations sociales : intermédiaire → 0.15
-  // Le ranking ordinal EST robuste (confirmé par Acosta-Ormaechea & Yoo 2012,
+  // Le ranking ordinal EST robuste (cohérent avec Acosta-Ormaechea & Yoo 2012,
   // Xing 2012), mais les magnitudes cardinales sont notre inférence.
   travail: 0.10,
   capital: 0.30,
