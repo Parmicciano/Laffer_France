@@ -9,16 +9,16 @@ import { useState, useEffect, useRef } from "react";
 const silentExodus = [
   {
     category: "Entrepreneurs & fondateurs",
-    visible: "Xavier Niel, Patrick Drahi",
-    invisible: "~4 200 créateurs d'entreprise partis entre 2017 et 2023",
-    impact: "Chaque startup délocalisée = 50 à 500 emplois non créés en France",
+    visible: "Cas médiatisés de fondateurs expatriés",
+    invisible: "~4 200 créateurs d'entreprise partis entre 2017 et 2023 (estimation)",
+    impact: "Chaque startup délocalisée = 50 à 500 emplois non créés en France (hypothèse)",
     source: "DGFiP, flux migratoires fiscaux",
   },
   {
     category: "Cadres dirigeants & ingénieurs",
-    visible: "Eric Trappier (Dassault), cas médiatisés",
-    invisible: "~12 000 foyers fiscaux à hauts revenus par an quittent la France",
-    impact: "Perte de 1,5 à 3 Md€/an de base taxable directe",
+    visible: "Cas médiatisés de dirigeants expatriés",
+    invisible: "~12 000 foyers fiscaux à hauts revenus par an quittent la France (estimation)",
+    impact: "Perte estimée de 1,5 à 3 Md€/an de base taxable directe",
     source: "Rexecode, DGFiP",
   },
   {
@@ -243,7 +243,7 @@ export default function ParadoxeSection() {
             Ouvrir le dossier : l{"'"}exode que personne ne montre
           </button>
           <div className="text-[10px] text-slate-400 mt-1">
-            Trappier et Niel font les gros titres. Ils ne sont que la partie visible.
+            Les départs médiatisés ne sont que la partie visible. Estimations hypothétiques.
           </div>
         </div>
 
@@ -371,8 +371,8 @@ export default function ParadoxeSection() {
                 </p>
                 <p className="text-sm text-slate-500 mt-3 max-w-lg mx-auto leading-relaxed">
                   Les bien intentionnés sont des millions.
-                  Eric Trappier et Xavier Niel ne sont que l{"'"}exemple visible
-                  d{"'"}un système qui pousse les forces vives dehors.
+                  Les départs médiatisés ne sont que la partie visible
+                  d{"'"}un phénomène plus large — dont l{"'"}ampleur reste difficile à estimer avec précision.
                   <strong className="text-slate-800"> Garder ces forces en France, c{"'"}est protéger l{"'"}intérêt général.</strong>
                 </p>
                 <div className="mt-6 inline-flex items-center gap-3 bg-slate-900 text-white px-6 py-3 rounded-xl">

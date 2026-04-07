@@ -1002,7 +1002,7 @@ export default function Dashboard() {
           <section className="pb-10">
             <h2 className="text-xl font-bold text-slate-900 mb-2">{"Au-delà des exilés fiscaux : les effets invisibles"}</h2>
             <p className="text-sm text-slate-500 mb-5">
-              {"Trappier et Niel font les gros titres. Ils ne sont que la partie visible."}
+              {"Les départs médiatisés ne sont que la partie visible. Les effets les plus importants sont diffus et difficiles à quantifier — les estimations ci-dessous restent hypothétiques."}
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
