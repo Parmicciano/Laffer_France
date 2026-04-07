@@ -6,6 +6,20 @@
 
 ---
 
+> **Avertissement important sur les élasticités et taux laffériens**
+>
+> Les paramètres de ce modèle sont des **choix de calibration** de notre part, inspirés par la littérature académique citée. Ils n'engagent en aucun cas les auteurs des études sources. En particulier :
+> - La valeur des élasticités reste une question sur laquelle le consensus est limité
+> - Les taux laffériens estimés dans la littérature sont entourés d'une **incertitude substantielle**
+> - Les effets croisés (cross-élasticités) réduiraient le taux lafférien sur les revenus du capital, mais au conditionnel
+> - Les estimations à court terme ne préjugent pas des valeurs à long terme
+> - Les effets sur l'emploi et l'investissement des entreprises peuvent nuancer voire contredire les conclusions d'un modèle en équilibre partiel (cf. Matray 2022)
+> - Un meilleur recouvrement fiscal pourrait atténuer ces élasticités
+>
+> Toute interprétation en termes de recommandation de politique économique est de notre seule responsabilité.
+
+---
+
 ## I. Donnees macro France 2024
 
 | Variable | Valeur | Source |
@@ -32,9 +46,11 @@
 | Type | Recettes (Md EUR) | Elasticite (epsilon) | Taux optimal (tau*) | Taux effectif actuel | Source elasticite |
 |------|-------------------|---------------------|--------------------|--------------------|-------------------|
 | Travail (IR+CSG+cotis. salariales) | 650 | 0.35 | 74% | 65% | Saez, Slemrod & Giertz (2012), ETI mediane France |
-| Capital (IS+PFU+IFI+PV) | 120 | 0.77 | 57% | 55% | Lefebvre, Lehmann & Sicsic (2024) |
+| Capital (IS+PFU+IFI+PV) | 120 | 0.77 | 57% | 55% | Calibration inspirée de Lefebvre, Lehmann & Sicsic (2024)* |
 | Cotisations patronales | 280 | 0.50 | 67% | 45% | Cahuc & Carcillo (2014) |
 | TVA | 200 | 0.15 | ~87% (theorique) | 20% | Keen & Lockwood (2010) |
+
+*\* Les valeurs d'élasticité retenues sont nos choix de calibration, inspirés des estimations publiées. Les auteurs soulignent l'incertitude substantielle autour de ces paramètres et ne s'engagent pas sur la valeur du taux lafférien à long terme.*
 
 ---
 
@@ -203,7 +219,8 @@ Trois scenarios scalent les parametres :
 - **Donnees** (Lefebvre et al. 2024, Bach et al. 2019) :
   - Dividendes : 22 Md EUR (2012) -> 13 Md EUR (2013) = **-41%**
   - Recettes totales sur le capital : EN BAISSE malgre taux en hausse
-- **Verdict** : Preuve empirique directe de l'effet Laffer sur le capital francais
+- **Nuance importante** : Matray (2022, NBER WP 30099) montre que cette hausse fiscale a simultanement stimule l'investissement des entreprises et l'emploi, suggerant des effets reels complexes au-dela de la seule reponse des distributions de dividendes.
+- **Verdict** : Coherent avec un depassement du seuil lafferien sur les dividendes a court terme, mais l'incertitude reste importante et les effets a long terme sur l'investissement nuancent ce constat
 
 ### Episode 3 --- Taxe a 75% (2012-2014)
 
@@ -254,6 +271,8 @@ Trois scenarios scalent les parametres :
 3. **Le canal supply-side est le plus incertain**. Le boost de croissance permanent est calibre sur la fourchette basse de l'OCDE (2010), mais la realite pourrait etre plus haute ou plus basse.
 4. **Horizon 20 ans** : au-dela de 5 ans, l'incertitude est substantielle. Les projections sont des extrapolations, pas des predictions.
 5. **Pas de modele d'equilibre general**. Les interactions entre types d'impots sont simplifiees (cross-elasticite capital->travail = 0.15).
+6. **Incertitude sur les elasticites a long terme** : Les elasticites utilisees sont estimees a court/moyen terme. Leur valeur a long terme reste une question ouverte dans la litterature. De plus, un meilleur recouvrement fiscal (controles, fermeture de niches) pourrait reduire ces elasticites.
+7. **Effets sur l'investissement des entreprises** : Matray (2022) montre que la hausse de la fiscalite sur les dividendes en 2013 a stimule l'accumulation de capital par les entreprises, un effet non capture par notre modele en equilibre partiel.
 
 ---
 
@@ -262,13 +281,14 @@ Trois scenarios scalent les parametres :
 ### Elasticites et courbe de Laffer
 
 - Saez, E., Slemrod, J. & Giertz, S. (2012). "The Elasticity of Taxable Income with Respect to Marginal Tax Rates: A Critical Review." *Journal of Economic Literature* 50(1), pp.3-50.
-- Lefebvre, M.-N., Lehmann, E. & Sicsic, M. (2024). "Estimating the Laffer Tax Rate on Capital Income: Cross-Base Responses Matter!" *CEPR Discussion Paper* / *IZA DP* 16112. Publie dans *Scandinavian Journal of Economics* (2025).
+- Lefebvre, M.-N., Lehmann, E. & Sicsic, M. (2024). "Estimating the Laffer Tax Rate on Capital Income: Cross-Base Responses Matter!" *CEPR Discussion Paper* / *IZA DP* 16112. Publie dans *Scandinavian Journal of Economics* (2025). *NB : nos choix de calibration sont inspires de cette etude mais n'engagent pas les auteurs.*
 - Trabandt, M. & Uhlig, H. (2011). "The Laffer Curve Revisited." *Journal of Monetary Economics* 58(4), pp.305-327.
 - Trabandt, M. & Uhlig, H. (2012). "How Do Laffer Curves Differ Across Countries?" *FRB IFDP* 1048 / *NBER WP* 17862.
 - Lundberg, J. (2017). "The Laffer Curve for High Incomes." Uppsala University Working Paper 2017:9.
 - Saez, E. (2004). "Reported Incomes and Marginal Tax Rates, 1960-2000." *Tax Policy and the Economy* 18, pp.117-173.
 - Cahuc, P. & Carcillo, S. (2014). "The Detaxation of Overtime Hours." *Journal of Public Economics* 112, pp.23-44.
 - Keen, M. & Lockwood, B. (2010). "The Value Added Tax: Its Causes and Consequences." *Journal of Development Economics* 92(2), pp.138-151.
+- Matray, A. (2022). "Dividend Taxes, Firm Growth, and the Allocation of Capital." *NBER Working Paper* No. 30099 (rev. 2023).
 
 ### Modele de croissance et supply-side
 

@@ -113,11 +113,12 @@ export const taxTypes: Record<TaxTypeKey, TaxTypeParams> = {
     label: "Capital (IS + PFU + IFI + plus-values)",
     shortLabel: "Capital",
     recettes: 120,
-    // [SOLIDE] Lefebvre, Lehmann & Sicsic (2025, Scand. J. Econ.) :
-    //   ε_direct = 0.50 (résultat principal)
+    // Calibration inspirée de Lefebvre, Lehmann & Sicsic (2025, Scand. J. Econ.)
+    //   Notre choix : ε_direct = 0.50 (parmi les estimations publiées)
     //   Les composites (0.75, 1.86) dépendent du périmètre choisi
+    //   NB : les auteurs soulignent l'incertitude substantielle autour de ces valeurs
     elasticity: 0.50, // élasticité directe (défaut)
-    optimalRate: 0.43, // Résultat principal avec cross-élasticité
+    optimalRate: 0.43, // Notre choix de calibration (avec cross-élasticité)
     currentEffectiveRate: 0.55,
     selfFinancingRate_ETI: 0.333,  // 0.50/(1+0.50) pour ε_direct
     selfFinancingRate_TU: 0.79,    // Trabandt & Uhlig EU-14
@@ -125,11 +126,11 @@ export const taxTypes: Record<TaxTypeKey, TaxTypeParams> = {
     position: "at_or_past_peak",
     positionLabel: "DÉPASSÉ",
     positionDescription:
-      "Le seuil optimal dépend du modèle : 43% (avec cross-élasticité, Lefebvre et al. 2025), 57% (sans), ou 35% (avec cotisations). La France est à ~55% (IS 25% + PFU 30%). L'abolition du PFL en 2013 l'a prouvé : les recettes ont BAISSÉ. Le PFU 2017 les a restaurées.",
+      "Le seuil optimal dépend du modèle : 43% (avec cross-élasticité), 57% (sans), ou 35% (avec cotisations) — calibrations inspirées de Lefebvre et al. (2025), avec une incertitude substantielle. La France est à ~55% (IS 25% + PFU 30%). L'épisode du PFL 2013 est cohérent avec un dépassement du seuil (les recettes ont baissé). Le PFU 2017 les a restaurées.",
     // Cross-élasticité : seulement utilisée quand capitalElasticityModel = 'direct'
-    crossElasticity: 0.05, // Lefebvre et al. : ~10× plus faible que directe
+    crossElasticity: 0.05, // Notre calibration, inspirée de Lefebvre et al.
     color: "#ef4444",
-    sourceElasticity: "Lefebvre, Lehmann & Sicsic (2025), Scand. J. Econ. 127(2), 460-489",
+    sourceElasticity: "Calibration inspirée de Lefebvre, Lehmann & Sicsic (2025), Scand. J. Econ. 127(2), 460-489",
     // Valeurs par modèle
     elasticity_direct: 0.50,
     elasticity_composite_noCross: 0.75,
@@ -310,9 +311,9 @@ export const historicalEvents: HistoricalEvent[] = [
     recettesAvant: "Recettes dividendes stables",
     recettesApres: "Baisse significative des distributions",
     verdict: "laffer_confirme",
-    verdictLabel: "Laffer confirmé (Lefebvre et al. 2025)",
+    verdictLabel: "Cohérent avec l'effet Laffer",
     details:
-      "Lefebvre, Lehmann & Sicsic (2025, Scand. J. Econ.) montrent que la France était déjà au sommet de la courbe de Laffer sur le capital. La hausse du taux a réduit les distributions de dividendes et fait BAISSER les recettes totales.",
+      "Lefebvre, Lehmann & Sicsic (2025, Scand. J. Econ.) estiment des élasticités qui, si elles sont retenues, suggéreraient un taux lafférien sur les dividendes proche du taux effectif d'alors — avec une incertitude substantielle et au conditionnel. La hausse du taux a réduit les distributions de dividendes. NB : Matray (2022, NBER WP 30099) montre par ailleurs que cette hausse a stimulé l'investissement des entreprises concernées.",
   },
   {
     year: 2017,

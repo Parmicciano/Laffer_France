@@ -38,9 +38,9 @@ export default function Methodologie() {
             <tbody className="text-slate-700">
               {[
                 ["Travail (IR + CSG)", "0.35", "74%", "65%", "Saez et al. (2012), médiane ETI"],
-                ["Capital — résultat principal", "0.50", "43%", "55%", "Lefebvre et al. (2025), Scand. J. Econ."],
-                ["Capital — sans cross-élasticité", "0.75", "57%", "55%", "Lefebvre et al. (2025)"],
-                ["Capital — avec cotisations", "1.86", "35%", "55%", "Lefebvre et al. (2025)"],
+                ["Capital — résultat principal", "0.50", "43%", "55%", "Calibration inspirée de Lefebvre et al. (2025)*"],
+                ["Capital — sans cross-élasticité", "0.75", "57%", "55%", "Calibration inspirée de Lefebvre et al. (2025)*"],
+                ["Capital — avec cotisations", "1.86", "35%", "55%", "Calibration inspirée de Lefebvre et al. (2025)*"],
                 ["Cotisations patronales", "0.40", "71%", "45%", "Crépon & Desplatz (2001)"],
                 ["TVA", "0.15", "87%", "20%", "Estimation consensus"],
               ].map(([imp, e, opt, act, src], i) => (
@@ -56,6 +56,8 @@ export default function Methodologie() {
           </table>
 
           <P>{"Le capital a trois élasticités possibles selon qu'on inclut ou non les effets croisés sur l'IR et les cotisations. L'utilisateur choisit dans le panneau Hypothèses."}</P>
+
+          <Note>{"* Les paramètres du capital sont nos choix de calibration, inspirés des estimations de Lefebvre, Lehmann & Sicsic (2025). Ces valeurs sont entourées d'une incertitude substantielle que les auteurs eux-mêmes soulignent. Elles n'engagent pas les auteurs de l'étude source. À titre d'exemple, les taux laffériens estimés le sont au conditionnel et à court terme ; leur extrapolation à long terme reste une question ouverte."}</Note>
 
           <Note>{"Garde-fou : pour les coupes supérieures à 20%, l'élasticité est réduite progressivement (on ne peut pas extrapoler une élasticité calibrée sur de petites variations à des changements massifs). Une coupe de 50% réduit l'élasticité effective d'environ 25%."}</Note>
         </S>
@@ -250,7 +252,8 @@ export default function Methodologie() {
           <div className="space-y-2 mt-3 text-sm text-slate-600">
             {[
               "Saez, E., Slemrod, J. & Giertz, S. (2012). \"The Elasticity of Taxable Income with Respect to Marginal Tax Rates: A Critical Review\". Journal of Economic Literature, 50(1), 3-50.",
-              "Lefebvre, M., Lehmann, E. & Sicsic, M. (2025). \"Estimating the Laffer Tax Rate on Capital Income\". Scandinavian Journal of Economics, 127(2), 460-489.",
+              "Lefebvre, M., Lehmann, E. & Sicsic, M. (2025). \"Estimating the Laffer Tax Rate on Capital Income\". Scandinavian Journal of Economics, 127(2), 460-489. [Nos calibrations sont inspirées de cette étude mais n'engagent pas les auteurs.]",
+              "Matray, A. (2022). \"Dividend Taxes, Firm Growth, and the Allocation of Capital\". NBER Working Paper No. 30099.",
               "Trabandt, M. & Uhlig, H. (2011). \"The Laffer Curve Revisited\". Journal of Monetary Economics, 58(4), 305-327.",
               "Crépon, B. & Desplatz, R. (2001). \"Évaluation des allègements de charges sur les bas salaires\". Économie et Statistique, 348(1), 3-24.",
               "Arnold, J. et al. (2008). \"Tax Policy for Economic Recovery and Growth\". OECD Working Papers No. 620.",
